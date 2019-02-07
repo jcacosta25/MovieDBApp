@@ -1,0 +1,17 @@
+package io.jcal.movies_provider.repository.db.dao
+
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Query
+import io.jcal.movies_provider.repository.db.DatabaseConstants
+import io.jcal.movies_provider.repository.db.entity.MovieEntity
+
+@Dao
+interface MovieDao : BaseDao<MovieEntity> {
+
+    @Query("select * from ${DatabaseConstants.TABLE_MOVIE} where ${DatabaseConstants.COLUMN_TITLE} = :movieTitle")
+    fun findByMovieTitle(movieTitle: String): LiveData<MovieEntity>
+
+    @Query("select * from ${DatabaseConstants.TABLE_MOVIE}")
+    fun getAllMovies(): LiveData<List<MovieEntity>>
+}
