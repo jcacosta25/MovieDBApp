@@ -368,6 +368,19 @@ class DataMapper @Inject constructor() {
         return model
     }
 
+    /**
+     * Shallow copy of base class [BaseModel]
+     *
+     * @param [BaseModel] base class
+     * @return [T] sub class
+     */
+    fun <T : BaseModel> T.baseCopy(base: BaseModel): T {
+        state = base.state
+        error = base.error
+        errorCode = base.errorCode
+        return this
+    }
+
     companion object {
         private const val EMPTY = ""
         private const val IMAGE_PATH = "https://image.tmdb.org/t/p/original"

@@ -16,5 +16,6 @@ open class BaseModel(
         const val LOADING = "loading"
         const val ERROR = "error"
         const val BASE_ERROR_CODE = 0
+        const val PARSING_ERROR = -2
     }
 }
