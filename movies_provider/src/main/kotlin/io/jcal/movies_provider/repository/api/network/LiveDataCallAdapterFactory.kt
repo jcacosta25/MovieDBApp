@@ -46,8 +46,8 @@ class LiveDataCallAdapterFactory @Inject constructor() : CallAdapter.Factory() {
     }
 
     companion object {
-
-        private val FIRST_GENERIC_ARGUMENT = 0
-        private val SECOND_GENERIC_ARGUMENT = 1
+        fun create(): LiveDataCallAdapterFactory = LiveDataCallAdapterFactory()
+        private const val FIRST_GENERIC_ARGUMENT = 0
+        private const val SECOND_GENERIC_ARGUMENT = 1
     }
 }

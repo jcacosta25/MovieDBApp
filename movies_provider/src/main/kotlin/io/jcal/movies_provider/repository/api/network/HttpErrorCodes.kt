@@ -1,18 +1,19 @@
 package io.jcal.movies_provider.repository.api.network
 
 object HttpErrorCodes {
-    val SUCCESS = 200
-    val SUCCESS_NO_CONTENT = 204
-    val REDIRECTION = 300
-    val BAD_REQUEST_ERROR = 400
-    val UNAUTHORIZED_ERROR = 401
-    val FORBIDDEN_ERROR = 403
-    val NOT_FOUND_ERROR = 404
-    val INVALID_SERVER_ERROR = 500
-    val NO_NETWORK_RESPONSE_CODE = -1
+    const val SUCCESS = 200
+    const val SUCCESS_NO_CONTENT = 204
+    const val REDIRECTION = 300
+    const val BAD_REQUEST_ERROR = 400
+    const val UNAUTHORIZED_ERROR = 401
+    const val FORBIDDEN_ERROR = 403
+    const val NOT_FOUND_ERROR = 404
+    const val INVALID_SERVER_ERROR = 500
+    const val NO_NETWORK_RESPONSE_CODE = -1
 }
 
 object HttpBaseValues {
-    val LANGUAGE = "en-US"
-    val PAGE = 1
+    const val LANGUAGE = "en-US"
+    const val PAGE = 1
+    const val SORT_BY_POPULAR = "popularity.desc"
 }

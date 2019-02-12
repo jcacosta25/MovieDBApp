@@ -140,7 +140,7 @@ data class EpisodeEntity(
     @ColumnInfo(name = DatabaseConstants.COLUMN_SHOW_ID)
     val showId: Int,
     @ColumnInfo(name = DatabaseConstants.COLUMN_STILL)
-    val stillPath: Any,
+    val stillPath: String,
     @ColumnInfo(name = DatabaseConstants.COLUMN_VOTE_AVERAGE)
     val voteAverage: Int,
     @ColumnInfo(name = DatabaseConstants.COLUMN_VOTE_COUNT)

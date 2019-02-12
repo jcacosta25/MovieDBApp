@@ -2,13 +2,13 @@ package io.jcal.movies_provider.repository.api.model
 
 import com.squareup.moshi.Json
 
-data class FlicksListResponse(
+data class TvShowsDTO(
     @Json(name = "dates")
     val dates: DatesDTO,
     @Json(name = "page")
     val page: Int,
     @Json(name = "results")
-    val results: List<Any>,
+    val results: List<TvShowDTO>,
     @Json(name = "total_pages")
     val totalPages: Int,
     @Json(name = "total_results")
@@ -20,6 +20,19 @@ data class DatesDTO(
     val maximum: String,
     @Json(name = "minimum")
     val minimum: String
+)
+
+data class MoviesDTO(
+    @Json(name = "dates")
+    val dates: DatesDTO,
+    @Json(name = "page")
+    val page: Int,
+    @Json(name = "results")
+    val results: List<MovieDTO>,
+    @Json(name = "total_pages")
+    val totalPages: Int,
+    @Json(name = "total_results")
+    val totalResults: Int
 )
 
 data class MovieDTO(

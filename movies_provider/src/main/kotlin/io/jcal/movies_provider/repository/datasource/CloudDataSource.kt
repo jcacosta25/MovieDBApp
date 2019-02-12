@@ -1,23 +1,20 @@
-package io.jcal.movies_provider.repository.api
+package io.jcal.movies_provider.repository.datasource
 
 import androidx.lifecycle.LiveData
 import io.jcal.movies_provider.repository.api.model.MoviesDTO
 import io.jcal.movies_provider.repository.api.model.TvShowsDTO
 import io.jcal.movies_provider.repository.api.network.ApiResponse
-import retrofit2.http.GET
-import retrofit2.http.Query
+import io.jcal.movies_provider.repository.api.network.HttpBaseValues
 
-interface MovieDBService {
+interface CloudDataSource {
 
-    @GET("/movie/popular")
     fun getPopularMovies(
-        @Query("language") language: String,
-        @Query("page") page: Int
+        language: String = HttpBaseValues.LANGUAGE,
+        page: Int = HttpBaseValues.PAGE
     ): LiveData<ApiResponse<MoviesDTO, MoviesDTO>>
 
-    @GET("/tv/popular")
     fun getPopularTvShows(
-        @Query("language") language: String,
-        @Query("page") page: Int
+        language: String = HttpBaseValues.LANGUAGE,
+        page: Int = HttpBaseValues.PAGE
     ): LiveData<ApiResponse<TvShowsDTO, TvShowsDTO>>
 }
