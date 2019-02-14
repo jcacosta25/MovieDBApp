@@ -9,7 +9,7 @@ class ReleaseTree : Timber.Tree() {
         (priority == Log.VERBOSE || priority == Log.DEBUG || priority == Log.INFO).not()
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        if(isLoggable(tag,priority)) {
+        if (isLoggable(tag, priority)) {
 
         }
         //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

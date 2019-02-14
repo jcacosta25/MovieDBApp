@@ -8,4 +8,4 @@ import javax.inject.Inject
 class MoviesViewModel @Inject constructor(
     private val useCasePopularMovies: UseCasePopularMovies,
     private val mapper: PresentationDataMapper
-): ViewModel()
+) : ViewModel()

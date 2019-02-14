@@ -32,11 +32,13 @@ internal constructor(private val appExecutors: AppExecutors) {
             if (should) {
                 fetchFromNetwork(dbSource)
             } else {
-                result.addSource(dbSource) { setValue(
-                    Resource.success(
-                        it!!
+                result.addSource(dbSource) {
+                    setValue(
+                        Resource.success(
+                            it!!
+                        )
                     )
-                ) }
+                }
             }
         }
     }
@@ -51,11 +53,13 @@ internal constructor(private val appExecutors: AppExecutors) {
 
     private fun fetchFromNetwork(dbSource: LiveData<ModelType>) {
         val apiResponse = createCall()
-        result.addSource(dbSource) { setValue(
-            Resource.loading(
-                it!!
+        result.addSource(dbSource) {
+            setValue(
+                Resource.loading(
+                    it!!
+                )
             )
-        ) }
+        }
         result.addSource(apiResponse) { response ->
             result.removeSource(apiResponse)
             result.removeSource(dbSource)
@@ -63,22 +67,26 @@ internal constructor(private val appExecutors: AppExecutors) {
                 appExecutors.getDiskThread().execute {
                     saveCallResult(processResponse(response))
                     appExecutors.getMainThread().execute {
-                        result.addSource(loadFromDb()) { setValue(
-                            Resource.success(
-                                it!!
+                        result.addSource(loadFromDb()) {
+                            setValue(
+                                Resource.success(
+                                    it!!
+                                )
                             )
-                        ) }
+                        }
                     }
                 }
             } else {
                 result.addSource(
                     dbSource
-                ) { setValue(
-                    Resource.error(
-                        response!!.errorCode.toString(),
-                        it!!
+                ) {
+                    setValue(
+                        Resource.error(
+                            response!!.errorCode.toString(),
+                            it!!
+                        )
                     )
-                ) }
+                }
             }
         }
     }

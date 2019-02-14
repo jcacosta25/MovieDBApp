@@ -7,7 +7,7 @@ import java.io.IOException
  *
  * @param <R> the type of the response body
  * @param <E> the type of the error body
-*/
+ */
 interface Callback<R, E> {
     /**
      * Invoked for a received HTTP response.

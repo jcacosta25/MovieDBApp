@@ -12,7 +12,7 @@ android {
         versionCode = Android.versionCode
         versionName = Android.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String","ApiKey",ApiKeys.movieDb)
+        buildConfigField("String", "ApiKey", ApiKeys.movieDb)
     }
 
     buildTypes {

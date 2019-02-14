@@ -79,6 +79,7 @@ data class TvShowSeasons(
     )
     val seasons: List<SeasonEntity>
 )
+
 @Entity(
     tableName = DatabaseConstants.TABLE_SEASON,
     foreignKeys = [ForeignKey(
