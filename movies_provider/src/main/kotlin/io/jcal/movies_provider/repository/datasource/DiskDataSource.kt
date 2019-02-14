@@ -2,7 +2,7 @@ package io.jcal.movies_provider.repository.datasource
 
 import androidx.lifecycle.LiveData
 import io.jcal.movies_provider.repository.db.entity.MovieEntity
-import io.jcal.movies_provider.repository.db.entity.TvShowEntity
+import io.jcal.movies_provider.repository.db.entity.TvShowSeasons
 
 interface DiskDataSource {
 
@@ -10,15 +10,17 @@ interface DiskDataSource {
 
     fun insertMovie(entity: MovieEntity): Long
 
-    fun insertTvShows(entity: List<TvShowEntity>): List<Long>
-
-    fun insertTvShow(entity: TvShowEntity): Long
-
     fun selectMovie(movieTitle: String): LiveData<MovieEntity>
 
     fun selectAllMovies(): LiveData<List<MovieEntity>>
 
-    fun selectTvShow(tvShowTitle: String): LiveData<TvShowEntity>
+    fun insertTvShows(entity: List<TvShowSeasons>): List<Long>
 
-    fun selectAllTvShows(): LiveData<List<TvShowEntity>>
+    fun insertTvShow(entity: TvShowSeasons): Long
+
+    fun selectTvShow(tvShowTitle: String): LiveData<TvShowSeasons>
+
+    fun selectAllTvShows(): LiveData<List<TvShowSeasons>>
+
+
 }

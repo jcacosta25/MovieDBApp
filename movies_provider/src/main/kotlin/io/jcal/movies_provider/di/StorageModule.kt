@@ -5,17 +5,17 @@ import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import io.jcal.movies_provider.repository.db.DatabaseConstants.DATABASE_NAME
+import io.jcal.movies_provider.repository.db.DatabaseConstants.DATABASE_NAME_PROPERTY
 import io.jcal.movies_provider.repository.db.MovieDBDataBase
 import javax.inject.Named
+import javax.inject.Singleton
 
 @Module
 class StorageModule {
 
     @Provides
+    @Singleton
     fun providesDatabase(context: Context, @Named(DATABASE_NAME_PROPERTY) databaseName: String = DATABASE_NAME): MovieDBDataBase =
         Room.databaseBuilder(context, MovieDBDataBase::class.java, databaseName).build()
 
-    companion object {
-        const val DATABASE_NAME_PROPERTY = "database_name"
-    }
 }

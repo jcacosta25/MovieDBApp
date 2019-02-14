@@ -3,7 +3,7 @@ package io.jcal.movies_provider.repository.datasource
 import androidx.lifecycle.LiveData
 import io.jcal.movies_provider.repository.db.MovieDBDataBase
 import io.jcal.movies_provider.repository.db.entity.MovieEntity
-import io.jcal.movies_provider.repository.db.entity.TvShowEntity
+import io.jcal.movies_provider.repository.db.entity.TvShowSeasons
 import javax.inject.Inject
 
 class DiskDataSourceImpl @Inject constructor(val dataBase: MovieDBDataBase) : DiskDataSource {
@@ -13,19 +13,18 @@ class DiskDataSourceImpl @Inject constructor(val dataBase: MovieDBDataBase) : Di
 
     override fun insertMovie(entity: MovieEntity): Long = dataBase.movieDao().insert(entity)
 
-    override fun insertTvShows(entity: List<TvShowEntity>): List<Long> =
-        dataBase.tvShowDao().insertAll(entity)
+    override fun insertTvShows(entity: List<TvShowSeasons>) = dataBase.tvShowDao().insertAll(entity)
 
-    override fun insertTvShow(entity: TvShowEntity): Long = dataBase.tvShowDao().insert(entity)
+    override fun insertTvShow(entity: TvShowSeasons) = dataBase.tvShowDao().insert(entity)
 
     override fun selectMovie(movieTitle: String): LiveData<MovieEntity> =
         dataBase.movieDao().findByMovieTitle(movieTitle)
 
     override fun selectAllMovies(): LiveData<List<MovieEntity>> = dataBase.movieDao().getAllMovies()
 
-    override fun selectTvShow(tvShowTitle: String): LiveData<TvShowEntity> =
+    override fun selectTvShow(tvShowTitle: String): LiveData<TvShowSeasons> =
         dataBase.tvShowDao().findShowByTitle(tvShowTitle)
 
-    override fun selectAllTvShows(): LiveData<List<TvShowEntity>> =
+    override fun selectAllTvShows(): LiveData<List<TvShowSeasons>> =
         dataBase.tvShowDao().getAllShows()
 }

@@ -44,6 +44,7 @@ object DatabaseConstants {
     const val COLUMN_VIDEO = "video"
     const val COLUMN_VOTE_AVERAGE = "vote_average"
     const val COLUMN_VOTE_COUNT = "vote_count"
+    const val COLUMN_SEASON_ID = "season_id"
     const val COLUMN_ISO_639_1  = "iso_639_1"
     const val COLUMN_NAME = "name"
     const val COLUMN_LOGO = "logo_path"

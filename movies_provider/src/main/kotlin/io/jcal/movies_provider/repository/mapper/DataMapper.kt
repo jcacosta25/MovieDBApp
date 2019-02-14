@@ -10,7 +10,9 @@ import io.jcal.movies_provider.repository.api.model.TvShowsDTO
 import io.jcal.movies_provider.repository.db.entity.EpisodeEntity
 import io.jcal.movies_provider.repository.db.entity.MovieEntity
 import io.jcal.movies_provider.repository.db.entity.SeasonEntity
+import io.jcal.movies_provider.repository.db.entity.SeasonEpisodes
 import io.jcal.movies_provider.repository.db.entity.TvShowEntity
+import io.jcal.movies_provider.repository.db.entity.TvShowSeasons
 import io.jcal.movies_provider.repository.mapper.model.BaseModel
 import io.jcal.movies_provider.repository.mapper.model.BaseModel.Companion.BASE_ERROR_CODE
 import io.jcal.movies_provider.repository.mapper.model.BaseModel.Companion.LOADING
@@ -147,7 +149,7 @@ class DataMapper @Inject constructor() {
         return model
     }
 
-    fun convert(model: EpisodeModel): EpisodeEntity {
+    fun convert(model: EpisodeModel, seasonId: Int): EpisodeEntity {
         return EpisodeEntity(
             id = model.id,
             airDate = model.airDate,
@@ -159,7 +161,8 @@ class DataMapper @Inject constructor() {
             showId = model.showId,
             stillPath = model.stillPath.replace(IMAGE_PATH, EMPTY),
             voteAverage = model.voteAverage,
-            voteCount = model.voteCount
+            voteCount = model.voteCount,
+            seasonId = seasonId
         )
     }
 
@@ -188,8 +191,23 @@ class DataMapper @Inject constructor() {
             overview = entity.overview,
             posterPath = IMAGE_PATH.plus(entity.posterPath),
             seasonNumber = entity.seasonNumber,
-            episodes = entity.episodes.map { convert(it) },
             showId = entity.showId
+        )
+        model.state = SUCCESS
+        return model
+    }
+
+    fun convert(entity: SeasonEpisodes): SeasonModel {
+        val model = SeasonModel(
+            id = entity.season.id,
+            airDate = entity.season.airDate,
+            episodeCount = entity.season.episodeCount,
+            name = entity.season.name,
+            overview = entity.season.overview,
+            posterPath = IMAGE_PATH.plus(entity.season.posterPath),
+            seasonNumber = entity.season.seasonNumber,
+            episodes = entity.episodes.map { convert(it) },
+            showId = entity.season.showId
         )
         model.state = SUCCESS
         return model
@@ -204,8 +222,23 @@ class DataMapper @Inject constructor() {
             overview = model.overview,
             posterPath = model.posterPath.replace(IMAGE_PATH, EMPTY),
             seasonNumber = model.seasonNumber,
-            episodes = model.episodes.map { convert(it) },
             showId = model.showId
+        )
+    }
+
+    fun convertModel(model: SeasonModel): SeasonEpisodes {
+        return SeasonEpisodes(
+            season = SeasonEntity(
+                id = model.id,
+                airDate = model.airDate,
+                episodeCount = model.episodeCount,
+                name = model.name,
+                overview = model.overview,
+                posterPath = model.posterPath.replace(IMAGE_PATH, EMPTY),
+                seasonNumber = model.seasonNumber,
+                showId = model.showId
+            ),
+            episodes = model.episodes.map { convert(it, model.id) }
         )
     }
 
@@ -244,71 +277,73 @@ class DataMapper @Inject constructor() {
         return model
     }
 
-    fun convert(entity: TvShowEntity): TvShowModel {
+    fun convert(entity: TvShowSeasons): TvShowModel {
         val model = TvShowModel(
-            id = entity.id,
-            airDate = entity.airDate,
-            episodeCount = entity.episodeCount,
-            seasonNumber = entity.seasonNumber,
-            backdropPath = IMAGE_PATH.plus(entity.backdropPath),
-            episodeRunTime = entity.episodeRunTime,
-            firstAirDate = entity.firstAirDate,
-            homepage = entity.homepage,
-            inProduction = entity.inProduction,
-            languages = entity.languages,
-            lastAirDate = entity.lastAirDate,
-            lastEpisodeToAir = entity.lastEpisodeToAir,
-            name = entity.name,
-            nextEpisodeToAir = entity.nextEpisodeToAir,
-            numberOfEpisodes = entity.numberOfEpisodes,
-            numberOfSeasons = entity.numberOfSeasons,
-            originCountry = entity.originCountry,
-            originalLanguage = entity.originalLanguage,
-            originalName = entity.originalName,
-            overview = entity.overview,
-            popularity = entity.popularity,
-            posterPath = IMAGE_PATH.plus(entity.posterPath),
+            id = entity.tvShowEntity.id,
+            airDate = entity.tvShowEntity.airDate,
+            episodeCount = entity.tvShowEntity.episodeCount,
+            seasonNumber = entity.tvShowEntity.seasonNumber,
+            backdropPath = IMAGE_PATH.plus(entity.tvShowEntity.backdropPath),
+            episodeRunTime = entity.tvShowEntity.episodeRunTime,
+            firstAirDate = entity.tvShowEntity.firstAirDate,
+            homepage = entity.tvShowEntity.homepage,
+            inProduction = entity.tvShowEntity.inProduction,
+            languages = entity.tvShowEntity.languages,
+            lastAirDate = entity.tvShowEntity.lastAirDate,
+            lastEpisodeToAir = entity.tvShowEntity.lastEpisodeToAir,
+            name = entity.tvShowEntity.name,
+            nextEpisodeToAir = entity.tvShowEntity.nextEpisodeToAir,
+            numberOfEpisodes = entity.tvShowEntity.numberOfEpisodes,
+            numberOfSeasons = entity.tvShowEntity.numberOfSeasons,
+            originCountry = entity.tvShowEntity.originCountry,
+            originalLanguage = entity.tvShowEntity.originalLanguage,
+            originalName = entity.tvShowEntity.originalName,
+            overview = entity.tvShowEntity.overview,
+            popularity = entity.tvShowEntity.popularity,
+            posterPath = IMAGE_PATH.plus(entity.tvShowEntity.posterPath),
             seasons = entity.seasons.map { convert(it) },
-            status = entity.status,
-            type = entity.type,
-            voteAverage = entity.voteAverage,
-            voteCount = entity.voteCount,
-            genreIds = entity.genreIds
+            status = entity.tvShowEntity.status,
+            type = entity.tvShowEntity.type,
+            voteAverage = entity.tvShowEntity.voteAverage,
+            voteCount = entity.tvShowEntity.voteCount,
+            genreIds = entity.tvShowEntity.genreIds
         )
         model.state = SUCCESS
         return model
     }
 
-    fun convert(model: TvShowModel): TvShowEntity {
-        return TvShowEntity(
-            id = model.id,
-            airDate = model.airDate,
-            episodeCount = model.episodeCount,
-            seasonNumber = model.seasonNumber,
-            backdropPath = model.backdropPath.replace(IMAGE_PATH, EMPTY),
-            episodeRunTime = model.episodeRunTime,
-            firstAirDate = model.firstAirDate,
-            homepage = model.homepage,
-            inProduction = model.inProduction,
-            languages = model.languages,
-            lastAirDate = model.lastAirDate,
-            lastEpisodeToAir = model.lastEpisodeToAir,
-            name = model.name,
-            nextEpisodeToAir = model.nextEpisodeToAir,
-            numberOfEpisodes = model.numberOfEpisodes,
-            numberOfSeasons = model.numberOfSeasons,
-            originCountry = model.originCountry,
-            originalLanguage = model.originalLanguage,
-            originalName = model.originalName,
-            overview = model.overview,
-            popularity = model.popularity,
-            posterPath = model.posterPath.replace(IMAGE_PATH, EMPTY),
-            seasons = model.seasons.map { convert(it) },
-            status = model.status,
-            type = model.type,
-            voteAverage = model.voteAverage,
-            voteCount = model.voteCount,
-            genreIds = model.genreIds
+    fun convert(model: TvShowModel): TvShowSeasons {
+        return TvShowSeasons(
+            tvShowEntity = TvShowEntity(
+                id = model.id,
+                airDate = model.airDate,
+                episodeCount = model.episodeCount,
+                seasonNumber = model.seasonNumber,
+                backdropPath = model.backdropPath.replace(IMAGE_PATH, EMPTY),
+                episodeRunTime = model.episodeRunTime,
+                firstAirDate = model.firstAirDate,
+                homepage = model.homepage,
+                inProduction = model.inProduction,
+                languages = model.languages,
+                lastAirDate = model.lastAirDate,
+                lastEpisodeToAir = model.lastEpisodeToAir,
+                name = model.name,
+                nextEpisodeToAir = model.nextEpisodeToAir,
+                numberOfEpisodes = model.numberOfEpisodes,
+                numberOfSeasons = model.numberOfSeasons,
+                originCountry = model.originCountry,
+                originalLanguage = model.originalLanguage,
+                originalName = model.originalName,
+                overview = model.overview,
+                popularity = model.popularity,
+                posterPath = model.posterPath.replace(IMAGE_PATH, EMPTY),
+                status = model.status,
+                type = model.type,
+                voteAverage = model.voteAverage,
+                voteCount = model.voteCount,
+                genreIds = model.genreIds
+            ),
+            seasons = model.seasons.map { convert(it) }
         )
     }
 
@@ -334,7 +369,7 @@ class DataMapper @Inject constructor() {
         return model
     }
 
-    fun convert(tvShows: List<TvShowEntity>): TvShowsModel {
+    fun convert(tvShows: List<TvShowSeasons>): TvShowsModel {
         val model = TvShowsModel(
             results = tvShows.map { convert(it) }
         )
@@ -355,7 +390,7 @@ class DataMapper @Inject constructor() {
     }
 
     fun <T : BaseModel> createDomainModel(
-        errorCode: Int = 0,
+        errorCode: Int = BASE_ERROR_CODE,
         clazz: Class<T>,
         state: String = LOADING
     ): T {

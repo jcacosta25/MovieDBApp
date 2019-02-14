@@ -21,6 +21,7 @@ object Libs {
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val retrofitConverterMoshi = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
     const val retrofitConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
     const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
     const val okHttpInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
     const val picasso = "com.squareup.picasso:picasso:${Versions.picasso}"
@@ -48,6 +49,7 @@ object Libs {
     const val threeTenABP = "com.jakewharton.threetenabp:threetenabp:${Versions.threeTenABP}"
     const val moshi = "com.squareup.moshi:moshi:${Versions.moshi}"
     const val moshiKotlinCodeGen = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
+    const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
     const val okHttpProfiler =
         "com.itkacher.okhttpprofiler:okhttpprofiler:${Versions.okHttpProfiler}"
 }
@@ -116,6 +118,7 @@ object Versions {
     const val threeTenABP = "1.1.1"
     const val moshi = "1.8.0"
     const val okHttpProfiler = "1.0.5"
+    const val gson = "2.8.5"
 
     // Testing
     const val junit = "4.12"
