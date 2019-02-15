@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/primary">
+        <item
+            android:id="@id/popular_movies_dest"
+            android:icon="@drawable/ic_movie"
+            android:title="@string/movies_title" />
+        <item
+            android:id="@id/popular_shows_dest"
+            android:icon="@drawable/ic_tv"
+            android:title="@string/shows_title" />
+    </group>
+</menu>

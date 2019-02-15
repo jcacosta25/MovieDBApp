@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">The Movie App</string>
+    <string name="app_name">The Movie DB App</string>
+    <string name="movies_title">Movies</string>
+    <string name="shows_title">Tv Shows</string>
+    <string name="movie_detail_title">Movie</string>
+    <string name="show_detail_title">Show</string>
 </resources>
