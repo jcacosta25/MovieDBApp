@@ -2,16 +2,16 @@ package io.jcal.theMovie.presentation.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.plusAssign
 import androidx.navigation.ui.setupWithNavController
-import dagger.android.support.DaggerAppCompatActivity
 import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.ActivityMainBinding
 import io.jcal.theMovie.utils.KeepStateNavigator
 
-class MainActivity : DaggerAppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 

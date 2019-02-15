@@ -27,9 +27,9 @@ open class BaseUIModel(
     }
 
     companion object {
-        const val SUCCESS = "SUCCESS"
-        const val LOADING = "LOADING"
-        const val ERROR = "ERROR"
+        const val SUCCESS = "success"
+        const val LOADING = "loading"
+        const val ERROR = "error"
         const val EMPTY_STRING = ""
         const val EMPTY_INT = 0
         const val EMPTY_DOUBLE = 0.0
