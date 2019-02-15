@@ -12,25 +12,20 @@ import io.jcal.movies_provider.repository.datasource.CloudDataSourceImpl
 import io.jcal.movies_provider.repository.datasource.DiskDataSource
 import io.jcal.movies_provider.repository.datasource.DiskDataSourceImpl
 import io.jcal.movies_provider.repository.db.MovieDBDataBase
-import javax.inject.Singleton
 
 @Module
 class RepositoryModule {
 
     @Provides
-    @Singleton
     fun providesDiskDataSource(dataBase: MovieDBDataBase): DiskDataSource =
         DiskDataSourceImpl(dataBase)
 
     @Provides
-    @Singleton
     fun provideCloudDataSource(api: MovieDBService): CloudDataSource = CloudDataSourceImpl(api)
 
     @Provides
-    @Singleton
     fun provideNetworkUtils(context: Context): NetworkUtil = NetworkUtil(context)
 
     @Provides
-    @Singleton
     fun provideRepository(repository: RepositoryImpl): Repository = repository
 }

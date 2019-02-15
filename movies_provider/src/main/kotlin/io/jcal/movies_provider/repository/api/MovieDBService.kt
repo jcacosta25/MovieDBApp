@@ -9,13 +9,13 @@ import retrofit2.http.Query
 
 interface MovieDBService {
 
-    @GET("/movie/popular")
+    @GET("/3/movie/popular")
     fun getPopularMovies(
         @Query("language") language: String,
         @Query("page") page: Int
     ): LiveData<ApiResponse<MoviesDTO, MoviesDTO>>
 
-    @GET("/tv/popular")
+    @GET("/3/tv/popular")
     fun getPopularTvShows(
         @Query("language") language: String,
         @Query("page") page: Int

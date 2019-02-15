@@ -1,325 +1,325 @@
 package io.jcal.movies_provider.repository.api.model
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
 data class TvShowsDTO(
-    @Json(name = "dates")
+    @SerializedName(value = "dates")
     val dates: DatesDTO,
-    @Json(name = "page")
+    @SerializedName("page")
     val page: Int,
-    @Json(name = "results")
+    @SerializedName(value = "results")
     val results: List<TvShowDTO>,
-    @Json(name = "total_pages")
+    @SerializedName(value = "total_pages")
     val totalPages: Int,
-    @Json(name = "total_results")
+    @SerializedName(value = "total_results")
     val totalResults: Int
 )
 
 data class DatesDTO(
-    @Json(name = "maximum")
+    @SerializedName(value = "maximum")
     val maximum: String,
-    @Json(name = "minimum")
+    @SerializedName(value = "minimum")
     val minimum: String
 )
 
 data class MoviesDTO(
-    @Json(name = "dates")
+    @SerializedName(value = "dates")
     val dates: DatesDTO,
-    @Json(name = "page")
+    @SerializedName(value = "page")
     val page: Int,
-    @Json(name = "results")
+    @SerializedName(value = "results")
     val results: List<MovieDTO>,
-    @Json(name = "total_pages")
+    @SerializedName(value = "total_pages")
     val totalPages: Int,
-    @Json(name = "total_results")
+    @SerializedName(value = "total_results")
     val totalResults: Int
 )
 
 data class MovieDTO(
-    @Json(name = "id")
+    @SerializedName(value = "id")
     val id: Int,
-    @Json(name = "adult")
+    @SerializedName(value = "adult")
     val adult: Boolean,
-    @Json(name = "backdrop_path")
+    @SerializedName(value = "backdrop_path")
     val backdropPath: String,
-    @Json(name = "belongs_to_collection")
+    @SerializedName(value = "belongs_to_collection")
     val belongsToCollection: Any,
-    @Json(name = "budget")
+    @SerializedName(value = "budget")
     val budget: Int,
-    @Json(name = "genres")
+    @SerializedName(value = "genres")
     val genres: List<GenreDTO>,
-    @Json(name = "genre_ids")
+    @SerializedName(value = "genre_ids")
     val genreIds: List<Int>,
-    @Json(name = "homepage")
+    @SerializedName(value = "homepage")
     val homepage: String,
-    @Json(name = "imdb_id")
+    @SerializedName(value = "imdb_id")
     val imdbId: String,
-    @Json(name = "original_language")
+    @SerializedName(value = "original_language")
     val originalLanguage: String,
-    @Json(name = "original_title")
+    @SerializedName(value = "original_title")
     val originalTitle: String,
-    @Json(name = "overview")
+    @SerializedName(value = "overview")
     val overview: String,
-    @Json(name = "popularity")
+    @SerializedName(value = "popularity")
     val popularity: Double,
-    @Json(name = "poster_path")
+    @SerializedName(value = "poster_path")
     val posterPath: String,
-    @Json(name = "production_companies")
+    @SerializedName(value = "production_companies")
     val productionCompanyModels: List<ProductionCompanyDTO>,
-    @Json(name = "production_countries")
+    @SerializedName(value = "production_countries")
     val productionCountryModels: List<ProductionCountryDTO>,
-    @Json(name = "release_date")
+    @SerializedName(value = "release_date")
     val releaseDate: String,
-    @Json(name = "revenue")
+    @SerializedName(value = "revenue")
     val revenue: Int,
-    @Json(name = "runtime")
+    @SerializedName(value = "runtime")
     val runtime: Int,
-    @Json(name = "spoken_languages")
+    @SerializedName(value = "spoken_languages")
     val spokenLanguageModels: List<SpokenLanguageDTO>,
-    @Json(name = "status")
+    @SerializedName(value = "status")
     val status: String,
-    @Json(name = "tagline")
+    @SerializedName(value = "tagline")
     val tagline: String,
-    @Json(name = "title")
+    @SerializedName(value = "title")
     val title: String,
-    @Json(name = "video")
+    @SerializedName(value = "video")
     val video: Boolean,
-    @Json(name = "vote_average")
+    @SerializedName(value = "vote_average")
     val voteAverage: Double,
-    @Json(name = "vote_count")
+    @SerializedName(value = "vote_count")
     val voteCount: Int
 )
 
 data class SpokenLanguageDTO(
-    @Json(name = "iso_639_1")
+    @SerializedName(value = "iso_639_1")
     val iso6391: String,
-    @Json(name = "name")
+    @SerializedName(value = "name")
     val name: String
 )
 
 data class GenreDTO(
-    @Json(name = "id")
+    @SerializedName(value = "id")
     val id: Int,
-    @Json(name = "name")
+    @SerializedName(value = "name")
     val name: String
 )
 
 data class ProductionCompanyDTO(
-    @Json(name = "id")
+    @SerializedName(value = "id")
     val id: Int,
-    @Json(name = "logo_path")
+    @SerializedName(value = "logo_path")
     val logoPath: String,
-    @Json(name = "name")
+    @SerializedName(value = "name")
     val name: String,
-    @Json(name = "origin_country")
+    @SerializedName(value = "origin_country")
     val originCountry: String
 )
 
 data class ProductionCountryDTO(
-    @Json(name = "iso_3166_1")
+    @SerializedName(value = "iso_3166_1")
     val iso31661: String,
-    @Json(name = "name")
+    @SerializedName(value = "name")
     val name: String
 )
 
 data class TvShowDTO(
-    @Json(name = "id")
+    @SerializedName(value = "id")
     val id: Int,
-    @Json(name = "air_date")
+    @SerializedName(value = "air_date")
     val airDate: String,
-    @Json(name = "episode_count")
+    @SerializedName(value = "episode_count")
     val episodeCount: Int,
-    @Json(name = "season_number")
+    @SerializedName(value = "season_number")
     val seasonNumber: Int,
-    @Json(name = "backdrop_path")
+    @SerializedName(value = "backdrop_path")
     val backdropPath: String,
-    @Json(name = "created_by")
+    @SerializedName(value = "created_by")
     val createdBy: List<CreatorDTO>,
-    @Json(name = "episode_run_time")
+    @SerializedName(value = "episode_run_time")
     val episodeRunTime: List<Int>,
-    @Json(name = "first_air_date")
+    @SerializedName(value = "first_air_date")
     val firstAirDate: String,
-    @Json(name = "genres")
+    @SerializedName(value = "genres")
     val genres: List<GenreDTO>,
-    @Json(name = "homepage")
+    @SerializedName(value = "homepage")
     val homepage: String,
-    @Json(name = "in_production")
+    @SerializedName(value = "in_production")
     val inProduction: Boolean,
-    @Json(name = "languages")
+    @SerializedName(value = "languages")
     val languages: List<String>,
-    @Json(name = "last_air_date")
+    @SerializedName(value = "last_air_date")
     val lastAirDate: String,
-    @Json(name = "last_episode_to_air")
+    @SerializedName(value = "last_episode_to_air")
     val lastEpisodeToAir: EpisodeDTO,
-    @Json(name = "name")
+    @SerializedName(value = "name")
     val name: String,
-    @Json(name = "networks")
+    @SerializedName(value = "networks")
     val networks: List<TvNetworkDTO>,
-    @Json(name = "next_episode_to_air")
+    @SerializedName(value = "next_episode_to_air")
     val nextEpisodeToAir: EpisodeDTO,
-    @Json(name = "number_of_episodes")
+    @SerializedName(value = "number_of_episodes")
     val numberOfEpisodes: Int,
-    @Json(name = "number_of_seasons")
+    @SerializedName(value = "number_of_seasons")
     val numberOfSeasons: Int,
-    @Json(name = "origin_country")
+    @SerializedName(value = "origin_country")
     val originCountry: List<String>,
-    @Json(name = "original_language")
+    @SerializedName(value = "original_language")
     val originalLanguage: String,
-    @Json(name = "original_name")
+    @SerializedName(value = "original_name")
     val originalName: String,
-    @Json(name = "overview")
+    @SerializedName(value = "overview")
     val overview: String,
-    @Json(name = "popularity")
+    @SerializedName(value = "popularity")
     val popularity: Double,
-    @Json(name = "poster_path")
+    @SerializedName(value = "poster_path")
     val posterPath: String,
-    @Json(name = "production_companies")
+    @SerializedName(value = "production_companies")
     val productionCompanies: List<ProductionCompanyDTO>,
-    @Json(name = "seasons")
+    @SerializedName(value = "seasons")
     val seasons: List<SeasonDTO>,
-    @Json(name = "status")
+    @SerializedName(value = "status")
     val status: String,
-    @Json(name = "type")
+    @SerializedName(value = "type")
     val type: String,
-    @Json(name = "vote_average")
+    @SerializedName(value = "vote_average")
     val voteAverage: Double,
-    @Json(name = "vote_count")
+    @SerializedName(value = "vote_count")
     val voteCount: Int,
-    @Json(name = "genre_ids")
+    @SerializedName(value = "genre_ids")
     val genreIds: List<Int>
 )
 
 data class SeasonDTO(
-    @Json(name = "id")
+    @SerializedName(value = "id")
     val id: Int,
-    @Json(name = "_id")
+    @SerializedName(value = "_id")
     val _id: String,
-    @Json(name = "air_date")
+    @SerializedName(value = "air_date")
     val airDate: String,
-    @Json(name = "episode_count")
+    @SerializedName(value = "episode_count")
     val episodeCount: Int,
-    @Json(name = "name")
+    @SerializedName(value = "name")
     val name: String,
-    @Json(name = "overview")
+    @SerializedName(value = "overview")
     val overview: String,
-    @Json(name = "poster_path")
+    @SerializedName(value = "poster_path")
     val posterPath: String,
-    @Json(name = "season_number")
+    @SerializedName(value = "season_number")
     val seasonNumber: Int,
-    @Json(name = "episodes")
+    @SerializedName(value = "episodes")
     val episodes: List<EpisodeDTO>
 )
 
 data class EpisodeDTO(
-    @Json(name = "id")
+    @SerializedName(value = "id")
     val id: Int,
-    @Json(name = "air_date")
+    @SerializedName(value = "air_date")
     val airDate: String,
-    @Json(name = "episode_number")
+    @SerializedName(value = "episode_number")
     val episodeNumber: Int,
-    @Json(name = "name")
+    @SerializedName(value = "name")
     val name: String,
-    @Json(name = "overview")
+    @SerializedName(value = "overview")
     val overview: String,
-    @Json(name = "production_code")
+    @SerializedName(value = "production_code")
     val productionCode: String,
-    @Json(name = "season_number")
+    @SerializedName(value = "season_number")
     val seasonNumber: Int,
-    @Json(name = "show_id")
+    @SerializedName(value = "show_id")
     val showId: Int,
-    @Json(name = "still_path")
+    @SerializedName(value = "still_path")
     val stillPath: Any,
-    @Json(name = "vote_average")
+    @SerializedName(value = "vote_average")
     val voteAverage: Int,
-    @Json(name = "vote_count")
+    @SerializedName(value = "vote_count")
     val voteCount: Int,
-    @Json(name = "crew")
+    @SerializedName(value = "crew")
     val crew: List<CrewDTO>,
-    @Json(name = "guest_stars")
+    @SerializedName(value = "guest_stars")
     val guestStars: List<GuestStarDTO>
 )
 
 data class TvNetworkDTO(
-    @Json(name = "id")
+    @SerializedName(value = "id")
     val id: Int,
-    @Json(name = "logo_path")
+    @SerializedName(value = "logo_path")
     val logoPath: String,
-    @Json(name = "name")
+    @SerializedName(value = "name")
     val name: String,
-    @Json(name = "origin_country")
+    @SerializedName(value = "origin_country")
     val originCountry: String
 )
 
 data class CreatorDTO(
-    @Json(name = "id")
+    @SerializedName(value = "id")
     val id: Int,
-    @Json(name = "credit_id")
+    @SerializedName(value = "credit_id")
     val creditId: String,
-    @Json(name = "gender")
+    @SerializedName(value = "gender")
     val gender: Int,
-    @Json(name = "name")
+    @SerializedName(value = "name")
     val name: String,
-    @Json(name = "profile_path")
+    @SerializedName(value = "profile_path")
     val profilePath: String
 )
 
 data class GuestStarDTO(
-    @Json(name = "id")
+    @SerializedName(value = "id")
     val id: Int,
-    @Json(name = "character")
+    @SerializedName(value = "character")
     val character: String,
-    @Json(name = "credit_id")
+    @SerializedName(value = "credit_id")
     val creditId: String,
-    @Json(name = "name")
+    @SerializedName(value = "name")
     val name: String,
-    @Json(name = "order")
+    @SerializedName(value = "order")
     val order: Int,
-    @Json(name = "profile_path")
+    @SerializedName(value = "profile_path")
     val profilePath: String
 )
 
 data class CrewDTO(
-    @Json(name = "id")
+    @SerializedName(value = "id")
     val id: Int,
-    @Json(name = "credit_id")
+    @SerializedName(value = "credit_id")
     val creditId: String,
-    @Json(name = "department")
+    @SerializedName(value = "department")
     val department: String,
-    @Json(name = "job")
+    @SerializedName(value = "job")
     val job: String,
-    @Json(name = "name")
+    @SerializedName(value = "name")
     val name: String,
-    @Json(name = "profile_path")
+    @SerializedName(value = "profile_path")
     val profilePath: String
 )
 
 data class PeopleDTO(
-    @Json(name = "id")
+    @SerializedName(value = "id")
     val id: Int,
-    @Json(name = "adult")
+    @SerializedName(value = "adult")
     val adult: Boolean,
-    @Json(name = "also_known_as")
+    @SerializedName(value = "also_known_as")
     val alsoKnownAs: List<String>,
-    @Json(name = "biography")
+    @SerializedName(value = "biography")
     val biography: String,
-    @Json(name = "birthday")
+    @SerializedName(value = "birthday")
     val birthday: String,
-    @Json(name = "deathday")
+    @SerializedName(value = "deathday")
     val deathday: Any,
-    @Json(name = "gender")
+    @SerializedName(value = "gender")
     val gender: Int,
-    @Json(name = "homepage")
+    @SerializedName(value = "homepage")
     val homepage: Any,
-    @Json(name = "imdb_id")
+    @SerializedName(value = "imdb_id")
     val imdbId: String,
-    @Json(name = "known_for_department")
+    @SerializedName(value = "known_for_department")
     val knownForDepartment: String,
-    @Json(name = "name")
+    @SerializedName(value = "name")
     val name: String,
-    @Json(name = "place_of_birth")
+    @SerializedName(value = "place_of_birth")
     val placeOfBirth: String,
-    @Json(name = "popularity")
+    @SerializedName(value = "popularity")
     val popularity: Double,
-    @Json(name = "profile_path")
+    @SerializedName(value = "profile_path")
     val profilePath: String
 )

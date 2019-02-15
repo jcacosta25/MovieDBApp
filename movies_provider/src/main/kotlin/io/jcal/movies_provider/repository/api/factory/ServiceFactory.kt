@@ -48,5 +48,5 @@ object ServiceFactory {
     private const val MAX_READ_TIME_OUT_SECONDS = 60L
     private const val MAX_CONNECTION_TIME_OUT_SECONDS = 60L
     private const val SCHEME = "https"
-    private const val HOST = "api.themoviedb.org/3/"
+    private const val HOST = "api.themoviedb.org"
 }

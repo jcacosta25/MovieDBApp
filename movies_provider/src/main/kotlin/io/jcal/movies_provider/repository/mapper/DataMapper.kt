@@ -32,23 +32,23 @@ class DataMapper @Inject constructor() {
         val model = MovieModel(
             id = response.id,
             adult = response.adult,
-            backdropPath = IMAGE_PATH.plus(response.backdropPath),
+            backdropPath = IMAGE_PATH.plus(emtpyString(response.backdropPath)),
             budget = response.budget,
             genreIds = response.genreIds,
-            homepage = response.homepage,
-            imdbId = response.imdbId,
-            originalLanguage = response.originalLanguage,
-            originalTitle = response.originalTitle,
-            overview = response.overview,
+            homepage = emtpyString(response.homepage),
+            imdbId = emtpyString(response.imdbId),
+            originalLanguage = emtpyString(response.originalLanguage),
+            originalTitle = emtpyString(response.originalTitle),
+            overview = emtpyString(response.overview),
             popularity = response.popularity,
-            posterPath = IMAGE_PATH.plus(response.posterPath),
-            releaseDate = response.releaseDate,
+            posterPath = IMAGE_PATH.plus(emtpyString(response.posterPath)),
+            releaseDate = emtpyString(response.releaseDate),
             revenue = response.revenue,
             runtime = response.runtime,
-            spokenLanguageModels = response.spokenLanguageModels.map { it.name },
-            status = response.status,
-            tagline = response.tagline,
-            title = response.title,
+            //spokenLanguageModels = response.spokenLanguageModels.map { it.name },
+            status = emtpyString(response.status),
+            tagline = emtpyString(response.tagline),
+            title = emtpyString(response.title),
             video = response.video,
             voteAverage = response.voteAverage,
             voteCount = response.voteCount
@@ -90,7 +90,7 @@ class DataMapper @Inject constructor() {
         return MovieEntity(
             id = model.id,
             adult = model.adult,
-            backdropPath = model.backdropPath.replace(IMAGE_PATH, EMPTY),
+            backdropPath = model.backdropPath.replace(IMAGE_PATH, EMPTY_STRING),
             budget = model.budget,
             genreIds = model.genreIds,
             homepage = model.homepage,
@@ -99,7 +99,7 @@ class DataMapper @Inject constructor() {
             originalTitle = model.originalTitle,
             overview = model.overview,
             popularity = model.popularity,
-            posterPath = model.posterPath.replace(IMAGE_PATH, EMPTY),
+            posterPath = model.posterPath.replace(IMAGE_PATH, EMPTY_STRING),
             releaseDate = model.releaseDate,
             revenue = model.revenue,
             runtime = model.runtime,
@@ -159,7 +159,7 @@ class DataMapper @Inject constructor() {
             productionCode = model.productionCode,
             seasonNumber = model.seasonNumber,
             showId = model.showId,
-            stillPath = model.stillPath.replace(IMAGE_PATH, EMPTY),
+            stillPath = model.stillPath.replace(IMAGE_PATH, EMPTY_STRING),
             voteAverage = model.voteAverage,
             voteCount = model.voteCount,
             seasonId = seasonId
@@ -220,7 +220,7 @@ class DataMapper @Inject constructor() {
             episodeCount = model.episodeCount,
             name = model.name,
             overview = model.overview,
-            posterPath = model.posterPath.replace(IMAGE_PATH, EMPTY),
+            posterPath = model.posterPath.replace(IMAGE_PATH, EMPTY_STRING),
             seasonNumber = model.seasonNumber,
             showId = model.showId
         )
@@ -234,7 +234,7 @@ class DataMapper @Inject constructor() {
                 episodeCount = model.episodeCount,
                 name = model.name,
                 overview = model.overview,
-                posterPath = model.posterPath.replace(IMAGE_PATH, EMPTY),
+                posterPath = model.posterPath.replace(IMAGE_PATH, EMPTY_STRING),
                 seasonNumber = model.seasonNumber,
                 showId = model.showId
             ),
@@ -319,7 +319,7 @@ class DataMapper @Inject constructor() {
                 airDate = model.airDate,
                 episodeCount = model.episodeCount,
                 seasonNumber = model.seasonNumber,
-                backdropPath = model.backdropPath.replace(IMAGE_PATH, EMPTY),
+                backdropPath = model.backdropPath.replace(IMAGE_PATH, EMPTY_STRING),
                 episodeRunTime = model.episodeRunTime,
                 firstAirDate = model.firstAirDate,
                 homepage = model.homepage,
@@ -336,7 +336,7 @@ class DataMapper @Inject constructor() {
                 originalName = model.originalName,
                 overview = model.overview,
                 popularity = model.popularity,
-                posterPath = model.posterPath.replace(IMAGE_PATH, EMPTY),
+                posterPath = model.posterPath.replace(IMAGE_PATH, EMPTY_STRING),
                 status = model.status,
                 type = model.type,
                 voteAverage = model.voteAverage,
@@ -347,7 +347,8 @@ class DataMapper @Inject constructor() {
         )
     }
 
-    fun convert(response: DatesDTO): DatesModel = DatesModel(response.maximum, response.minimum)
+    fun convert(response: DatesDTO?): DatesModel =
+        DatesModel(response?.maximum ?: "", response?.minimum ?: "")
 
     fun convert(response: MoviesDTO): MoviesModel {
         val model = MoviesModel(
@@ -416,8 +417,12 @@ class DataMapper @Inject constructor() {
         return this
     }
 
+    fun emtpyString(string:String?):String = if(string.isNullOrBlank()) "" else string
+
     companion object {
-        private const val EMPTY = ""
+        private const val EMPTY_STRING = ""
+        private const val EMPTY_INT = 0
+        private const val EMPTY_DOUBLE = 0.0
         private const val IMAGE_PATH = "https://image.tmdb.org/t/p/original"
     }
 }

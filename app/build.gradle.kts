@@ -17,6 +17,7 @@ android {
         versionCode = Android.versionCode
         versionName = Android.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "ApiKey", ApiKeys.movieDb)
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -86,7 +87,6 @@ dependencies {
     implementation(Libs.navigationUi)
     kapt(Libs.daggerCompiler)
     kapt(Libs.daggerAndroidProcessor)
-    kapt(Libs.moshiKotlinCodeGen)
     testImplementation(TestLibs.jUnit)
     androidTestImplementation(TestLibs.testRunner)
     androidTestImplementation(TestLibs.espressoCore)
