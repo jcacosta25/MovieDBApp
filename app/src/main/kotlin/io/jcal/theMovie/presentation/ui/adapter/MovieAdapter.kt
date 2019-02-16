@@ -10,6 +10,9 @@ import io.jcal.theMovie.presentation.mapper.model.MovieUIModel
 
 class MovieAdapter(private val movies: MutableList<MovieUIModel> = mutableListOf()) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+
+    private lateinit var listener: ItemAdapterClickLIstener<MovieUIModel>
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
         MovieViewHolder(
             DataBindingUtil.inflate(
@@ -26,16 +29,29 @@ class MovieAdapter(private val movies: MutableList<MovieUIModel> = mutableListOf
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(movies[position])
+        holder.bind(listener, position, movies[position])
     }
 
     override fun getItemCount(): Int = movies.size
 
+    fun setClickListener(listener: ItemAdapterClickLIstener<MovieUIModel>) {
+        this.listener = listener
+    }
+
     class MovieViewHolder(private val binding: MoviePreviewContentBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: MovieUIModel) {
+        fun bind(
+            listener: ItemAdapterClickLIstener<MovieUIModel>,
+            position: Int,
+            movie: MovieUIModel
+        ) {
             binding.movie = movie
+            binding.root.setOnClickListener {
+                listener.onItemClick(it, position, movie)
+            }
+
             binding.executePendingBindings()
         }
+
     }
 }

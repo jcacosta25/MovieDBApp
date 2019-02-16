@@ -27,5 +27,5 @@ abstract class MoviesDBFeatureModule {
     @Binds
     @IntoMap
     @ViewModelKey(TvShowsViewModel::class)
-    abstract fun bindTvShowsViewModel(viewModel: MoviesViewModel): ViewModel
+    abstract fun bindTvShowsViewModel(viewModel: TvShowsViewModel): ViewModel
 }

@@ -24,4 +24,8 @@ class TvShowsViewModel @Inject constructor(
         }
         return tvShows
     }
+
+    fun popularTvShows(tvShows:TvShowUIList) {
+        this.tvShows.postValue(tvShows)
+    }
 }

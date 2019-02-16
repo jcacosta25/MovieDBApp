@@ -26,4 +26,8 @@ class MoviesViewModel @Inject constructor(
         }
         return movies
     }
+
+    fun popularMovies(movies: MovieUIModelList) {
+        this.movies.postValue(movies)
+    }
 }

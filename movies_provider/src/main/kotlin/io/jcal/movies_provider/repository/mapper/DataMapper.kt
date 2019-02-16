@@ -32,23 +32,23 @@ class DataMapper @Inject constructor() {
         val model = MovieModel(
             id = response.id,
             adult = response.adult,
-            backdropPath = IMAGE_PATH.plus(emtpyString(response.backdropPath)),
+            backdropPath = IMAGE_PATH.plus(emptyString(response.backdropPath)),
             budget = response.budget,
             genreIds = response.genreIds,
-            homepage = emtpyString(response.homepage),
-            imdbId = emtpyString(response.imdbId),
-            originalLanguage = emtpyString(response.originalLanguage),
-            originalTitle = emtpyString(response.originalTitle),
-            overview = emtpyString(response.overview),
+            homepage = emptyString(response.homepage),
+            imdbId = emptyString(response.imdbId),
+            originalLanguage = emptyString(response.originalLanguage),
+            originalTitle = emptyString(response.originalTitle),
+            overview = emptyString(response.overview),
             popularity = response.popularity,
-            posterPath = IMAGE_PATH.plus(emtpyString(response.posterPath)),
-            releaseDate = emtpyString(response.releaseDate),
+            posterPath = IMAGE_PATH.plus(emptyString(response.posterPath)),
+            releaseDate = emptyString(response.releaseDate),
             revenue = response.revenue,
             runtime = response.runtime,
             //spokenLanguageModels = response.spokenLanguageModels.map { it.name },
-            status = emtpyString(response.status),
-            tagline = emtpyString(response.tagline),
-            title = emtpyString(response.title),
+            status = emptyString(response.status),
+            tagline = emptyString(response.tagline),
+            title = emptyString(response.title),
             video = response.video,
             voteAverage = response.voteAverage,
             voteCount = response.voteCount
@@ -116,10 +116,10 @@ class DataMapper @Inject constructor() {
     fun convert(response: EpisodeDTO): EpisodeModel {
         val model = EpisodeModel(
             id = response.id,
-            airDate = response.airDate,
+            airDate = emptyString(response.airDate),
             episodeNumber = response.episodeNumber,
-            name = response.name,
-            overview = response.overview,
+            name = emptyString(response.name),
+            overview = emptyString(response.overview),
             productionCode = response.productionCode,
             seasonNumber = response.seasonNumber,
             showId = response.showId,
@@ -169,10 +169,10 @@ class DataMapper @Inject constructor() {
     fun convert(response: SeasonDTO, showId: Int = response._id.toInt()): SeasonModel {
         val model = SeasonModel(
             id = response.id,
-            airDate = response.airDate,
+            airDate = emptyString(response.airDate),
             episodeCount = response.episodeCount,
-            name = response.name,
-            overview = response.overview,
+            name = emptyString(response.name),
+            overview = emptyString(response.overview),
             posterPath = IMAGE_PATH.plus(response.posterPath),
             seasonNumber = response.seasonNumber,
             episodes = response.episodes.map { convert(it) },
@@ -245,33 +245,33 @@ class DataMapper @Inject constructor() {
     fun convert(response: TvShowDTO): TvShowModel {
         val model = TvShowModel(
             id = response.id,
-            airDate = response.airDate,
+            airDate = emptyString(response.airDate),
             episodeCount = response.episodeCount,
             seasonNumber = response.seasonNumber,
             backdropPath = IMAGE_PATH.plus(response.backdropPath),
-            episodeRunTime = response.episodeRunTime,
-            firstAirDate = response.firstAirDate,
-            homepage = response.homepage,
+            episodeRunTime = response.episodeRunTime ?: listOf(),
+            firstAirDate = emptyString(response.firstAirDate),
+            homepage = emptyString(response.homepage),
             inProduction = response.inProduction,
-            languages = response.languages,
-            lastAirDate = response.lastAirDate,
-            lastEpisodeToAir = response.lastEpisodeToAir.id,
-            name = response.name,
-            nextEpisodeToAir = response.nextEpisodeToAir.id,
+            languages = response.languages ?: listOf(),
+            lastAirDate = emptyString(response.lastAirDate),
+            lastEpisodeToAir = if (response.lastEpisodeToAir == null) 0 else response.lastEpisodeToAir.id,
+            nextEpisodeToAir = if (response.nextEpisodeToAir == null) 0 else response.nextEpisodeToAir.id,
             numberOfEpisodes = response.numberOfEpisodes,
+            name = emptyString(response.name),
             numberOfSeasons = response.numberOfSeasons,
-            originCountry = response.originCountry,
-            originalLanguage = response.originalLanguage,
-            originalName = response.originalName,
-            overview = response.overview,
+            originCountry = response.originCountry?: listOf(),
+            originalLanguage = emptyString(response.originalLanguage),
+            originalName = emptyString(response.originalName),
+            overview = emptyString(response.overview),
             popularity = response.popularity,
-            posterPath = IMAGE_PATH.plus(response.posterPath),
-            seasons = response.seasons.map { convert(it) },
-            status = response.status,
-            type = response.type,
+            posterPath = IMAGE_PATH.plus(emptyString(response.posterPath)),
+            seasons = if (response.seasons != null) response.seasons.map { convert(it) } else listOf(),
+            status = emptyString(response.status),
+            type = emptyString(response.type),
             voteAverage = response.voteAverage,
             voteCount = response.voteCount,
-            genreIds = response.genreIds
+            genreIds = response.genreIds ?: listOf()
         )
         model.state = SUCCESS
         return model
@@ -417,7 +417,7 @@ class DataMapper @Inject constructor() {
         return this
     }
 
-    fun emtpyString(string:String?):String = if(string.isNullOrBlank()) "" else string
+    private fun emptyString(string: String?): String = if (string.isNullOrBlank()) "" else string
 
     companion object {
         private const val EMPTY_STRING = ""

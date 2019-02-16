@@ -4,15 +4,68 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerFragment
 import io.jcal.theMovie.R
+import io.jcal.theMovie.databinding.FragmentPopularShowsBinding
+import io.jcal.theMovie.presentation.mapper.model.BaseUIModel.Companion.SUCCESS
+import io.jcal.theMovie.presentation.mapper.model.TvShowUIList
+import io.jcal.theMovie.presentation.ui.adapter.ShowAdapter
+import io.jcal.theMovie.presentation.viewmodel.TvShowsViewModel
+import io.jcal.theMovie.utils.SpacingItemDecoration
+import javax.inject.Inject
 
 class PopularShowsFragment : DaggerFragment() {
+
+    private lateinit var viewModel: TvShowsViewModel
+    private lateinit var binding: FragmentPopularShowsBinding
+    private val adapter: ShowAdapter = ShowAdapter()
+    private var recyclerInstanceState: TvShowUIList? = null
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(
-        R.layout.fragment_popular_shows, container, false
-    )
+    ): View? {
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_popular_shows, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.popularShowsRv.adapter = adapter
+        binding.popularShowsRv.addItemDecoration(
+            SpacingItemDecoration(
+                requireContext(),
+                SPACING
+            )
+        )
+        binding.popularShowsRv.setHasFixedSize(true)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(TvShowsViewModel::class.java)
+
+        viewModel.popularTvShows().observe(this, Observer { response ->
+            when (response.state) {
+                SUCCESS -> {
+                    if (recyclerInstanceState == null) {
+                        adapter.addAll(response.results)
+                    }
+                }
+            }
+        })
+    }
+
+    companion object {
+        private const val SPACING = 16
+    }
 }

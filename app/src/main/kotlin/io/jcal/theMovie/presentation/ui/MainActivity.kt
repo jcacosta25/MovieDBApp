@@ -1,11 +1,13 @@
 package io.jcal.theMovie.presentation.ui
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.plusAssign
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.ActivityMainBinding
@@ -42,6 +44,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNav.setupWithNavController(navController)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment))
+                || super.onOptionsItemSelected(item)
 
     private fun hideBottomNavigation() {
         // bottom_navigation is BottomNavigationView
