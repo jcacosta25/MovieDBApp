@@ -224,3 +224,7 @@ fabric.properties
 buildSrc/src/main/kotlin/ApiKeys\.kt
 
 \.idea/kotlinScripting\.xml
+
+\.idea/markdown-navigator\.xml
+
+\.idea/markdown-navigator/profiles_settings\.xml
