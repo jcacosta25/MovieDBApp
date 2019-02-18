@@ -14,6 +14,7 @@ import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.FragmentPopularMoviesBinding
 import io.jcal.theMovie.presentation.mapper.model.BaseUIModel.Companion.SUCCESS
 import io.jcal.theMovie.presentation.mapper.model.MovieUIModelList
+import io.jcal.theMovie.presentation.ui.PopularMoviesFragmentDirections.popularMoviesToMovieDetail
 import io.jcal.theMovie.presentation.ui.adapter.MovieAdapter
 import io.jcal.theMovie.presentation.viewmodel.MoviesViewModel
 import io.jcal.theMovie.utils.SpacingItemDecoration
@@ -44,8 +45,8 @@ class PopularMoviesFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = MovieAdapter(
-            movieClickListener = { _,_,rootView ->
-                rootView.findNavController().navigate(R.id.detail_movie_dest)
+            movieClickListener = { movie, _, rootView ->
+                rootView.findNavController().navigate(popularMoviesToMovieDetail(movie.id))
             }
         )
         binding.popularMoviesRv.adapter = adapter

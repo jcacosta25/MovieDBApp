@@ -5,45 +5,47 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.plusAssign
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.ActivityMainBinding
-import io.jcal.theMovie.utils.KeepStateNavigator
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-        val navController = findNavController(R.id.nav_host_fragment)
+        binding.toolbar.setNavigationOnClickListener {
+            onSupportNavigateUp()
+        }
+        setSupportActionBar(binding.toolbar)
+        navController = findNavController(R.id.nav_host_fragment)
 
         // hide and show bottomNavigation on detail
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.detail_show_dest -> hideBottomNavigation()
-                R.id.detail_movie_dest -> hideBottomNavigation()
+                R.id.movieDetailFragment -> hideBottomNavigation()
+                R.id.showDetailFragment -> hideBottomNavigation()
                 else -> showBottomNavigation()
             }
         }
-        // get fragment
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!!
-
-        // setup custom navigator
-        val navigator =
-            KeepStateNavigator(this, navHostFragment.childFragmentManager, R.id.nav_host_fragment)
-        navController.navigatorProvider += navigator
-
-        // set navigation graph
-        navController.setGraph(R.navigation.app_navigation)
+        val appBarConfiguration = AppBarConfiguration.Builder(
+            R.id.popularMoviesFragment,
+            R.id.popularShowsFragment
+        ).build()
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.bottomNav.setupWithNavController(navController)
     }
+
+    override fun onSupportNavigateUp() = navController.navigateUp()
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment))

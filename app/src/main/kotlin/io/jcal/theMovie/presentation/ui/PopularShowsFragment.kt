@@ -14,6 +14,7 @@ import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.FragmentPopularShowsBinding
 import io.jcal.theMovie.presentation.mapper.model.BaseUIModel.Companion.SUCCESS
 import io.jcal.theMovie.presentation.mapper.model.TvShowUIList
+import io.jcal.theMovie.presentation.ui.PopularShowsFragmentDirections.popularShowsToShowDetail
 import io.jcal.theMovie.presentation.ui.adapter.ShowAdapter
 import io.jcal.theMovie.presentation.viewmodel.TvShowsViewModel
 import io.jcal.theMovie.utils.SpacingItemDecoration
@@ -42,8 +43,8 @@ class PopularShowsFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = ShowAdapter(
-            showClickListener = { _, _, rootView ->
-                rootView.findNavController().navigate(R.id.detail_show_dest)
+            showClickListener = { show, _, rootView ->
+                rootView.findNavController().navigate(popularShowsToShowDetail(show.id))
             }
         )
         binding.popularShowsRv.adapter = adapter

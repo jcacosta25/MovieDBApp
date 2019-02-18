@@ -3,26 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/popular_movies_dest">
+    app:startDestination="@+id/popularMoviesFragment">
 
     <fragment
-        android:id="@+id/popular_movies_dest"
+        android:id="@+id/popularMoviesFragment"
         android:name="io.jcal.theMovie.presentation.ui.PopularMoviesFragment"
         android:label="@string/movies_title"
-        tools:layout="@layout/fragment_popular_movies" />
+        tools:layout="@layout/fragment_popular_movies">
+
+        <action
+            android:id="@+id/popular_movies_to_movieDetail"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/popular_shows_dest"
+        android:id="@+id/popularShowsFragment"
         android:name="io.jcal.theMovie.presentation.ui.PopularShowsFragment"
         android:label="@string/shows_title"
-        tools:layout="@layout/fragment_popular_shows" />
+        tools:layout="@layout/fragment_popular_shows">
+
+        <action
+            android:id="@+id/popular_shows_to_showDetail"
+            app:destination="@id/showDetailFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/detail_movie_dest"
+        android:id="@+id/movieDetailFragment"
         android:name="io.jcal.theMovie.presentation.ui.MovieDetailFragment"
         android:label="@string/movie_detail_title"
-        tools:layout="@layout/fragment_movie_detail" />
+        tools:layout="@layout/fragment_movie_detail">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
     <fragment
-        android:id="@+id/detail_show_dest"
+        android:id="@+id/showDetailFragment"
         android:name="io.jcal.theMovie.presentation.ui.ShowDetailFragment"
         android:label="@string/show_detail_title"
-        tools:layout="@layout/fragment_show_detail" />
+        tools:layout="@layout/fragment_show_detail" >
+        <argument
+            android:name="showId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

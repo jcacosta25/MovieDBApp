@@ -8,7 +8,7 @@ import io.jcal.theMovie.R
 class DataBindingAdapter {
     companion object {
         @JvmStatic
-        @BindingAdapter("android:image")
+        @BindingAdapter("android:image_url")
         fun loadImage(imageView: AppCompatImageView, url: String?) {
             if (!url.isNullOrEmpty()) {
                 Picasso.get()

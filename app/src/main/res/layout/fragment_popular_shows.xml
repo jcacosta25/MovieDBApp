@@ -6,8 +6,7 @@
     <androidx.appcompat.widget.ContentFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/productGridBackgroundColor"
-        android:paddingBottom="?attr/actionBarSize">
+        android:background="@color/productGridBackgroundColor">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/popular_shows_rv"
@@ -15,7 +14,10 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:orientation="vertical"
-            android:padding="8dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="16dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/show_preview_content" />
     </androidx.appcompat.widget.ContentFrameLayout>
