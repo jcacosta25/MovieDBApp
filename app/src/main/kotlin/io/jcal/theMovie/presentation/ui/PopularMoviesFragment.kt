@@ -13,9 +13,7 @@ import dagger.android.support.DaggerFragment
 import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.FragmentPopularMoviesBinding
 import io.jcal.theMovie.presentation.mapper.model.BaseUIModel.Companion.SUCCESS
-import io.jcal.theMovie.presentation.mapper.model.MovieUIModel
 import io.jcal.theMovie.presentation.mapper.model.MovieUIModelList
-import io.jcal.theMovie.presentation.ui.adapter.ItemAdapterClickLIstener
 import io.jcal.theMovie.presentation.ui.adapter.MovieAdapter
 import io.jcal.theMovie.presentation.viewmodel.MoviesViewModel
 import io.jcal.theMovie.utils.SpacingItemDecoration
@@ -25,9 +23,8 @@ class PopularMoviesFragment : DaggerFragment() {
 
     private lateinit var viewModel: MoviesViewModel
     private lateinit var binding: FragmentPopularMoviesBinding
-    private val adapter: MovieAdapter = MovieAdapter()
+    private lateinit var adapter: MovieAdapter
     private var recyclerInstanceState: MovieUIModelList? = null
-    private lateinit var adapterListener: ItemAdapterClickLIstener<MovieUIModel>
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -46,12 +43,11 @@ class PopularMoviesFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapterListener = object : ItemAdapterClickLIstener<MovieUIModel> {
-            override fun onItemClick(view: View, position: Int, item: MovieUIModel) {
-                view.findNavController().navigate(R.id.detail_movie_dest)
+        adapter = MovieAdapter(
+            movieClickListener = { _,_,rootView ->
+                rootView.findNavController().navigate(R.id.detail_movie_dest)
             }
-        }
-        adapter.setClickListener(adapterListener)
+        )
         binding.popularMoviesRv.adapter = adapter
         binding.popularMoviesRv.addItemDecoration(
             SpacingItemDecoration(

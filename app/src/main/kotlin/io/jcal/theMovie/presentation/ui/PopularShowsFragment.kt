@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import dagger.android.support.DaggerFragment
 import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.FragmentPopularShowsBinding
@@ -22,7 +23,7 @@ class PopularShowsFragment : DaggerFragment() {
 
     private lateinit var viewModel: TvShowsViewModel
     private lateinit var binding: FragmentPopularShowsBinding
-    private val adapter: ShowAdapter = ShowAdapter()
+    private lateinit var adapter: ShowAdapter
     private var recyclerInstanceState: TvShowUIList? = null
 
     @Inject
@@ -40,6 +41,11 @@ class PopularShowsFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        adapter = ShowAdapter(
+            showClickListener = { _, _, rootView ->
+                rootView.findNavController().navigate(R.id.detail_show_dest)
+            }
+        )
         binding.popularShowsRv.adapter = adapter
         binding.popularShowsRv.addItemDecoration(
             SpacingItemDecoration(
