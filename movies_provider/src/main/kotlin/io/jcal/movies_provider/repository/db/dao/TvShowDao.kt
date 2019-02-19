@@ -17,8 +17,8 @@ import io.jcal.movies_provider.repository.db.entity.TvShowSeasons
 interface TvShowDao {
 
     @Transaction
-    @Query("select * from ${DatabaseConstants.TABLE_TV_SHOW} where ${DatabaseConstants.COLUMN_NAME} = :showTitle")
-    fun findShowByTitle(showTitle: String): LiveData<TvShowSeasons>
+    @Query("select * from ${DatabaseConstants.TABLE_TV_SHOW} where ${DatabaseConstants.COLUMN_ID} = :showId")
+    fun findShow(showId: Int): LiveData<TvShowSeasons>
 
     @Query("select * from ${DatabaseConstants.TABLE_SEASON} where ${DatabaseConstants.COLUMN_SHOW_ID} = :showId")
     fun findShowSeasons(showId: Int): LiveData<SeasonEntity>

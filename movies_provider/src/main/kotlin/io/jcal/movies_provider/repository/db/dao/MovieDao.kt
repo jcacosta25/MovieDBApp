@@ -9,8 +9,8 @@ import io.jcal.movies_provider.repository.db.entity.MovieEntity
 @Dao
 interface MovieDao : BaseDao<MovieEntity> {
 
-    @Query("select * from ${DatabaseConstants.TABLE_MOVIE} where ${DatabaseConstants.COLUMN_TITLE} = :movieTitle")
-    fun findByMovieTitle(movieTitle: String): LiveData<MovieEntity>
+    @Query("select * from ${DatabaseConstants.TABLE_MOVIE} where ${DatabaseConstants.COLUMN_ID} = :movieId")
+    fun findByMovie(movieId: Int): LiveData<MovieEntity>
 
     @Query("select * from ${DatabaseConstants.TABLE_MOVIE}")
     fun getAllMovies(): LiveData<List<MovieEntity>>

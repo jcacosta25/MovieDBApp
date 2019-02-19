@@ -10,7 +10,7 @@ interface DiskDataSource {
 
     fun insertMovie(entity: MovieEntity): Long
 
-    fun selectMovie(movieTitle: String): LiveData<MovieEntity>
+    fun selectMovie(movieId: Int): LiveData<MovieEntity>
 
     fun selectAllMovies(): LiveData<List<MovieEntity>>
 
@@ -18,7 +18,7 @@ interface DiskDataSource {
 
     fun insertTvShow(entity: TvShowSeasons): Long
 
-    fun selectTvShow(tvShowTitle: String): LiveData<TvShowSeasons>
+    fun selectTvShow(showId: Int): LiveData<TvShowSeasons>
 
     fun selectAllTvShows(): LiveData<List<TvShowSeasons>>
 

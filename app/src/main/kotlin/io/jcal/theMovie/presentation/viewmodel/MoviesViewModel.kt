@@ -18,7 +18,7 @@ class MoviesViewModel @Inject constructor(
 
     fun popularMovies(): LiveData<MovieUIModelList> {
         if (movies.value == null) {
-            movies.addSource(Transformations.map(useCasePopularMovies.asLiveData()) { response ->
+            movies.addSource(Transformations.map(useCasePopularMovies.execute(UseCasePopularMovies.Params())) { response ->
                 mapper.convert(response.data)
             }) { movieList ->
                 movies.postValue(movieList)

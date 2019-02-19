@@ -16,33 +16,31 @@ import io.jcal.movies_provider.repository.mapper.model.BaseModel
  * Guide](https://developer.android.com/arch).
  * @param <ResultType>
 </RequestType></ResultType> */
-abstract class NetworkBoundResource<ModelType : BaseModel>
+abstract class NetworkBoundResource<ModelType : BaseModel, T>
 @MainThread
 internal constructor(private val appExecutors: AppExecutors) {
 
-    private val result = MediatorLiveData<Resource<ModelType>>()
+    private lateinit var result: MediatorLiveData<Resource<ModelType>>
 
-    fun init(loading: ModelType) {
-        result.value =
-            Resource.loading(loading)
-        val dbSource = loadFromDb()
+    fun execute(params: T): LiveData<Resource<ModelType>> {
+        result = MediatorLiveData()
+        result.postValue(Resource.loading(getLoadingObject()))
+        val dbSource = loadFromDb(params)
         result.addSource(dbSource) { data ->
             result.removeSource(dbSource)
-            val should = shouldFetch(data)
-            if (should) {
-                fetchFromNetwork(dbSource)
+            if (shouldFetch(data)) {
+                fetchFromNetwork(dbSource, params)
             } else {
                 result.addSource(dbSource) {
                     setValue(
-                        Resource.success(
-                            it!!
-                        )
+                        if (it.error) Resource.error(it.errorCode, it)
+                        else Resource.success(it)
                     )
                 }
             }
         }
+        return result
     }
-
 
     @MainThread
     private fun setValue(value: Resource<ModelType>) {
@@ -51,13 +49,11 @@ internal constructor(private val appExecutors: AppExecutors) {
         }
     }
 
-    private fun fetchFromNetwork(dbSource: LiveData<ModelType>) {
-        val apiResponse = createCall()
+    private fun fetchFromNetwork(dbSource: LiveData<ModelType>, params: T) {
+        val apiResponse = createCall(params)
         result.addSource(dbSource) {
             setValue(
-                Resource.loading(
-                    it!!
-                )
+                Resource.loading(it)
             )
         }
         result.addSource(apiResponse) { response ->
@@ -67,11 +63,9 @@ internal constructor(private val appExecutors: AppExecutors) {
                 appExecutors.getDiskThread().execute {
                     saveCallResult(processResponse(response))
                     appExecutors.getMainThread().execute {
-                        result.addSource(loadFromDb()) {
+                        result.addSource(loadFromDb(params)) {
                             setValue(
-                                Resource.success(
-                                    it!!
-                                )
+                                Resource.success(it)
                             )
                         }
                     }
@@ -82,8 +76,8 @@ internal constructor(private val appExecutors: AppExecutors) {
                 ) {
                     setValue(
                         Resource.error(
-                            response!!.errorCode.toString(),
-                            it!!
+                            response.errorCode,
+                            it
                         )
                     )
                 }
@@ -92,8 +86,6 @@ internal constructor(private val appExecutors: AppExecutors) {
     }
 
     protected fun onFetchFailed() {}
-
-    fun asLiveData(): LiveData<Resource<ModelType>> = result
 
     @WorkerThread
     protected open fun processResponse(response: ModelType): ModelType = response
@@ -105,9 +97,10 @@ internal constructor(private val appExecutors: AppExecutors) {
     protected abstract fun shouldFetch(data: ModelType?): Boolean
 
     @MainThread
-    protected abstract fun loadFromDb(): LiveData<ModelType>
+    protected abstract fun loadFromDb(params: T): LiveData<ModelType>
 
     @MainThread
-    protected abstract fun createCall(): LiveData<ModelType>
+    protected abstract fun createCall(params: T): LiveData<ModelType>
 
+    protected abstract fun getLoadingObject(): ModelType
 }

@@ -4,7 +4,7 @@ package io.jcal.movies_provider.domain.interactor.base
  * A generic class that holds a value with its loading status.
  * @param <T>
 </T> */
-class Resource<T>(private val status: Status, val data: T, val message: String?) {
+class Resource<T>(private val status: Status, val data: T, val errorCode: Int?) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -19,7 +19,7 @@ class Resource<T>(private val status: Status, val data: T, val message: String?)
         if (status !== resource!!.status) {
             return false
         }
-        if (if (message != null) message != resource!!.message else resource!!.message != null) {
+        if (if (errorCode != null) errorCode != resource!!.errorCode else resource!!.errorCode != null) {
             return false
         }
         return if (data != null) data == resource.data else resource.data == null
@@ -27,12 +27,13 @@ class Resource<T>(private val status: Status, val data: T, val message: String?)
 
     override fun hashCode(): Int {
         var result = status.hashCode()
-        result = 31 * result + message!!.hashCode()
+        result = 31 * result + errorCode!!.hashCode()
         result = 31 * result + (data?.hashCode() ?: 0)
         return result
     }
 
-    override fun toString(): String = "Resource{ status= $status , message= $message, data= $data }"
+    override fun toString(): String =
+        "Resource{ status= $status , errorCode= $errorCode, data= $data }"
 
     companion object {
 
@@ -40,15 +41,15 @@ class Resource<T>(private val status: Status, val data: T, val message: String?)
             return Resource(
                 Status.SUCCESS,
                 data,
-                ""
+                null
             )
         }
 
-        fun <T> error(msg: String, data: T): Resource<T> {
+        fun <T> error(errorCode: Int, data: T): Resource<T> {
             return Resource(
                 Status.ERROR,
                 data,
-                msg
+                errorCode
             )
         }
 
@@ -56,7 +57,7 @@ class Resource<T>(private val status: Status, val data: T, val message: String?)
             return Resource(
                 Status.LOADING,
                 data,
-                ""
+                null
             )
         }
     }

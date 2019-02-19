@@ -17,13 +17,13 @@ class DiskDataSourceImpl @Inject constructor(val dataBase: MovieDBDataBase) : Di
 
     override fun insertTvShow(entity: TvShowSeasons) = dataBase.tvShowDao().insert(entity)
 
-    override fun selectMovie(movieTitle: String): LiveData<MovieEntity> =
-        dataBase.movieDao().findByMovieTitle(movieTitle)
+    override fun selectMovie(movieId: Int): LiveData<MovieEntity> =
+        dataBase.movieDao().findByMovie(movieId)
 
     override fun selectAllMovies(): LiveData<List<MovieEntity>> = dataBase.movieDao().getAllMovies()
 
-    override fun selectTvShow(tvShowTitle: String): LiveData<TvShowSeasons> =
-        dataBase.tvShowDao().findShowByTitle(tvShowTitle)
+    override fun selectTvShow(showId: Int): LiveData<TvShowSeasons> =
+        dataBase.tvShowDao().findShow(showId)
 
     override fun selectAllTvShows(): LiveData<List<TvShowSeasons>> =
         dataBase.tvShowDao().getAllShows()

@@ -15,5 +15,6 @@ object HttpErrorCodes {
 object HttpBaseValues {
     const val LANGUAGE = "en-US"
     const val PAGE = 1
+    const val BASE_ID = 0
     const val SORT_BY_POPULAR = "popularity.desc"
 }

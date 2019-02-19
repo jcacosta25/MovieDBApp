@@ -9,7 +9,9 @@ import io.jcal.movies_provider.repository.mapper.model.TvShowsModel
 interface Repository {
     fun fetchPopularMovies(): LiveData<MoviesModel>
 
-    fun findByMovieTitle(movieTitle: String): LiveData<MovieModel>
+    fun fetchMovie(movieId: Int): LiveData<MovieModel>
+
+    fun loadMovie(movieId: Int): LiveData<MovieModel>
 
     fun loadAllMovies(): LiveData<MoviesModel>
 
@@ -21,7 +23,9 @@ interface Repository {
 
     fun loadAllTvShows(): LiveData<TvShowsModel>
 
-    fun findTvShowByTitle(tvShowTitle: String): LiveData<TvShowModel>
+    fun fetchTvShow(showId: Int): LiveData<TvShowModel>
+
+    fun loadTvShow(showId: Int): LiveData<TvShowModel>
 
     fun insertTvShows(tvShows: List<TvShowModel>): List<Long>
 

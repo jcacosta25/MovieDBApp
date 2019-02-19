@@ -3,8 +3,6 @@ package io.jcal.movies_provider.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
-import io.jcal.movies_provider.domain.interactor.base.NetworkUtil
-import io.jcal.movies_provider.repository.api.network.HttpErrorCodes
 import io.jcal.movies_provider.repository.datasource.CloudDataSource
 import io.jcal.movies_provider.repository.datasource.DiskDataSource
 import io.jcal.movies_provider.repository.mapper.DataMapper
@@ -17,8 +15,7 @@ import javax.inject.Inject
 class RepositoryImpl @Inject constructor(
     private val cloudDataSource: CloudDataSource,
     private val diskDataSource: DiskDataSource,
-    private val dataMapper: DataMapper,
-    private val utils: NetworkUtil
+    private val dataMapper: DataMapper
 ) : Repository {
 
     override fun fetchPopularMovies(): LiveData<MoviesModel> {
@@ -26,17 +23,10 @@ class RepositoryImpl @Inject constructor(
         responseMediatorLiveData.addSource(cloudDataSource.getPopularMovies()) { response ->
             if (response != null && response.isSuccessful && response.body != null) {
                 responseMediatorLiveData.postValue(dataMapper.convert(response.body))
-            } else if (utils.isConnected) {
-                responseMediatorLiveData.postValue(
-                    dataMapper.createDomainModel(
-                        response.code,
-                        MoviesModel::class.java
-                    )
-                )
             } else {
                 responseMediatorLiveData.postValue(
                     dataMapper.createDomainModel(
-                        HttpErrorCodes.NO_NETWORK_RESPONSE_CODE,
+                        response.code,
                         MoviesModel::class.java
                     )
                 )
@@ -45,12 +35,28 @@ class RepositoryImpl @Inject constructor(
         return responseMediatorLiveData
     }
 
-    override fun findByMovieTitle(movieTitle: String): LiveData<MovieModel> =
-        Transformations.map(
-            diskDataSource.selectMovie(movieTitle)
-        ) {
-            dataMapper.convert(it)
+    override fun loadMovie(movieId: Int): LiveData<MovieModel> = Transformations.map(
+        diskDataSource.selectMovie(movieId)
+    ) {
+        dataMapper.convert(it)
+    }
+
+    override fun fetchMovie(movieId: Int): LiveData<MovieModel> {
+        val responseMediatorLiveData = MediatorLiveData<MovieModel>()
+        responseMediatorLiveData.addSource(cloudDataSource.getMovie(movieId)) { response ->
+            if (response != null && response.isSuccessful && response.body != null) {
+                responseMediatorLiveData.postValue(dataMapper.convert(response.body))
+            } else {
+                responseMediatorLiveData.postValue(
+                    dataMapper.createDomainModel(
+                        response.code,
+                        MovieModel::class.java
+                    )
+                )
+            }
         }
+        return responseMediatorLiveData
+    }
 
     override fun loadAllMovies(): LiveData<MoviesModel> =
         Transformations.map(
@@ -70,17 +76,10 @@ class RepositoryImpl @Inject constructor(
         responseMediatorLiveData.addSource(cloudDataSource.getPopularTvShows()) { response ->
             if (response != null && response.isSuccessful && response.body != null) {
                 responseMediatorLiveData.postValue(dataMapper.convert(response.body))
-            } else if (utils.isConnected) {
-                responseMediatorLiveData.postValue(
-                    dataMapper.createDomainModel(
-                        response.code,
-                        TvShowsModel::class.java
-                    )
-                )
             } else {
                 responseMediatorLiveData.postValue(
                     dataMapper.createDomainModel(
-                        HttpErrorCodes.NO_NETWORK_RESPONSE_CODE,
+                        response.code,
                         TvShowsModel::class.java
                     )
                 )
@@ -96,12 +95,29 @@ class RepositoryImpl @Inject constructor(
             dataMapper.convert(tvShows)
         }
 
-    override fun findTvShowByTitle(tvShowTitle: String): LiveData<TvShowModel> =
-        Transformations.map(
-            diskDataSource.selectTvShow(tvShowTitle)
-        ) {
-            dataMapper.convert(it)
+    override fun fetchTvShow(showId: Int): LiveData<TvShowModel> {
+        val responseMediatorLiveData = MediatorLiveData<TvShowModel>()
+        responseMediatorLiveData.addSource(cloudDataSource.getTvShow(showId)) { response ->
+            if (response != null && response.isSuccessful && response.body != null) {
+                responseMediatorLiveData.postValue(dataMapper.convert(response.body))
+            } else {
+                responseMediatorLiveData.postValue(
+                    dataMapper.createDomainModel(
+                        response.code,
+                        TvShowModel::class.java
+                    )
+                )
+            }
         }
+        return responseMediatorLiveData
+    }
+
+    override fun loadTvShow(showId: Int): LiveData<TvShowModel> = Transformations.map(
+        diskDataSource.selectTvShow(showId)
+    ) {
+        dataMapper.convert(it)
+    }
+
 
     override fun insertTvShows(tvShows: List<TvShowModel>): List<Long> =
         diskDataSource.insertTvShows(tvShows.map { dataMapper.convert(it) })

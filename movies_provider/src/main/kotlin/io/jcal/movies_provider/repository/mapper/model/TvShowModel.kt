@@ -6,18 +6,18 @@ data class TvShowModel(
     val episodeCount: Int = 0,
     val seasonNumber: Int = 0,
     val backdropPath: String = "",
-    val episodeRunTime: List<Int>,
+    val episodeRunTime: List<Int> = listOf(),
     val firstAirDate: String = "",
     val homepage: String = "",
     val inProduction: Boolean = false,
-    val languages: List<String>,
+    val languages: List<String> = listOf(),
     val lastAirDate: String = "",
     val lastEpisodeToAir: Int = 0,
     val name: String = "",
     val nextEpisodeToAir: Int = 0,
     val numberOfEpisodes: Int = 0,
     val numberOfSeasons: Int = 0,
-    val originCountry: List<String>,
+    val originCountry: List<String> = listOf(),
     val originalLanguage: String = "",
     val originalName: String = "",
     val overview: String = "",
@@ -28,7 +28,7 @@ data class TvShowModel(
     val type: String = "",
     val voteAverage: Double = 0.0,
     val voteCount: Int = 0,
-    val genreIds: List<Int>
+    val genreIds: List<Int> = listOf()
 ) : BaseModel()
 
 data class SeasonModel(
