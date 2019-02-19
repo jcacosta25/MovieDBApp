@@ -9,7 +9,9 @@ import io.jcal.movies_provider.di.NetworkModule
 import io.jcal.movies_provider.di.RepositoryModule
 import io.jcal.movies_provider.di.StorageModule
 import io.jcal.theMovie.di.scopes.ViewModelKey
+import io.jcal.theMovie.presentation.viewmodel.MovieDetailViewModel
 import io.jcal.theMovie.presentation.viewmodel.MoviesViewModel
+import io.jcal.theMovie.presentation.viewmodel.TvShowDetailViewModel
 import io.jcal.theMovie.presentation.viewmodel.TvShowsViewModel
 import io.jcal.theMovie.utils.ViewModelFactoryProvider
 
@@ -28,4 +30,14 @@ abstract class MoviesDBFeatureModule {
     @IntoMap
     @ViewModelKey(TvShowsViewModel::class)
     abstract fun bindTvShowsViewModel(viewModel: TvShowsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MovieDetailViewModel::class)
+    abstract fun bindMovieDetailViewModel(viewModel: MovieDetailViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TvShowDetailViewModel::class)
+    abstract fun bindTvShowDetailViewModel(viewModel: TvShowDetailViewModel): ViewModel
 }

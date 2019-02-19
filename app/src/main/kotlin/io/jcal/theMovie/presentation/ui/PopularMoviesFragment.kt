@@ -62,7 +62,7 @@ class PopularMoviesFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MoviesViewModel::class.java)
+        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory).get(MoviesViewModel::class.java)
         if (savedInstanceState != null) {
             recyclerInstanceState = savedInstanceState.getParcelable(
                 BUNDLE_MOVIES_INSTANCE_STATE

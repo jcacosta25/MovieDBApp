@@ -34,7 +34,7 @@ class DataMapper @Inject constructor() {
             adult = response.adult,
             backdropPath = IMAGE_PATH.plus(emptyString(response.backdropPath)),
             budget = response.budget,
-            genreIds = response.genreIds,
+            genreIds = response.genreIds ?: response.genres.map { it.id },
             homepage = emptyString(response.homepage),
             imdbId = emptyString(response.imdbId),
             originalLanguage = emptyString(response.originalLanguage),
@@ -175,7 +175,7 @@ class DataMapper @Inject constructor() {
             overview = emptyString(response.overview),
             posterPath = IMAGE_PATH.plus(response.posterPath),
             seasonNumber = response.seasonNumber,
-            episodes = response.episodes.map { convert(it) },
+            episodes = if(response.episodes == null) listOf() else response.episodes.map { convert(it) },
             showId = showId
         )
         model.state = SUCCESS
@@ -249,29 +249,29 @@ class DataMapper @Inject constructor() {
             episodeCount = response.episodeCount,
             seasonNumber = response.seasonNumber,
             backdropPath = IMAGE_PATH.plus(response.backdropPath),
-            episodeRunTime = response.episodeRunTime ?: listOf(),
+            episodeRunTime = emptyIntList(response.episodeRunTime),
             firstAirDate = emptyString(response.firstAirDate),
             homepage = emptyString(response.homepage),
             inProduction = response.inProduction,
-            languages = response.languages ?: listOf(),
+            languages = emptyStringList(response.languages),
             lastAirDate = emptyString(response.lastAirDate),
             lastEpisodeToAir = if (response.lastEpisodeToAir == null) 0 else response.lastEpisodeToAir.id,
             nextEpisodeToAir = if (response.nextEpisodeToAir == null) 0 else response.nextEpisodeToAir.id,
             numberOfEpisodes = response.numberOfEpisodes,
             name = emptyString(response.name),
             numberOfSeasons = response.numberOfSeasons,
-            originCountry = response.originCountry?: listOf(),
+            originCountry = emptyStringList(response.originCountry),
             originalLanguage = emptyString(response.originalLanguage),
             originalName = emptyString(response.originalName),
             overview = emptyString(response.overview),
             popularity = response.popularity,
             posterPath = IMAGE_PATH.plus(emptyString(response.posterPath)),
-            seasons = if (response.seasons != null) response.seasons.map { convert(it) } else listOf(),
+            seasons = if (response.seasons != null) response.seasons.map { convert(it,response.id) } else listOf(),
             status = emptyString(response.status),
             type = emptyString(response.type),
             voteAverage = response.voteAverage,
             voteCount = response.voteCount,
-            genreIds = response.genreIds ?: listOf()
+            genreIds = emptyIntList(response.genreIds)
         )
         model.state = SUCCESS
         return model
@@ -418,6 +418,10 @@ class DataMapper @Inject constructor() {
     }
 
     private fun emptyString(string: String?): String = if (string.isNullOrBlank()) "" else string
+
+    private fun emptyIntList(list: List<Int>?): List<Int> = list ?: listOf()
+
+    private fun emptyStringList(list: List<String>?): List<String> = list ?: listOf()
 
     companion object {
         private const val EMPTY_STRING = ""

@@ -4,4 +4,5 @@
     <string name="shows_title">Tv Shows</string>
     <string name="movie_detail_title">Movie</string>
     <string name="show_detail_title">Show</string>
+    <string name="overview_title">Overview</string>
 </resources>

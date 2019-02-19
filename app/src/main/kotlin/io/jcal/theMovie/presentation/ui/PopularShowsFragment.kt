@@ -59,7 +59,8 @@ class PopularShowsFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(TvShowsViewModel::class.java)
+        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)
+            .get(TvShowsViewModel::class.java)
 
         viewModel.popularTvShows().observe(this, Observer { response ->
             when (response.state) {
