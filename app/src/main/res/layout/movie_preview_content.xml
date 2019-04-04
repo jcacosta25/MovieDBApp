@@ -22,8 +22,8 @@
                 android:id="@+id/appCompatImageView"
                 android:layout_width="128dp"
                 android:layout_height="224dp"
-                android:scaleType="centerCrop"
                 android:image_url="@{movie.posterPath}"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/movie_title_text"
                 app:layout_constraintStart_toStartOf="parent"
@@ -41,10 +41,30 @@
                 android:maxLines="2"
                 android:text="@{movie.title}"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/movie_rating_text_view"
                 app:layout_constraintStart_toEndOf="@+id/appCompatImageView"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@tools:sample/lorem" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/movie_rating_text_view"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/circular_background"
+                android:gravity="center"
+                android:text="@{String.valueOf(movie.voteAverage)}"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/movie_date_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/movie_title_text"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="7.7" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/movie_date_text"
