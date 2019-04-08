@@ -18,6 +18,9 @@ import io.jcal.theMovie.presentation.ui.PopularMoviesFragmentDirections.popularM
 import io.jcal.theMovie.presentation.ui.adapter.MovieAdapter
 import io.jcal.theMovie.presentation.viewmodel.MoviesViewModel
 import io.jcal.theMovie.utils.SpacingItemDecoration
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PopularMoviesFragment : DaggerFragment() {
@@ -62,7 +65,8 @@ class PopularMoviesFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory).get(MoviesViewModel::class.java)
+        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)
+            .get(MoviesViewModel::class.java)
         if (savedInstanceState != null) {
             recyclerInstanceState = savedInstanceState.getParcelable(
                 BUNDLE_MOVIES_INSTANCE_STATE
@@ -71,19 +75,23 @@ class PopularMoviesFragment : DaggerFragment() {
                 viewModel.popularMovies(it)
             }
         }
-        viewModel.popularMovies().observe(this, Observer { response ->
-            when (response.state) {
-                SUCCESS -> {
-                    if (recyclerInstanceState == null) {
-                        adapter.addAll(response.results)
-                    }
-                    recyclerInstanceState?.let {
-                        binding.popularMoviesRv.layoutManager?.onRestoreInstanceState(it)
-                        recyclerInstanceState = null
+        CoroutineScope(Dispatchers.Main).launch {
+            val popularMovies = viewModel.popularMoviesCoroutines.await()
+
+            popularMovies.observe(this@PopularMoviesFragment, Observer { response ->
+                when (response.state) {
+                    SUCCESS -> {
+                        if (recyclerInstanceState == null) {
+                            adapter.addAll(response.results)
+                        }
+                        recyclerInstanceState?.let {
+                            binding.popularMoviesRv.layoutManager?.onRestoreInstanceState(it)
+                            recyclerInstanceState = null
+                        }
                     }
                 }
-            }
-        })
+            })
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

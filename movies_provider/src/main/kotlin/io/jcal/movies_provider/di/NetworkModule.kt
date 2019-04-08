@@ -46,8 +46,8 @@ class NetworkModule {
         url: HttpUrl,
         client: OkHttpClient,
         converter: Converter.Factory,
-        liveDataCallAdapterFactory: LiveDataCallAdapterFactory
-    ): Retrofit = ServiceFactory.buildRetrofit(url, client, converter, liveDataCallAdapterFactory)
+        adapterFactory: LiveDataCallAdapterFactory
+    ): Retrofit = ServiceFactory.buildRetrofit(url, client, converter, adapterFactory)
 
     @Provides
     fun provideMovieDbService(retrofit: Retrofit): MovieDBService =

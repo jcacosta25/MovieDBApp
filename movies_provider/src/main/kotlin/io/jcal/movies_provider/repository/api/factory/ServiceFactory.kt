@@ -2,6 +2,7 @@ package io.jcal.movies_provider.repository.api.factory
 
 import com.itkacher.okhttpprofiler.OkHttpProfilerInterceptor
 import io.jcal.movies_provider.BuildConfig
+import io.jcal.movies_provider.repository.api.network.CoroutinesCallAdapterFactory
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import retrofit2.CallAdapter
@@ -21,6 +22,7 @@ object ServiceFactory {
         Retrofit.Builder()
             .baseUrl(url)
             .addCallAdapterFactory(adapter)
+            .addCallAdapterFactory(CoroutinesCallAdapterFactory())
             .addConverterFactory(converter)
             .client(client)
             .build()
