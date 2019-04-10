@@ -112,10 +112,10 @@ class CloudDataSourceImpl @Inject constructor(
         return liveDataMovie
     }
 
-    override suspend fun fetchTvShow(showId: Int, language: String): LiveData<TvShowModel> {
+    override suspend fun fetchTvShow(tvShowId: Int, language: String): LiveData<TvShowModel> {
         val liveDataShow = MediatorLiveData<TvShowModel>()
         val showModel = try {
-            val response = api.fetchTvShow(showId, language).await()
+            val response = api.fetchTvShow(tvShowId, language).await()
             if (response.isSuccessful && response.body != null) {
                 mapper.convert(response.body)
             } else {

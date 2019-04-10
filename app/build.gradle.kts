@@ -8,6 +8,7 @@ plugins {
 
 android {
     compileSdkVersion(Versions.compileSdk)
+    buildToolsVersion(Versions.buildTools)
     dataBinding.isEnabled = true
     androidExtensions.isExperimental = true
     defaultConfig {

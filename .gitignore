@@ -228,3 +228,5 @@ buildSrc/src/main/kotlin/ApiKeys\.kt
 \.idea/markdown-navigator\.xml
 
 \.idea/markdown-navigator/profiles_settings\.xml
+
+buildSrc/src/main/kotlin/ApiKey\.kt

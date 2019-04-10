@@ -6,6 +6,7 @@ plugins {
 }
 android {
     compileSdkVersion(Versions.compileSdk)
+    buildToolsVersion(Versions.buildTools)
     defaultConfig {
         minSdkVersion(Android.minSdkVersion)
         targetSdkVersion(Android.targetSdkVersion)
@@ -58,7 +59,6 @@ dependencies {
     api(Libs.okHttp)
     api(Libs.okHttpInterceptor)
     api(Libs.archRoomTime)
-    implementation(Libs.retrofitKotlinCoroutine)
     kapt(Libs.daggerAndroidProcessor)
     kapt(Libs.daggerCompiler)
     kapt(Libs.roomCompiler)

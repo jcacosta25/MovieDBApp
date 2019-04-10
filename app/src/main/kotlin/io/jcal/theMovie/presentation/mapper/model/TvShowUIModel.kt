@@ -4,7 +4,6 @@ import android.os.Parcel
 import android.os.Parcelable
 import io.jcal.movies_provider.repository.mapper.model.BaseModel
 
-
 data class TvShowUIList(
     val dates: DatesUIModel,
     val page: Int,
@@ -13,9 +12,9 @@ data class TvShowUIList(
     val totalResult: Int
 ) : BaseUIModel(), Parcelable {
     constructor(source: Parcel) : this(
-        source.readParcelable<DatesUIModel>(DatesUIModel::class.java.classLoader),
+        source.readParcelable<DatesUIModel>(DatesUIModel::class.java.classLoader)!!,
         source.readInt(),
-        source.createTypedArrayList(TvShowUIModel.CREATOR),
+        source.createTypedArrayList(TvShowUIModel.CREATOR)!!,
         source.readInt(),
         source.readInt()
     )
@@ -71,30 +70,30 @@ data class TvShowUIModel(
 ) : BaseUIModel(), Parcelable {
     constructor(source: Parcel) : this(
         source.readInt(),
-        source.readString(),
+        source.readString()!!,
         source.readInt(),
         source.readInt(),
-        source.readString(),
+        source.readString()!!,
         ArrayList<Int>().apply { source.readList(this, Int::class.java.classLoader) },
-        source.readString(),
-        source.readString(),
+        source.readString()!!,
+        source.readString()!!,
         1 == source.readInt(),
-        source.createStringArrayList(),
-        source.readString(),
+        source.createStringArrayList()!!,
+        source.readString()!!,
         source.readInt(),
-        source.readString(),
+        source.readString()!!,
         source.readInt(),
         source.readInt(),
         source.readInt(),
-        source.createStringArrayList(),
-        source.readString(),
-        source.readString(),
-        source.readString(),
+        source.createStringArrayList()!!,
+        source.readString()!!,
+        source.readString()!!,
+        source.readString()!!,
         source.readDouble(),
-        source.readString(),
-        source.createTypedArrayList(SeasonUIModel.CREATOR),
-        source.readString(),
-        source.readString(),
+        source.readString()!!,
+        source.createTypedArrayList(SeasonUIModel.CREATOR)!!,
+        source.readString()!!,
+        source.readString()!!,
         source.readDouble(),
         source.readInt(),
         ArrayList<Int>().apply { source.readList(this, Int::class.java.classLoader) }
@@ -156,13 +155,13 @@ data class SeasonUIModel(
 ) : BaseModel(), Parcelable {
     constructor(source: Parcel) : this(
         source.readInt(),
-        source.readString(),
+        source.readString()!!,
         source.readInt(),
-        source.readString(),
-        source.readString(),
-        source.readString(),
+        source.readString()!!,
+        source.readString()!!,
+        source.readString()!!,
         source.readInt(),
-        source.createTypedArrayList(EpisodeUIModel.CREATOR),
+        source.createTypedArrayList(EpisodeUIModel.CREATOR)!!,
         source.readInt()
     )
 
@@ -206,14 +205,14 @@ data class EpisodeUIModel(
 ) : BaseUIModel(), Parcelable {
     constructor(source: Parcel) : this(
         source.readInt(),
-        source.readString(),
+        source.readString()!!,
         source.readInt(),
-        source.readString(),
-        source.readString(),
-        source.readString(),
+        source.readString()!!,
+        source.readString()!!,
+        source.readString()!!,
         source.readInt(),
         source.readInt(),
-        source.readString(),
+        source.readString()!!,
         source.readInt(),
         source.readInt()
     )
