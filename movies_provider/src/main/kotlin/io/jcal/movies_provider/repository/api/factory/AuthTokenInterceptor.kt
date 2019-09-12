@@ -10,7 +10,7 @@ class AuthTokenInterceptor @Inject constructor(val apiKey: String) : Interceptor
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
         request = request.newBuilder()
-            .url(request.url().newBuilder().addQueryParameter(API_KEY, apiKey).build())
+            .url(request.url.newBuilder().addQueryParameter(API_KEY, apiKey).build())
             .build()
         return chain.proceed(request)
     }
