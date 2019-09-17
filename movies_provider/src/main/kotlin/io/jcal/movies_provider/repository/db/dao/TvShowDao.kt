@@ -42,8 +42,9 @@ interface TvShowDao {
         return insertSeasonEntity(episodes.season)
     }
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertShows(entities: List<TvShowEntity>): List<Long>
+
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertShow(entity: TvShowEntity): Long

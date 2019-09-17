@@ -5,22 +5,21 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.ViewModel
 import io.jcal.movies_provider.domain.interactor.UseCasePopularMovies
-import io.jcal.movies_provider.repository.MDBRepository
-import io.jcal.movies_provider.utils.lazyDeferred
+import io.jcal.movies_provider.domain.interactor.UseCasePopularMoviesCR
 import io.jcal.theMovie.presentation.mapper.PresentationDataMapper
 import io.jcal.theMovie.presentation.mapper.model.MovieUIModelList
 import javax.inject.Inject
 
 class MoviesViewModel @Inject constructor(
     private val useCasePopularMovies: UseCasePopularMovies,
-    private val repository: MDBRepository,
+    private val useCasePopularMoviesCR: UseCasePopularMoviesCR,
     private val mapper: PresentationDataMapper
 ) : ViewModel() {
 
     private val movies: MediatorLiveData<MovieUIModelList> = MediatorLiveData()
 
-    val popularMoviesCoroutines by lazyDeferred {
-        map(repository.getPopularMovies()) {
+    val popularMoviesCoroutines by lazy {
+        map(useCasePopularMoviesCR.execute(UseCasePopularMoviesCR.Params())) {
             mapper.convert(it)
         }
     }
@@ -28,7 +27,7 @@ class MoviesViewModel @Inject constructor(
     fun popularMovies(): LiveData<MovieUIModelList> {
         if (movies.value == null) {
             movies.addSource(map(useCasePopularMovies.execute(UseCasePopularMovies.Params())) { response ->
-                mapper.convert(response.data)
+                mapper.convert(response.data!!)
             }) { movieList ->
                 movies.postValue(movieList)
             }

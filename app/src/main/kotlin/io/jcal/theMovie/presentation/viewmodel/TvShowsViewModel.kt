@@ -19,7 +19,7 @@ class TvShowsViewModel @Inject constructor(
     fun popularTvShows(): LiveData<TvShowUIList> {
         if (tvShows.value == null) {
             tvShows.addSource(Transformations.map(useCasePopularTvShows.execute(UseCasePopularTvShows.Params())) { response ->
-                mapper.convert(response.data)
+                mapper.convert(response.data!!)
             }) { source -> tvShows.postValue(source) }
         }
         return tvShows

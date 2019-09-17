@@ -6,7 +6,7 @@ import io.jcal.movies_provider.repository.api.model.MoviesDTO
 import io.jcal.movies_provider.repository.api.model.TvShowDTO
 import io.jcal.movies_provider.repository.api.model.TvShowsDTO
 import io.jcal.movies_provider.repository.api.network.ApiResponse
-import kotlinx.coroutines.Deferred
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -20,10 +20,10 @@ interface MovieDBService {
     ): LiveData<ApiResponse<MoviesDTO, MoviesDTO>>
 
     @GET("/3/movie/popular")
-    fun fetchPopularMovies(
+    suspend fun fetchPopularMovies(
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<ApiResponse<MoviesDTO, MoviesDTO>>
+    ): Response<MoviesDTO>
 
     @GET("/3/tv/popular")
     fun getPopularTvShows(
@@ -32,10 +32,10 @@ interface MovieDBService {
     ): LiveData<ApiResponse<TvShowsDTO, TvShowsDTO>>
 
     @GET("/3/tv/popular")
-    fun fetchPopularTvShows(
+    suspend fun fetchPopularTvShows(
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Deferred<ApiResponse<TvShowsDTO, TvShowsDTO>>
+    ): Response<TvShowsDTO>
 
     @GET("/3/movie/{movie_id}")
     fun getMovie(
@@ -44,10 +44,10 @@ interface MovieDBService {
     ): LiveData<ApiResponse<MovieDTO, MovieDTO>>
 
     @GET("/3/movie/{movie_id}")
-    fun fetchMovie(
+    suspend fun fetchMovie(
         @Path("movie_id") movieId: Int,
         @Query("language") language: String
-    ): Deferred<ApiResponse<MovieDTO, MovieDTO>>
+    ): Response<MovieDTO>
 
     @GET("/3/tv/{show_id}")
     fun getTvShow(
@@ -56,8 +56,8 @@ interface MovieDBService {
     ): LiveData<ApiResponse<TvShowDTO, TvShowDTO>>
 
     @GET("/3/tv/{show_id}")
-    fun fetchTvShow(
+    suspend fun fetchTvShow(
         @Path("show_id") showId: Int,
         @Query("language") language: String
-    ): Deferred<ApiResponse<TvShowDTO, TvShowDTO>>
+    ): Response<TvShowDTO>
 }

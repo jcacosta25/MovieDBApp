@@ -8,12 +8,28 @@ import io.jcal.movies_provider.repository.mapper.model.TvShowsModel
 
 interface MDBRepository {
 
-    suspend fun getPopularMovies(): LiveData<out MoviesModel>
+    suspend fun getPopularMovies(): MoviesModel
 
-    suspend fun getMovie(movieId: Int): LiveData<out MovieModel>
+    fun loadPopularMovies(): LiveData<MoviesModel>
 
-    suspend fun getPopularShows(): LiveData<out TvShowsModel>
+    fun insertAllMovies(model: MoviesModel): List<Long>
 
-    suspend fun getShow(showId: Int): LiveData<out TvShowModel>
+    suspend fun getMovie(movieId: Int): MovieModel
+
+    fun loadMovie(movieId: Int): LiveData<MovieModel>
+
+    fun insertMovie(model: MovieModel): Long
+
+    suspend fun getPopularShows(): TvShowsModel
+
+    fun loadPopularShows(): LiveData<TvShowsModel>
+
+    fun insertTvShows(model: TvShowsModel): List<Long>
+
+    suspend fun getShow(showId: Int): TvShowModel
+
+    fun loadShow(showId: Int): LiveData<TvShowModel>
+
+    fun insertTvShow(model: TvShowModel): Long
 
 }

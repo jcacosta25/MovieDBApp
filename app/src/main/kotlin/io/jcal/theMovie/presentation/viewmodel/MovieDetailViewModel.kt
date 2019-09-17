@@ -27,7 +27,7 @@ class MovieDetailViewModel @Inject constructor(
                         UseCaseMovie.Params(movieId)
                     )
                 ) { response ->
-                    mapper.convert(response.data)
+                    mapper.convert(response.data!!)
                 }
             }
         ) { movieDetail ->

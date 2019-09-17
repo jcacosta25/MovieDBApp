@@ -11,6 +11,12 @@ open class BaseModel(
         this.state = ERROR
     }
 
+    fun setSuccess() {
+        this.state = SUCCESS
+        this.error = false
+        this.errorCode = BASE_ERROR_CODE
+    }
+
     companion object {
         const val SUCCESS = "success"
         const val LOADING = "loading"

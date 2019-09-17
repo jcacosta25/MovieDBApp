@@ -20,8 +20,8 @@ import io.jcal.movies_provider.repository.mapper.DataMapper
 class RepositoryModule {
 
     @Provides
-    fun providesDiskDataSource(dataBase: MovieDBDataBase): DiskDataSource =
-        DiskDataSourceImpl(dataBase)
+    fun providesDiskDataSource(dataBase: MovieDBDataBase, mapper: DataMapper): DiskDataSource =
+        DiskDataSourceImpl(dataBase, mapper)
 
     @Provides
     fun provideCloudDataSource(api: MovieDBService, mapper: DataMapper): CloudDataSource =

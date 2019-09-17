@@ -86,12 +86,12 @@ class CoroutinesCallAdapterFactory @Inject constructor() : CallAdapter.Factory()
             throw IllegalArgumentException("ApiResponse must be parametrized")
         }
 
-        val responseType = CallAdapter.Factory.getParameterUpperBound(
+        val responseType = getParameterUpperBound(
             FIRST_GENERIC_ARGUMENT,
             observableType
         )
 
-        val errorType = CallAdapter.Factory.getParameterUpperBound(
+        val errorType = getParameterUpperBound(
             SECOND_GENERIC_ARGUMENT,
             observableType
         )

@@ -45,6 +45,8 @@ dependencies {
     api(Libs.kotlinCoroutinesAndroid)
     api(Libs.lifeCycleExtensions)
     api(Libs.lifeCycleCommon)
+    api(Libs.lifeCycleViewModel)
+    api(Libs.lifeCycleLiveData)
     api(Libs.core)
     api(Libs.timber)
     api(Libs.dagger)

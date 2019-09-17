@@ -76,7 +76,7 @@ class PopularMoviesFragment : DaggerFragment() {
             }
         }
         CoroutineScope(Dispatchers.Main).launch {
-            val popularMovies = viewModel.popularMoviesCoroutines.await()
+            val popularMovies = viewModel.popularMoviesCoroutines
 
             popularMovies.observe(this@PopularMoviesFragment, Observer { response ->
                 when (response.state) {

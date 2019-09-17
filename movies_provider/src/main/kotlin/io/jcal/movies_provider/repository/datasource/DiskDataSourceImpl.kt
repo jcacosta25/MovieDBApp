@@ -1,12 +1,22 @@
 package io.jcal.movies_provider.repository.datasource
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations.map
 import io.jcal.movies_provider.repository.db.MovieDBDataBase
 import io.jcal.movies_provider.repository.db.entity.MovieEntity
 import io.jcal.movies_provider.repository.db.entity.TvShowSeasons
+import io.jcal.movies_provider.repository.mapper.DataMapper
+import io.jcal.movies_provider.repository.mapper.model.MovieModel
+import io.jcal.movies_provider.repository.mapper.model.MoviesModel
+import io.jcal.movies_provider.repository.mapper.model.TvShowModel
+import io.jcal.movies_provider.repository.mapper.model.TvShowsModel
 import javax.inject.Inject
 
-class DiskDataSourceImpl @Inject constructor(val dataBase: MovieDBDataBase) : DiskDataSource {
+class DiskDataSourceImpl @Inject constructor(
+    private val dataBase: MovieDBDataBase,
+    private val mapper: DataMapper
+) :
+    DiskDataSource {
 
     override fun insertMovies(entity: List<MovieEntity>): List<Long> =
         dataBase.movieDao().insertAll(entity)
@@ -27,4 +37,38 @@ class DiskDataSourceImpl @Inject constructor(val dataBase: MovieDBDataBase) : Di
 
     override fun selectAllTvShows(): LiveData<List<TvShowSeasons>> =
         dataBase.tvShowDao().getAllShows()
+
+
+    override fun insertMoviesModel(entity: List<MovieModel>): List<Long> =
+        dataBase.movieDao().insertAll(entity.map { mapper.convert(it) })
+
+
+    override fun insertMovieModel(entity: MovieModel): Long =
+        dataBase.movieDao().insert(mapper.convert(entity))
+
+    override fun selectMovieModel(movieId: Int): LiveData<MovieModel> =
+        map(dataBase.movieDao().findByMovie(movieId)) {
+            mapper.convert(it)
+        }
+
+    override fun selectAllMoviesModel(): LiveData<MoviesModel> =
+        map(dataBase.movieDao().getAllMovies()) {
+            mapper.convert(it)
+        }
+
+    override fun insertTvShowsModel(entity: List<TvShowModel>): List<Long> =
+        dataBase.tvShowDao().insertAll(mapper.convert(entity))
+
+    override fun insertTvShowModel(entity: TvShowModel): Long =
+        dataBase.tvShowDao().insertShow(mapper.convert(entity).tvShowEntity)
+
+    override fun selectTvShowModel(showId: Int): LiveData<TvShowModel> =
+        map(dataBase.tvShowDao().findShow(showId)) {
+            mapper.convert(it)
+        }
+
+    override fun selectAllTvShowsModel(): LiveData<TvShowsModel> =
+        map(dataBase.tvShowDao().getAllShows()) {
+            mapper.convert(it)
+        }
 }

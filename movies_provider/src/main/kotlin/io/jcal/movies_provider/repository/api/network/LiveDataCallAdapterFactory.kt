@@ -16,30 +16,26 @@ class LiveDataCallAdapterFactory @Inject constructor() : CallAdapter.Factory() {
         annotations: Array<Annotation>,
         retrofit: Retrofit
     ): CallAdapter<*, *>? {
-        if (CallAdapter.Factory.getRawType(returnType) != LiveData::class.java) {
+        if (getRawType(returnType) != LiveData::class.java) {
             return null
         }
 
-        val observableType = CallAdapter.Factory.getParameterUpperBound(
+        val observableType = getParameterUpperBound(
             FIRST_GENERIC_ARGUMENT,
             returnType as ParameterizedType
         )
 
-        val rawObservableType = CallAdapter.Factory.getRawType(observableType)
-        if (rawObservableType != ApiResponse::class.java) {
-            throw IllegalArgumentException("Type must be an ApiResponse class")
-        }
+        val rawObservableType = getRawType(observableType)
+        require(rawObservableType == ApiResponse::class.java) { "Type must be an ApiResponse class" }
 
-        if (observableType !is ParameterizedType) {
-            throw IllegalArgumentException("ApiResponse must be parametrized")
-        }
+        require(observableType is ParameterizedType) { "ApiResponse must be parametrized" }
 
-        val responseType = CallAdapter.Factory.getParameterUpperBound(
+        val responseType = getParameterUpperBound(
             FIRST_GENERIC_ARGUMENT,
             observableType
         )
 
-        val errorType = CallAdapter.Factory.getParameterUpperBound(
+        val errorType = getParameterUpperBound(
             SECOND_GENERIC_ARGUMENT,
             observableType
         )

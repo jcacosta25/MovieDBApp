@@ -93,6 +93,7 @@ dependencies {
     implementation(Libs.navigationUi)
     kapt(Libs.daggerCompiler)
     kapt(Libs.daggerAndroidProcessor)
+    kapt(Libs.lifeCycleCompiler)
     testImplementation(TestLibs.jUnit)
     androidTestImplementation(TestLibs.testRunner)
     androidTestImplementation(TestLibs.espressoCore)

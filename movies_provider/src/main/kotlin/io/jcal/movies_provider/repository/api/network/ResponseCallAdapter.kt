@@ -50,7 +50,7 @@ class ResponseCallAdapter<R, E>(
             override fun headers(): Headers = response.headers()
 
             //This is going to be used to get a common analytics endpoint without dynamic parameters.
-            override fun endpointPath(): String = response.raw().request.url.toString()
+            override fun endpointPath(): String = response.raw().request().url().toString()
 
 
             override fun message(): String = response.message()
@@ -92,7 +92,7 @@ class ResponseCallAdapter<R, E>(
                         override fun headers(): Headers = response.headers()
 
                         override fun endpointPath(): String =
-                            response.raw().request.url.toString()
+                            response.raw().request().url().toString()
 
                         override fun message(): String = response.message()
 

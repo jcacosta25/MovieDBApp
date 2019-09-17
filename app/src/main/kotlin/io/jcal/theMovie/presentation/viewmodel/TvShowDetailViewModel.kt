@@ -27,7 +27,7 @@ class TvShowDetailViewModel @Inject constructor(
                         UseCaseTvShow.Params(tvShowId)
                     )
                 ) { response ->
-                    mapper.convert(response.data)
+                    mapper.convert(response.data!!)
                 }
             }
         ) { tvShowDetail ->

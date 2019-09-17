@@ -39,6 +39,8 @@ object Libs {
         "androidx.lifecycle:lifecycle-extensions:${Versions.lifeCycle}"
     const val lifeCycleCommon = "androidx.lifecycle:lifecycle-common-java8:${Versions.lifeCycle}"
     const val lifeCycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifeCycle}"
+    const val lifeCycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifeCycle}"
+    const val lifeCycleLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifeCycle}"
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
     const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
     const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
@@ -78,7 +80,7 @@ object TestLibs {
     const val testRules = "androidx.test:rules:${Versions.testRunner}"
     const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoKotlin}"
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espresso}"
-    const val lifeCycleTest = "androidx.arch.core:core-testing:${Versions.lifeCycle}"
+    const val lifeCycleTest = "androidx.arch.core:core-testing:${Versions.lifeCycleStable}"
     const val workManager = "android.arch.work:work-testing:${Versions.workManager}"
     const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.mockWebServerVersion}"
 
@@ -110,7 +112,7 @@ object Versions {
     const val androidGradlePlugin = "3.5.0"
 
     // Kotlin
-    const val kotlin = "1.3.50"
+    const val kotlin = "1.3.41"
 
     // Support Lib
     const val support = "1.0.0"
@@ -119,12 +121,13 @@ object Versions {
     const val recyclerViewVersion = "1.1.0-beta04"
 
     // Libraries
-    const val lifeCycle = "2.1.0"
+    const val lifeCycle = "2.2.0-alpha04"
+    const val lifeCycleStable = "2.1.0"
     const val room = "2.2.0-rc01"
     const val paging = "2.1.0"
-    const val retrofit = "2.6.1"
+    const val retrofit = "2.6.0"
     const val retrofitCoroutines = "0.9.2"
-    const val okHttp = "4.2.0"
+    const val okHttp = "3.12.1"
     const val dagger = "2.24"
     const val dataBinding = "3.1.3"
     const val playServices = "16.1.0"
@@ -137,7 +140,7 @@ object Versions {
     const val moshi = "1.8.0"
     const val okHttpProfiler = "1.0.5"
     const val gson = "2.8.5"
-    const val coroutines = "1.3.1"
+    const val coroutines = "1.3.0-RC"
 
     // Testing
     const val junit = "4.12"

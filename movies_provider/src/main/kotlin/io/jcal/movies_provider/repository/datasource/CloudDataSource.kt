@@ -37,20 +37,20 @@ interface CloudDataSource {
     suspend fun fetchPopularMovies(
         language: String = HttpBaseValues.LANGUAGE,
         page: Int = HttpBaseValues.PAGE
-    ): LiveData<MoviesModel>
+    ): MoviesModel
 
     suspend fun fetchPopularTvShows(
         language: String = HttpBaseValues.LANGUAGE,
         page: Int = HttpBaseValues.PAGE
-    ): LiveData<TvShowsModel>
+    ): TvShowsModel
 
     suspend fun fetchMovie(
         movieId: Int = 0,
         language: String = HttpBaseValues.LANGUAGE
-    ): LiveData<MovieModel>
+    ): MovieModel
 
     suspend fun fetchTvShow(
         tvShowId: Int = 0,
         language: String = HttpBaseValues.LANGUAGE
-    ): LiveData<TvShowModel>
+    ): TvShowModel
 }

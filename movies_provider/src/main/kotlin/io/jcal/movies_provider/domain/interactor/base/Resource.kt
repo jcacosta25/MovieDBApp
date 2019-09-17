@@ -4,7 +4,7 @@ package io.jcal.movies_provider.domain.interactor.base
  * A generic class that holds a value with its loading status.
  * @param <T>
 </T> */
-class Resource<T>(private val status: Status, val data: T, private val errorCode: Int?) {
+class Resource<T>(val status: Status, val data: T?, val errorCode: Int?) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -45,7 +45,7 @@ class Resource<T>(private val status: Status, val data: T, private val errorCode
             )
         }
 
-        fun <T> error(errorCode: Int, data: T): Resource<T> {
+        fun <T> error(errorCode: Int, data: T?): Resource<T> {
             return Resource(
                 Status.ERROR,
                 data,

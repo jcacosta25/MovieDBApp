@@ -22,7 +22,7 @@ object ServiceFactory {
         Retrofit.Builder()
             .baseUrl(url)
             .addCallAdapterFactory(adapter)
-            .addCallAdapterFactory(CoroutinesCallAdapterFactory())
+            .addCallAdapterFactory(CoroutinesCallAdapterFactory.invoke())
             .addConverterFactory(converter)
             .client(client)
             .build()
