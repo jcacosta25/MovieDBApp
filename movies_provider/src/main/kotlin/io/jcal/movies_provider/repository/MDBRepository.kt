@@ -8,7 +8,7 @@ import io.jcal.movies_provider.repository.mapper.model.TvShowsModel
 
 interface MDBRepository {
 
-    suspend fun getPopularMovies(): MoviesModel
+    suspend fun getPopularMovies(language:String,page:Int): MoviesModel
 
     fun loadPopularMovies(): LiveData<MoviesModel>
 

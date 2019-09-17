@@ -1,29 +1,24 @@
 package io.jcal.movies_provider.domain.interactor
 
 import androidx.lifecycle.LiveData
-import io.jcal.movies_provider.domain.executors.AppExecutors
-import io.jcal.movies_provider.domain.interactor.base.NetworkBoundResource
-import io.jcal.movies_provider.domain.interactor.base.NetworkUtil
-import io.jcal.movies_provider.repository.Repository
+import io.jcal.movies_provider.domain.interactor.base.RepositoryResource
+import io.jcal.movies_provider.repository.MDBRepository
 import io.jcal.movies_provider.repository.api.network.HttpBaseValues
 import io.jcal.movies_provider.repository.mapper.model.MoviesModel
 import javax.inject.Inject
 
 class UseCasePopularMovies @Inject constructor(
-    appExecutors: AppExecutors,
-    private val repository: Repository,
-    private val utils: NetworkUtil
-) : NetworkBoundResource<MoviesModel, UseCasePopularMovies.Params>(appExecutors) {
+    private val repository: MDBRepository
+) : RepositoryResource<MoviesModel, UseCasePopularMovies.Params>() {
 
     override fun saveCallResult(item: MoviesModel) {
-        repository.insertMovies(item.results)
+        repository.insertAllMovies(item)
     }
 
-    override fun shouldFetch(data: MoviesModel?): Boolean = utils.isConnected
+    override fun loadFromDb(params: Params): LiveData<MoviesModel> = repository.loadPopularMovies()
 
-    override fun loadFromDb(params: Params): LiveData<MoviesModel> = repository.loadAllMovies()
-
-    override fun createCall(params: Params): LiveData<MoviesModel> = repository.fetchPopularMovies()
+    override suspend fun createCall(params: Params): MoviesModel =
+        repository.getPopularMovies(params.language, params.page)
 
     override fun getLoadingObject(): MoviesModel = MoviesModel()
 

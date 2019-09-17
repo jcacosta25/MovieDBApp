@@ -6,8 +6,6 @@ import dagger.Provides
 import io.jcal.movies_provider.domain.interactor.base.NetworkUtil
 import io.jcal.movies_provider.repository.MDBRepository
 import io.jcal.movies_provider.repository.MDBRepositoryImpl
-import io.jcal.movies_provider.repository.Repository
-import io.jcal.movies_provider.repository.RepositoryImpl
 import io.jcal.movies_provider.repository.api.MovieDBService
 import io.jcal.movies_provider.repository.datasource.CloudDataSource
 import io.jcal.movies_provider.repository.datasource.CloudDataSourceImpl
@@ -29,9 +27,6 @@ class RepositoryModule {
 
     @Provides
     fun provideNetworkUtils(context: Context): NetworkUtil = NetworkUtil(context)
-
-    @Provides
-    fun provideRepository(repository: RepositoryImpl): Repository = repository
 
     @Provides
     fun provideMDBRepository(repository: MDBRepositoryImpl): MDBRepository = repository

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
 import io.jcal.movies_provider.domain.interactor.UseCaseMovie
 import io.jcal.theMovie.presentation.mapper.PresentationDataMapper
@@ -21,13 +22,13 @@ class MovieDetailViewModel @Inject constructor(
 
     init {
         movie.addSource(
-            Transformations.switchMap(movieId) { movieId ->
+            switchMap(movieId) { movieId ->
                 Transformations.map(
                     useCaseMovie.execute(
                         UseCaseMovie.Params(movieId)
                     )
                 ) { response ->
-                    mapper.convert(response.data!!)
+                    mapper.convert(response)
                 }
             }
         ) { movieDetail ->

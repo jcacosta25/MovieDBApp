@@ -76,7 +76,7 @@ class PopularMoviesFragment : DaggerFragment() {
             }
         }
         CoroutineScope(Dispatchers.Main).launch {
-            val popularMovies = viewModel.popularMoviesCoroutines
+            val popularMovies = viewModel.popularMovies
 
             popularMovies.observe(this@PopularMoviesFragment, Observer { response ->
                 when (response.state) {
@@ -96,7 +96,7 @@ class PopularMoviesFragment : DaggerFragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        viewModel.popularMovies().value?.let {
+        viewModel.popularMovies.value?.let {
             binding.popularMoviesRv.layoutManager?.let { manager ->
                 outState.putParcelable(
                     BUNDLE_MOVIES_INSTANCE_STATE,

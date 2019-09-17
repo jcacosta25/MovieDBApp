@@ -3,7 +3,8 @@ package io.jcal.theMovie.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.Transformations.map
+import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
 import io.jcal.movies_provider.domain.interactor.UseCaseTvShow
 import io.jcal.theMovie.presentation.mapper.PresentationDataMapper
@@ -21,13 +22,13 @@ class TvShowDetailViewModel @Inject constructor(
 
     init {
         tvShow.addSource(
-            Transformations.switchMap(tvShowId) { tvShowId ->
-                Transformations.map(
+            switchMap(tvShowId) { tvShowId ->
+                map(
                     useCaseTvShow.execute(
                         UseCaseTvShow.Params(tvShowId)
                     )
                 ) { response ->
-                    mapper.convert(response.data!!)
+                    mapper.convert(response)
                 }
             }
         ) { tvShowDetail ->
@@ -39,5 +40,5 @@ class TvShowDetailViewModel @Inject constructor(
         this.tvShowId.postValue(tvShowId)
     }
 
-    fun tvShowDetail():LiveData<TvShowUIModel> = tvShow
+    fun tvShowDetail(): LiveData<TvShowUIModel> = tvShow
 }
