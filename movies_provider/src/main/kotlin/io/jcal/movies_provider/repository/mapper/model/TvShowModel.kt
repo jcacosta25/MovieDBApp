@@ -43,7 +43,6 @@ data class SeasonModel(
     val showId: Int = 0
 ) : BaseModel()
 
-
 data class EpisodeModel(
     val id: Int = 0,
     val airDate: String = "",

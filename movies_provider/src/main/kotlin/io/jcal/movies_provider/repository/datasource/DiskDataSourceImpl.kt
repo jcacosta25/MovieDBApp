@@ -38,10 +38,8 @@ class DiskDataSourceImpl @Inject constructor(
     override fun selectAllTvShows(): LiveData<List<TvShowSeasons>> =
         dataBase.tvShowDao().getAllShows()
 
-
     override fun insertMoviesModel(entity: List<MovieModel>): List<Long> =
         dataBase.movieDao().insertAll(entity.map { mapper.convert(it) })
-
 
     override fun insertMovieModel(entity: MovieModel): Long =
         dataBase.movieDao().insert(mapper.convert(entity))
@@ -71,4 +69,20 @@ class DiskDataSourceImpl @Inject constructor(
         map(dataBase.tvShowDao().getAllShows()) {
             mapper.convert(it)
         }
+
+    override suspend fun insertMoviesModelCoroutine(entity: List<MovieModel>) {
+        dataBase.movieDao().insertAllCoroutines(entity.map { mapper.convert(it) })
+    }
+
+    override suspend fun insertMovieModelCoroutines(entity: MovieModel) {
+        dataBase.movieDao().insertCoroutines(mapper.convert(entity))
+    }
+
+    override suspend fun selectMovieModelCoroutines(movieId: Int): MovieModel {
+        return mapper.convert(dataBase.movieDao().findMovieCoroutines(movieId))
+    }
+
+    override suspend fun selectAllMoviesModelCoroutines(): MoviesModel {
+        return mapper.convert(dataBase.movieDao().getAllMoviesCoroutines())
+    }
 }

@@ -323,3 +323,19 @@ data class PeopleDTO(
     @SerializedName(value = "profile_path")
     val profilePath: String
 )
+/*
+{
+  "status_message": "Invalid API key: You must be granted a valid key.",
+  "success": false,
+  "status_code": 7
+}
+
+ */
+data class ServerErrorDto(
+    @SerializedName(value = "status_message")
+    val statusMessage: String?,
+    @SerializedName(value = "success")
+    val success: Boolean = false,
+    @SerializedName(value = "status_code")
+    val statusCode: Int?
+)

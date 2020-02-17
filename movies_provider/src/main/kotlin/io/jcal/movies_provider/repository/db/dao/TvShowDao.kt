@@ -45,7 +45,6 @@ interface TvShowDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertShows(entities: List<TvShowEntity>): List<Long>
 
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertShow(entity: TvShowEntity): Long
 
@@ -62,5 +61,4 @@ interface TvShowDao {
             insertShow(show.tvShowEntity)
         }
     }
-
 }

@@ -7,31 +7,31 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import dagger.android.support.DaggerFragment
 import io.jcal.theMovie.R
-import io.jcal.theMovie.databinding.FragmentPopularMoviesBinding
+import io.jcal.theMovie.databinding.FragmentPopularMoviesListBinding
 import io.jcal.theMovie.presentation.mapper.model.BaseUIModel.Companion.SUCCESS
 import io.jcal.theMovie.presentation.mapper.model.MovieUIModelList
 import io.jcal.theMovie.presentation.ui.PopularMoviesFragmentDirections.popularMoviesToMovieDetail
 import io.jcal.theMovie.presentation.ui.adapter.MovieAdapter
 import io.jcal.theMovie.presentation.viewmodel.MoviesViewModel
 import io.jcal.theMovie.utils.SpacingItemDecoration
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PopularMoviesFragment : DaggerFragment() {
 
-    private lateinit var viewModel: MoviesViewModel
-    private lateinit var binding: FragmentPopularMoviesBinding
+    private lateinit var binding: FragmentPopularMoviesListBinding
     private lateinit var adapter: MovieAdapter
     private var recyclerInstanceState: MovieUIModelList? = null
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var factory: ViewModelProvider.Factory
+
+    private val viewModel: MoviesViewModel by lazy {
+        ViewModelProvider(this@PopularMoviesFragment, factory)
+            .get(MoviesViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +39,7 @@ class PopularMoviesFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_popular_movies, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_popular_movies_list, container, false)
 
         return binding.root
     }
@@ -65,8 +65,6 @@ class PopularMoviesFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)
-            .get(MoviesViewModel::class.java)
         if (savedInstanceState != null) {
             recyclerInstanceState = savedInstanceState.getParcelable(
                 BUNDLE_MOVIES_INSTANCE_STATE
@@ -75,23 +73,20 @@ class PopularMoviesFragment : DaggerFragment() {
                 viewModel.popularMovies(it)
             }
         }
-        CoroutineScope(Dispatchers.Main).launch {
-            val popularMovies = viewModel.popularMovies
 
-            popularMovies.observe(this@PopularMoviesFragment, Observer { response ->
-                when (response.state) {
-                    SUCCESS -> {
-                        if (recyclerInstanceState == null) {
-                            adapter.addAll(response.results)
-                        }
-                        recyclerInstanceState?.let {
-                            binding.popularMoviesRv.layoutManager?.onRestoreInstanceState(it)
-                            recyclerInstanceState = null
-                        }
+        viewModel.popularMovies.observe(viewLifecycleOwner, Observer { response ->
+            when (response.state) {
+                SUCCESS -> {
+                    if (recyclerInstanceState == null) {
+                        adapter.addAll(response.results)
+                    }
+                    recyclerInstanceState?.let {
+                        binding.popularMoviesRv.layoutManager?.onRestoreInstanceState(it)
+                        recyclerInstanceState = null
                     }
                 }
-            })
-        }
+            }
+        })
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -103,7 +98,6 @@ class PopularMoviesFragment : DaggerFragment() {
                     manager.onSaveInstanceState()
                 )
             }
-
         }
     }
 

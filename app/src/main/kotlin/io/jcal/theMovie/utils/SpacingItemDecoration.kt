@@ -6,7 +6,6 @@ import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-
 class SpacingItemDecoration(context: Context, padding: Int) : RecyclerView.ItemDecoration() {
     private val spacing: Int
 

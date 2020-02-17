@@ -1,12 +1,11 @@
-package io.jcal.movies_provider.repository.api.network
+package io.jcal.movies_provider.repository.api.network.liveDataAdapter
 
-
-import okhttp3.Headers
-import okhttp3.Request
-import retrofit2.Retrofit
 import java.io.IOException
 import java.lang.reflect.Type
 import java.util.concurrent.*
+import okhttp3.Headers
+import okhttp3.Request
+import retrofit2.Retrofit
 
 class ResponseCallAdapter<R, E>(
     private val call: retrofit2.Call<R>,
@@ -23,13 +22,13 @@ class ResponseCallAdapter<R, E>(
     @Throws(IOException::class)
     override fun execute(): Response<R, E?> {
         val response = call.execute()
-        return object : Response<R, E?> {
+        return object :
+            Response<R, E?> {
 
             override val isSuccessful: Boolean
                 get() = response.isSuccessful
 
             override fun body(): R = response.body()!!
-
 
             override fun error(): E? {
                 val converter = retrofit.responseBodyConverter<E>(errorType, annotations)
@@ -49,12 +48,10 @@ class ResponseCallAdapter<R, E>(
 
             override fun headers(): Headers = response.headers()
 
-            //This is going to be used to get a common analytics endpoint without dynamic parameters.
+            // This is going to be used to get a common analytics endpoint without dynamic parameters.
             override fun endpointPath(): String = response.raw().request().url().toString()
 
-
             override fun message(): String = response.message()
-
         }
     }
 
@@ -63,7 +60,8 @@ class ResponseCallAdapter<R, E>(
             override fun onResponse(call: retrofit2.Call<R>, response: retrofit2.Response<R>) {
 
                 executor.execute {
-                    callback.onResponse(object : Response<R, E?> {
+                    callback.onResponse(object :
+                        Response<R, E?> {
 
                         override val isSuccessful: Boolean
                             get() = response.isSuccessful
@@ -95,22 +93,18 @@ class ResponseCallAdapter<R, E>(
                             response.raw().request().url().toString()
 
                         override fun message(): String = response.message()
-
                     })
                 }
             }
 
             override fun onFailure(call: retrofit2.Call<R>, t: Throwable) =
                 executor.execute { callback.onFailure(IOException(t)) }
-
         })
     }
 
     override fun cancel() = call.cancel()
 
-
     override fun request(): Request = call.request()
-
 
     private fun getExecutor(): Executor {
         var executor = retrofit.callbackExecutor()

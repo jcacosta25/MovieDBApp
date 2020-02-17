@@ -7,7 +7,6 @@ import androidx.lifecycle.MediatorLiveData
 import io.jcal.movies_provider.domain.executors.AppExecutors
 import io.jcal.movies_provider.repository.mapper.model.BaseModel
 
-
 /**
  * A generic class that can provide a resource backed by both the sqlite database and the network.
  *

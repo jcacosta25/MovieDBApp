@@ -1,7 +1,7 @@
-package io.jcal.movies_provider.repository.api.network
+package io.jcal.movies_provider.repository.api.network.liveDataAdapter
 
-import okhttp3.Request
 import java.io.IOException
+import okhttp3.Request
 
 /**
  * A substitute for [retrofit2.Call] that holds a typed response body and a typed error body.
@@ -13,7 +13,7 @@ interface Call<R, E> {
     /**
      * Synchronously send the request and return its response.
      *
-     * @throws IOException      if a problem occurred talking to the server.
+     * @throws IOException if a problem occurred talking to the server.
      * @throws RuntimeException - (and subclasses) if an unexpected error occurs creating the request or
      * decoding the response.
      */
@@ -31,7 +31,6 @@ interface Call<R, E> {
      * yet been executed it never will be.
      */
     fun cancel()
-
 
     /** see [retrofit2.Call.request]
      * @return The original HTTP request.

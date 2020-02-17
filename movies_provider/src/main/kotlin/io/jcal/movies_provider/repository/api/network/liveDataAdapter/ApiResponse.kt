@@ -1,5 +1,6 @@
-package io.jcal.movies_provider.repository.api.network
+package io.jcal.movies_provider.repository.api.network.liveDataAdapter
 
+import io.jcal.movies_provider.repository.api.network.HttpErrorCodes
 
 /**
  * Common class used by API responses.
@@ -16,7 +17,8 @@ class ApiResponse<R, E> {
         get() = code >= HttpErrorCodes.SUCCESS && code < HttpErrorCodes.REDIRECTION
 
     constructor(error: Throwable) {
-        code = HttpErrorCodes.NOT_FOUND_ERROR
+        code =
+            HttpErrorCodes.NOT_FOUND_ERROR
         body = null
         errorBody = null
         exception = error
@@ -36,7 +38,6 @@ class ApiResponse<R, E> {
                 errorBody = null
                 exception = ex
             }
-
         }
     }
 }

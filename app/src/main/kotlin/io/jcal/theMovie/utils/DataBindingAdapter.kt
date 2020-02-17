@@ -13,13 +13,13 @@ class DataBindingAdapter {
             if (!url.isNullOrEmpty()) {
                 Picasso.get()
                     .load(url)
-                    .placeholder(R.mipmap.ic_launcher)
-                    .error(R.mipmap.ic_launcher)
+                    .placeholder(R.drawable.background_place_holder)
+                    .error(R.drawable.background_place_holder)
                     .fit()
                     .centerCrop()
                     .into(imageView)
             } else {
-                imageView.setImageResource(R.mipmap.ic_launcher)
+                imageView.setImageResource(R.drawable.background_place_holder)
             }
         }
     }

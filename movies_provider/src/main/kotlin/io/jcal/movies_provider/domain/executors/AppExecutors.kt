@@ -5,7 +5,6 @@ import android.os.Looper
 import java.util.concurrent.*
 import javax.inject.Inject
 
-
 const val THREAD_COUNT = 3
 
 /**
@@ -32,7 +31,6 @@ open class AppExecutors @Inject constructor() {
 
     fun getMainThread(): Executor = mainThread
 }
-
 
 class MainThreadExecutor @Inject constructor() : Executor {
     //    private val mainThreadHandler = Handler(Looper.getMainLooper())

@@ -9,7 +9,7 @@
         android:id="@+id/popularMoviesFragment"
         android:name="io.jcal.theMovie.presentation.ui.PopularMoviesFragment"
         android:label="@string/movies_title"
-        tools:layout="@layout/fragment_popular_movies">
+        tools:layout="@layout/fragment_popular_movies_list">
 
         <action
             android:id="@+id/popular_movies_to_movieDetail"

@@ -1,13 +1,13 @@
-package io.jcal.movies_provider.repository.api.network
+package io.jcal.movies_provider.repository.api.network.liveDataAdapter
 
 import androidx.lifecycle.LiveData
-import retrofit2.CallAdapter
-import retrofit2.Retrofit
 import java.io.IOException
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 import java.util.concurrent.atomic.*
 import javax.inject.Inject
+import retrofit2.CallAdapter
+import retrofit2.Retrofit
 
 class LiveDataCallAdapterFactory @Inject constructor() : CallAdapter.Factory() {
 
@@ -40,11 +40,17 @@ class LiveDataCallAdapterFactory @Inject constructor() : CallAdapter.Factory() {
             observableType
         )
 
-        return LiveDataCallAdapter<Any, Any>(responseType, errorType, annotations, retrofit)
+        return LiveDataCallAdapter<Any, Any>(
+            responseType,
+            errorType,
+            annotations,
+            retrofit
+        )
     }
 
     companion object {
-        fun create(): LiveDataCallAdapterFactory = LiveDataCallAdapterFactory()
+        fun create(): LiveDataCallAdapterFactory =
+            LiveDataCallAdapterFactory()
         private const val FIRST_GENERIC_ARGUMENT = 0
         private const val SECOND_GENERIC_ARGUMENT = 1
     }
@@ -65,14 +71,14 @@ class LiveDataCallAdapter<R, E>(
 
     override fun responseType(): Type = responseType
 
-
     override fun adapt(call: retrofit2.Call<R>): LiveData<ApiResponse<R, E>> {
-        val customCallAdapter = ResponseCallAdapter<R, E>(
-            call,
-            retrofit,
-            errorType,
-            annotations
-        )
+        val customCallAdapter =
+            ResponseCallAdapter<R, E>(
+                call,
+                retrofit,
+                errorType,
+                annotations
+            )
 
         return object : LiveData<ApiResponse<R, E>>() {
             var started = AtomicBoolean(false)
@@ -80,13 +86,22 @@ class LiveDataCallAdapter<R, E>(
             override fun onActive() {
                 super.onActive()
                 if (started.compareAndSet(false, true)) {
-                    customCallAdapter.enqueue(object : Callback<R, E?> {
+                    customCallAdapter.enqueue(object :
+                        Callback<R, E?> {
                         override fun onResponse(response: Response<R, E?>) {
-                            postValue(ApiResponse(response))
+                            postValue(
+                                ApiResponse(
+                                    response
+                                )
+                            )
                         }
 
                         override fun onFailure(e: IOException) {
-                            postValue(ApiResponse(e))
+                            postValue(
+                                ApiResponse(
+                                    e
+                                )
+                            )
                         }
                     })
                 }

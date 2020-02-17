@@ -50,6 +50,5 @@ class MovieAdapter(
 
             binding.executePendingBindings()
         }
-
     }
 }

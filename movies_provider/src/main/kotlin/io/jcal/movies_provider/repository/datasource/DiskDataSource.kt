@@ -28,11 +28,19 @@ interface DiskDataSource {
 
     fun insertMoviesModel(entity: List<MovieModel>): List<Long>
 
+    suspend fun insertMoviesModelCoroutine(entity: List<MovieModel>)
+
     fun insertMovieModel(entity: MovieModel): Long
+
+    suspend fun insertMovieModelCoroutines(entity: MovieModel)
 
     fun selectMovieModel(movieId: Int): LiveData<MovieModel>
 
+    suspend fun selectMovieModelCoroutines(movieId: Int): MovieModel?
+
     fun selectAllMoviesModel(): LiveData<MoviesModel>
+
+    suspend fun selectAllMoviesModelCoroutines(): MoviesModel
 
     fun insertTvShowsModel(entity: List<TvShowModel>): List<Long>
 

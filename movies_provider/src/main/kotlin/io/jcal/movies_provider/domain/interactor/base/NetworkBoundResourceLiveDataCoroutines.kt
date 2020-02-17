@@ -5,7 +5,7 @@ import androidx.lifecycle.liveData
 import io.jcal.movies_provider.repository.mapper.model.BaseModel
 import kotlinx.coroutines.Dispatchers
 
-abstract class RepositoryResource<ModelType : BaseModel, T> {
+abstract class NetworkBoundResourceLiveDataCoroutines<ModelType : BaseModel, T> {
 
     fun execute(params: T): LiveData<ModelType> =
         liveData(Dispatchers.IO) {
@@ -23,7 +23,6 @@ abstract class RepositoryResource<ModelType : BaseModel, T> {
                 emitSource(dbSource)
             }
         }
-
 
     protected abstract fun saveCallResult(item: ModelType)
 

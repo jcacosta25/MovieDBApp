@@ -1,12 +1,9 @@
 package io.jcal.movies_provider.repository.api
 
 import androidx.lifecycle.LiveData
-import io.jcal.movies_provider.repository.api.model.MovieDTO
-import io.jcal.movies_provider.repository.api.model.MoviesDTO
-import io.jcal.movies_provider.repository.api.model.TvShowDTO
-import io.jcal.movies_provider.repository.api.model.TvShowsDTO
-import io.jcal.movies_provider.repository.api.network.ApiResponse
-import retrofit2.Response
+import io.jcal.movies_provider.repository.api.model.*
+import io.jcal.movies_provider.repository.api.network.coroutinesAdapter.NetworkResponse
+import io.jcal.movies_provider.repository.api.network.liveDataAdapter.ApiResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -23,7 +20,7 @@ interface MovieDBService {
     suspend fun fetchPopularMovies(
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Response<MoviesDTO>
+    ): NetworkResponse<MoviesDTO, ServerErrorDto>
 
     @GET("/3/tv/popular")
     fun getPopularTvShows(
@@ -35,7 +32,7 @@ interface MovieDBService {
     suspend fun fetchPopularTvShows(
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Response<TvShowsDTO>
+    ): NetworkResponse<TvShowsDTO, ServerErrorDto>
 
     @GET("/3/movie/{movie_id}")
     fun getMovie(
@@ -47,7 +44,7 @@ interface MovieDBService {
     suspend fun fetchMovie(
         @Path("movie_id") movieId: Int,
         @Query("language") language: String
-    ): Response<MovieDTO>
+    ): NetworkResponse<MovieDTO, ServerErrorDto>
 
     @GET("/3/tv/{show_id}")
     fun getTvShow(
@@ -59,5 +56,5 @@ interface MovieDBService {
     suspend fun fetchTvShow(
         @Path("show_id") showId: Int,
         @Query("language") language: String
-    ): Response<TvShowDTO>
+    ): NetworkResponse<TvShowDTO, ServerErrorDto>
 }

@@ -5,8 +5,8 @@ import io.jcal.movies_provider.repository.api.model.MovieDTO
 import io.jcal.movies_provider.repository.api.model.MoviesDTO
 import io.jcal.movies_provider.repository.api.model.TvShowDTO
 import io.jcal.movies_provider.repository.api.model.TvShowsDTO
-import io.jcal.movies_provider.repository.api.network.ApiResponse
 import io.jcal.movies_provider.repository.api.network.HttpBaseValues
+import io.jcal.movies_provider.repository.api.network.liveDataAdapter.ApiResponse
 import io.jcal.movies_provider.repository.mapper.model.MovieModel
 import io.jcal.movies_provider.repository.mapper.model.MoviesModel
 import io.jcal.movies_provider.repository.mapper.model.TvShowModel

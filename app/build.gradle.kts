@@ -18,9 +18,13 @@ android {
         versionCode = Android.versionCode
         versionName = Android.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "ApiKey", ApiKeys.movieDb)
         vectorDrawables {
             useSupportLibrary = true
+        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = mapOf("room.incremental" to "true","room.schemaLocation" to "$projectDir/schemas")
+            }
         }
     }
 

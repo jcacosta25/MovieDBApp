@@ -16,6 +16,7 @@ import io.jcal.movies_provider.repository.db.entity.TvShowSeasons
 import io.jcal.movies_provider.repository.mapper.model.BaseModel
 import io.jcal.movies_provider.repository.mapper.model.BaseModel.Companion.BASE_ERROR_CODE
 import io.jcal.movies_provider.repository.mapper.model.BaseModel.Companion.LOADING
+import io.jcal.movies_provider.repository.mapper.model.BaseModel.Companion.NOT_EXISTING_VALUE
 import io.jcal.movies_provider.repository.mapper.model.BaseModel.Companion.PARSING_ERROR
 import io.jcal.movies_provider.repository.mapper.model.BaseModel.Companion.SUCCESS
 import io.jcal.movies_provider.repository.mapper.model.DatesModel
@@ -49,7 +50,7 @@ class DataMapper @Inject constructor() {
                 releaseDate = emptyString(response.releaseDate),
                 revenue = response.revenue,
                 runtime = response.runtime,
-                //spokenLanguageModels = response.spokenLanguageModels.map { it.name },
+                // spokenLanguageModels = response.spokenLanguageModels.map { it.name },
                 status = emptyString(response.status),
                 tagline = emptyString(response.tagline),
                 title = emptyString(response.title),
@@ -381,13 +382,16 @@ class DataMapper @Inject constructor() {
         }
     }
 
-    fun convert(movies: List<MovieEntity>): MoviesModel {
-        val model = MoviesModel(
-            results = movies.map { convert(it) }
-        )
-        model.state = SUCCESS
-        return model
-    }
+    fun convert(movies: List<MovieEntity>?): MoviesModel =
+        MoviesModel(
+            results = movies?.map { convert(it) } ?: listOf()
+        ).apply {
+            if (movies == null) {
+                setError(NOT_EXISTING_VALUE)
+            } else {
+               setSuccess()
+            }
+        }
 
     fun convert(tvShows: List<TvShowSeasons>): TvShowsModel {
         val model = TvShowsModel(

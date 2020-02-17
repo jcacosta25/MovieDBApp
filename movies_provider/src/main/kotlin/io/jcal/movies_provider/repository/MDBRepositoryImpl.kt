@@ -14,12 +14,19 @@ class MDBRepositoryImpl @Inject constructor(
     private val diskDataSource: DiskDataSource
 ) : MDBRepository {
 
-    override suspend fun getPopularMovies(languate:String,page:Int): MoviesModel = cloudDataSource.fetchPopularMovies(languate,page)
+    override suspend fun getPopularMovies(language: String, page: Int): MoviesModel =
+        cloudDataSource.fetchPopularMovies(language, page)
 
     override fun loadPopularMovies(): LiveData<MoviesModel> = diskDataSource.selectAllMoviesModel()
 
-    override suspend fun getMovie(movieId: Int): MovieModel = cloudDataSource.fetchMovie(movieId)
+    override suspend fun loadPopularMoviesCoroutines(): MoviesModel =
+        diskDataSource.selectAllMoviesModelCoroutines()
 
+    override suspend fun insertMoviesCoroutines(model: MoviesModel) {
+        diskDataSource.insertMoviesModelCoroutine(model.results)
+    }
+
+    override suspend fun getMovie(movieId: Int): MovieModel = cloudDataSource.fetchMovie(movieId)
 
     override fun loadMovie(movieId: Int): LiveData<MovieModel> =
         diskDataSource.selectMovieModel(movieId)

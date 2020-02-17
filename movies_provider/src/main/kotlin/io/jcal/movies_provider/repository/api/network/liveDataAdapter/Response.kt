@@ -1,4 +1,4 @@
-package io.jcal.movies_provider.repository.api.network
+package io.jcal.movies_provider.repository.api.network.liveDataAdapter
 
 import androidx.annotation.Nullable
 import okhttp3.Headers
@@ -30,7 +30,6 @@ interface Response<R, E> {
      */
     @Nullable
     fun error(): E
-
 
     /**
      * @return http code

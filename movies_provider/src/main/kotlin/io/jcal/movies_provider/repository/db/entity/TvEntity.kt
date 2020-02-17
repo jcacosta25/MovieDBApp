@@ -9,7 +9,6 @@ import androidx.room.PrimaryKey
 import androidx.room.Relation
 import io.jcal.movies_provider.repository.db.DatabaseConstants
 
-
 @Entity(tableName = DatabaseConstants.TABLE_TV_SHOW)
 data class TvShowEntity(
     @NonNull

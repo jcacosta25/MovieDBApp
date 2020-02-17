@@ -1,7 +1,7 @@
 package io.jcal.movies_provider.domain.interactor
 
 import androidx.lifecycle.LiveData
-import io.jcal.movies_provider.domain.interactor.base.RepositoryResource
+import io.jcal.movies_provider.domain.interactor.base.NetworkBoundResourceLiveDataCoroutines
 import io.jcal.movies_provider.repository.MDBRepository
 import io.jcal.movies_provider.repository.api.network.HttpBaseValues
 import io.jcal.movies_provider.repository.mapper.model.MoviesModel
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class UseCasePopularMovies @Inject constructor(
     private val repository: MDBRepository
-) : RepositoryResource<MoviesModel, UseCasePopularMovies.Params>() {
+) : NetworkBoundResourceLiveDataCoroutines<MoviesModel, UseCasePopularMovies.Params>() {
 
     override fun saveCallResult(item: MoviesModel) {
         repository.insertAllMovies(item)

@@ -51,6 +51,5 @@ class MovieDetailFragment : DaggerFragment() {
                 }
             }
         })
-
     }
 }

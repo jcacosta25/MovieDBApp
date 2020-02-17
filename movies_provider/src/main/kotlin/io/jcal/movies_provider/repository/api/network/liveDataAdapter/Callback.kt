@@ -1,4 +1,4 @@
-package io.jcal.movies_provider.repository.api.network
+package io.jcal.movies_provider.repository.api.network.liveDataAdapter
 
 import java.io.IOException
 

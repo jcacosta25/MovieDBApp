@@ -1,9 +1,9 @@
 package io.jcal.movies_provider.repository.api.factory
 
-import okhttp3.Interceptor
-import okhttp3.Response
 import java.io.IOException
 import javax.inject.Inject
+import okhttp3.Interceptor
+import okhttp3.Response
 
 class AuthTokenInterceptor @Inject constructor(val apiKey: String) : Interceptor {
     @Throws(IOException::class)
