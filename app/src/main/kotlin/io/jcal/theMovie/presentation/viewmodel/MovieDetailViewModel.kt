@@ -3,7 +3,7 @@ package io.jcal.theMovie.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
 import io.jcal.movies_provider.domain.interactor.UseCaseMovie
@@ -23,7 +23,7 @@ class MovieDetailViewModel @Inject constructor(
     init {
         movie.addSource(
             switchMap(movieId) { movieId ->
-                Transformations.map(
+                map(
                     useCaseMovie.execute(
                         UseCaseMovie.Params(movieId)
                     )

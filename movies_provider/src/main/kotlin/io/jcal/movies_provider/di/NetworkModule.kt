@@ -8,12 +8,12 @@ import io.jcal.movies_provider.repository.api.MovieDBService
 import io.jcal.movies_provider.repository.api.factory.AuthTokenInterceptor
 import io.jcal.movies_provider.repository.api.factory.ServiceFactory
 import io.jcal.movies_provider.repository.api.network.liveDataAdapter.LiveDataCallAdapterFactory
-import javax.inject.Named
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
 
 @Module
 class NetworkModule {

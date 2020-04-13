@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import dagger.android.support.DaggerFragment
 import io.jcal.theMovie.R
@@ -22,13 +22,13 @@ import javax.inject.Inject
 
 class PopularShowsFragment : DaggerFragment() {
 
-    private lateinit var viewModel: TvShowsViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel by viewModels<TvShowsViewModel> { viewModelFactory }
     private lateinit var binding: FragmentPopularShowsBinding
     private lateinit var adapter: ShowAdapter
     private var recyclerInstanceState: TvShowUIList? = null
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,10 +59,8 @@ class PopularShowsFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)
-            .get(TvShowsViewModel::class.java)
 
-        viewModel.popularTvShows().observe(this, Observer { response ->
+        viewModel.popularTvShows().observe(viewLifecycleOwner, Observer { response ->
             when (response.state) {
                 SUCCESS -> {
                     if (recyclerInstanceState == null) {

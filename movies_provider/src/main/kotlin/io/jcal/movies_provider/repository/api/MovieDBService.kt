@@ -1,7 +1,11 @@
 package io.jcal.movies_provider.repository.api
 
 import androidx.lifecycle.LiveData
-import io.jcal.movies_provider.repository.api.model.*
+import io.jcal.movies_provider.repository.api.model.MovieDTO
+import io.jcal.movies_provider.repository.api.model.MoviesDTO
+import io.jcal.movies_provider.repository.api.model.ServerErrorDto
+import io.jcal.movies_provider.repository.api.model.TvShowDTO
+import io.jcal.movies_provider.repository.api.model.TvShowsDTO
 import io.jcal.movies_provider.repository.api.network.coroutinesAdapter.NetworkResponse
 import io.jcal.movies_provider.repository.api.network.liveDataAdapter.ApiResponse
 import retrofit2.http.GET

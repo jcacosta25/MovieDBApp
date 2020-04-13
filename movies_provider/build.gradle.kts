@@ -1,4 +1,3 @@
-
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -16,7 +15,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = mapOf("room.incremental" to "true","room.schemaLocation" to "$projectDir/schemas")
+                arguments = mapOf(
+                    "room.incremental" to "true",
+                    "room.schemaLocation" to "$projectDir/schemas"
+                )
             }
         }
     }
@@ -45,6 +47,11 @@ android {
         setTargetCompatibility(1.8)
         setSourceCompatibility(1.8)
     }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
 }
 
 dependencies {

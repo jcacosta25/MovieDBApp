@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -28,10 +29,7 @@ class PopularMoviesFragment : DaggerFragment() {
     @Inject
     lateinit var factory: ViewModelProvider.Factory
 
-    private val viewModel: MoviesViewModel by lazy {
-        ViewModelProvider(this@PopularMoviesFragment, factory)
-            .get(MoviesViewModel::class.java)
-    }
+    private val viewModel by viewModels<MoviesViewModel> { factory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +37,12 @@ class PopularMoviesFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_popular_movies_list, container, false)
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_popular_movies_list,
+                container,
+                false
+            )
 
         return binding.root
     }

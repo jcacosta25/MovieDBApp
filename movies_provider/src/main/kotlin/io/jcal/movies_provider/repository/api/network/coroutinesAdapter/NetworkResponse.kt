@@ -1,7 +1,7 @@
 package io.jcal.movies_provider.repository.api.network.coroutinesAdapter
 
-import java.io.IOException
 import okhttp3.Headers
+import java.io.IOException
 
 sealed class NetworkResponse<T, U> {
     /**

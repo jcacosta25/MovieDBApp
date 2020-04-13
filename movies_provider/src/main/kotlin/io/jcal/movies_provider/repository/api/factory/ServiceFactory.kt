@@ -3,12 +3,12 @@ package io.jcal.movies_provider.repository.api.factory
 import com.itkacher.okhttpprofiler.OkHttpProfilerInterceptor
 import io.jcal.movies_provider.BuildConfig
 import io.jcal.movies_provider.repository.api.network.coroutinesAdapter.NetworkResponseAdapterFactory
-import java.util.concurrent.*
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit
+import java.util.concurrent.TimeUnit
 
 object ServiceFactory {
 

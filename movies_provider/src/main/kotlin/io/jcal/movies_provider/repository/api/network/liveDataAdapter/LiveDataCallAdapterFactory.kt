@@ -1,13 +1,13 @@
 package io.jcal.movies_provider.repository.api.network.liveDataAdapter
 
 import androidx.lifecycle.LiveData
+import retrofit2.CallAdapter
+import retrofit2.Retrofit
 import java.io.IOException
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
-import java.util.concurrent.atomic.*
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
-import retrofit2.CallAdapter
-import retrofit2.Retrofit
 
 class LiveDataCallAdapterFactory @Inject constructor() : CallAdapter.Factory() {
 
@@ -51,6 +51,7 @@ class LiveDataCallAdapterFactory @Inject constructor() : CallAdapter.Factory() {
     companion object {
         fun create(): LiveDataCallAdapterFactory =
             LiveDataCallAdapterFactory()
+
         private const val FIRST_GENERIC_ARGUMENT = 0
         private const val SECOND_GENERIC_ARGUMENT = 1
     }

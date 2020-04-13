@@ -13,6 +13,9 @@ import javax.inject.Named
 class StorageModule {
 
     @Provides
-    fun providesDatabase(context: Context, @Named(DATABASE_NAME_PROPERTY) databaseName: String = DATABASE_NAME): MovieDBDataBase =
+    fun providesDatabase(
+        context: Context,
+        @Named(DATABASE_NAME_PROPERTY) databaseName: String = DATABASE_NAME
+    ): MovieDBDataBase =
         Room.databaseBuilder(context, MovieDBDataBase::class.java, databaseName).build()
 }

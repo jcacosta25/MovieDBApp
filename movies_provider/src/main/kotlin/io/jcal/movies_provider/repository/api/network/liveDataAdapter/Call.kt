@@ -1,7 +1,7 @@
 package io.jcal.movies_provider.repository.api.network.liveDataAdapter
 
-import java.io.IOException
 import okhttp3.Request
+import java.io.IOException
 
 /**
  * A substitute for [retrofit2.Call] that holds a typed response body and a typed error body.

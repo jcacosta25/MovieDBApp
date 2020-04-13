@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import dagger.android.support.DaggerFragment
 import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.FragmentShowDetailBinding
@@ -18,13 +18,13 @@ import javax.inject.Inject
 
 class ShowDetailFragment : DaggerFragment() {
 
-    private lateinit var viewModel: TvShowDetailViewModel
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val viewModel by viewModels<TvShowDetailViewModel> { viewModelFactory }
     private lateinit var binding: FragmentShowDetailBinding
 
     private val tvShowId by lazy { fromBundle(arguments!!).showId }
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,12 +38,9 @@ class ShowDetailFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel =
-            ViewModelProviders.of(this, viewModelFactory).get(TvShowDetailViewModel::class.java)
-
         viewModel.getTvShow(tvShowId)
 
-        viewModel.tvShowDetail().observe(this, Observer { show ->
+        viewModel.tvShowDetail().observe(viewLifecycleOwner, Observer { show ->
             when (show.state) {
                 SUCCESS -> {
                     binding.show = show

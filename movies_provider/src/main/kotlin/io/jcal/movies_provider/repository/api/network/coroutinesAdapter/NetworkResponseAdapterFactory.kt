@@ -1,15 +1,19 @@
 package io.jcal.movies_provider.repository.api.network.coroutinesAdapter
 
-import java.lang.reflect.ParameterizedType
-import java.lang.reflect.Type
 import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
+import java.lang.reflect.ParameterizedType
+import java.lang.reflect.Type
 
 class NetworkResponseAdapterFactory : CallAdapter.Factory() {
 
-    override fun get(returnType: Type, annotations: Array<Annotation>, retrofit: Retrofit): CallAdapter<*, *>? {
+    override fun get(
+        returnType: Type,
+        annotations: Array<Annotation>,
+        retrofit: Retrofit
+    ): CallAdapter<*, *>? {
 
         check(returnType is ParameterizedType) { "$returnType must be parameterized. Raw types are not supported" }
 
@@ -21,7 +25,8 @@ class NetworkResponseAdapterFactory : CallAdapter.Factory() {
         check(containerType is ParameterizedType) { "$containerType must be parameterized. Raw types are not supported" }
 
         val (successBodyType, errorBodyType) = containerType.getBodyTypes()
-        val errorBodyConverter = retrofit.nextResponseBodyConverter<Any>(null, errorBodyType, annotations)
+        val errorBodyConverter =
+            retrofit.nextResponseBodyConverter<Any>(null, errorBodyType, annotations)
 
         return when (getRawType(returnType)) {
             Deferred::class.java -> {

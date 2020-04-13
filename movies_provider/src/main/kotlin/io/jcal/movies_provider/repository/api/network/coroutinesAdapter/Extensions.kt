@@ -1,10 +1,10 @@
 package io.jcal.movies_provider.repository.api.network.coroutinesAdapter
 
-import java.io.IOException
 import kotlinx.coroutines.delay
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.HttpException
+import java.io.IOException
 
 /**
  * Retries the given [block] for the specified number of times in the case of [NetworkResponse.NetworkError]
@@ -18,12 +18,13 @@ import retrofit2.HttpException
  * @param block The suspending function to be retried
  * @return The NetworkResponse value whether it be successful or failed after retrying
  */
+@JvmOverloads
 suspend inline fun <T : Any, U : Any> executeWithRetry(
     times: Int = 10,
     initialDelay: Long = 100, // 0.1 second
     maxDelay: Long = 1000, // 1 second
     factor: Double = 2.0,
-    block: suspend () -> NetworkResponse<T, U>
+    block: () -> NetworkResponse<T, U>
 ): NetworkResponse<T, U> {
     var currentDelay = initialDelay
     repeat(times - 1) {

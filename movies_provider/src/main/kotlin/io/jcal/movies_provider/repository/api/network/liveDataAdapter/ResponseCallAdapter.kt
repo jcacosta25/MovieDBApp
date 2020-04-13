@@ -1,11 +1,11 @@
 package io.jcal.movies_provider.repository.api.network.liveDataAdapter
 
-import java.io.IOException
-import java.lang.reflect.Type
-import java.util.concurrent.*
 import okhttp3.Headers
 import okhttp3.Request
 import retrofit2.Retrofit
+import java.io.IOException
+import java.lang.reflect.Type
+import java.util.concurrent.Executor
 
 class ResponseCallAdapter<R, E>(
     private val call: retrofit2.Call<R>,
@@ -49,7 +49,7 @@ class ResponseCallAdapter<R, E>(
             override fun headers(): Headers = response.headers()
 
             // This is going to be used to get a common analytics endpoint without dynamic parameters.
-            override fun endpointPath(): String = response.raw().request().url().toString()
+            override fun endpointPath(): String = response.raw().request.url.toString()
 
             override fun message(): String = response.message()
         }
@@ -90,7 +90,7 @@ class ResponseCallAdapter<R, E>(
                         override fun headers(): Headers = response.headers()
 
                         override fun endpointPath(): String =
-                            response.raw().request().url().toString()
+                            response.raw().request.url.toString()
 
                         override fun message(): String = response.message()
                     })

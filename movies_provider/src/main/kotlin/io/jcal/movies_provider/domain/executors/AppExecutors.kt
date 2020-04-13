@@ -2,7 +2,8 @@ package io.jcal.movies_provider.domain.executors
 
 import android.os.Handler
 import android.os.Looper
-import java.util.concurrent.*
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 import javax.inject.Inject
 
 const val THREAD_COUNT = 3

@@ -6,7 +6,7 @@ object BuildPlugins {
         "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
     const val googleServices = "com.google.gms:google-services:${Versions.googleServicesVersion}"
     const val fabric = "io.fabric.tools:gradle:${Versions.fabricVersion}"
-    const val klint = "org.jmailen.gradle:kotlinter-gradle:${Versions.klint}"
+    const val ktlint = "org.jmailen.gradle:kotlinter-gradle:${Versions.ktlint}"
     const val jacoco = "org.jacoco:org.jacoco.core:${Versions.jacoco}"
 }
 
@@ -32,13 +32,15 @@ object Libs {
         "androidx.lifecycle:lifecycle-extensions:${Versions.lifeCycle}"
     const val lifeCycleCommon = "androidx.lifecycle:lifecycle-common-java8:${Versions.lifeCycle}"
     const val lifeCycleCompiler = "androidx.lifecycle:lifecycle-compiler:${Versions.lifeCycle}"
-    const val lifeCycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifeCycle}"
+    const val lifeCycleViewModel =
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifeCycle}"
     const val lifeCycleLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifeCycle}"
     const val lifeCycleRunTime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifeCycle}"
 
     // Kotlin
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.kotlin}"
     const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
+
     /** coroutines-android includes coroutines-core */
     const val coroutinesAndroid =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
@@ -62,11 +64,10 @@ object Libs {
         "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
 
-
     const val dataBinding = "com.android.databinding:compiler:${Versions.dataBinding}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timberVersion}"
     const val pagingRuntime = "android.arch.paging:runtime:${Versions.paging}"
-    const val workManagerRunTime = "android.arch.work:work-runtime:${Versions.workManager}"
+    const val workManagerRunTime = "androidx.work:work-runtime-ktx:${Versions.workManager}"
 
     // Network
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
@@ -88,19 +89,13 @@ object Libs {
     const val crashlytics = "com.crashlytics.sdk.android:crashlytics:${Versions.crashlyticsVersion}"
     const val firebaseCore = "com.google.firebase:firebase-core:${Versions.firebaseVersion}"
 
-    //Analitycs
-    const val brainTreePopupBridge = "com.braintreepayments:popup-bridge:${Versions.popupBridge}"
-    const val adobeSdkCore = "com.adobe.marketing.mobile:sdk-core:${Versions.adobeSdkCore}"
-    const val adobeAnalytics = "com.adobe.marketing.mobile:analytics:${Versions.adobeAnalytics}"
-    const val adobeAudienceManager =
-        "com.adobe.marketing.mobile:audience:${Versions.adobeAudienceManager}"
-    const val adobeMobileLibrary =
-        "com.adobe.mobile:adobeMobileLibrary:${Versions.adobeMobileLibrary}"
-
     // Time Libs
     const val threeTenABP = "com.jakewharton.threetenabp:threetenabp:${Versions.threeTenABP}"
     const val jodaTimes = "net.danlew:android.joda:${Versions.jodaTimesVersion}"
-    const val klint = "org.jmailen.kotlinter"
+}
+
+object Plugins {
+    const val ktlint = "org.jmailen.kotlinter"
     const val jacoco = "jacoco"
 }
 
@@ -118,10 +113,9 @@ object TestLibs {
     const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:${Versions.mockitoKotlin}"
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espresso}"
     const val lifeCycleTest = "androidx.arch.core:core-testing:${Versions.archVersion}"
-    const val workManager = "android.arch.work:work-testing:${Versions.workManager}"
+    const val workManager = "androidx.work:work-testing:${Versions.workManager}"
     const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.mockWebServerVersion}"
     const val testJodaTime = "joda-time:joda-time:${Versions.testJodaTimeVersion}"
-
 }
 
 object Android {
@@ -132,7 +126,6 @@ object Android {
     val versionName = Versions.appVersionName
     const val compileVersion = Versions.compileSdk
 }
-
 
 object Versions {
     // Build Config
@@ -150,66 +143,60 @@ object Versions {
         if (versionHotFix != 0) "${versionMajor}.${versionMinor}.${versionHotFix}" else "${versionMajor}.${versionMinor}"
 
     // Plugins
-    const val androidGradlePlugin = "3.5.0"
-    const val klint = "2.1.3"
+    const val androidGradlePlugin = "3.6.2"
+    const val ktlint = "2.1.3"
     const val jacoco = "0.8.5"
 
     // Kotlin
-    const val kotlin = "1.3.61"
-    const val coroutines = "1.3.2"
+    const val kotlin = "1.3.71"
+    const val coroutines = "1.3.5"
 
     // Support Lib
     const val support = "1.1.0"
     const val cardView = "1.0.0"
     const val constraintLayout = "1.1.3"
-    const val androidX = "1.2.0-alpha01"
-    const val recyclerViewVersion = "1.0.0"
+    const val androidX = "1.3.0-beta01"
+    const val recyclerViewVersion = "1.2.0-alpha02"
 
     // Libraries
     const val lifeCycle = "2.2.0"
     const val archVersion = "2.1.0"
-    const val room = "2.2.3"
-    const val paging = "2.1.0"
-    const val retrofit = "2.6.2"
+    const val room = "2.2.5"
+    const val paging = "2.1.2"
+    const val retrofit = "2.8.1"
     const val retrofitCoroutines = "0.9.2"
-    const val okHttp = "3.14.2"
-    const val dagger = "2.25.2"
-    const val dataBinding = "3.1.4"
+    const val okHttp = "4.5.0"
+    const val dagger = "2.27"
+    const val dataBinding = "4.1.0-alpha04"
     const val playServices = "16.1.0"
     const val multidex = "2.0.1"
     const val picasso = "2.71828"
-    const val navigation = "2.2.0-rc02"
-    const val workManager = "1.0.0"
-    const val design = "1.2.0-alpha01"
+    const val navigation = "2.3.0-alpha04"
+    const val workManager = "2.3.4"
+    const val design = "1.2.0-alpha05"
     const val threeTenABP = "1.2.1"
-    const val moshi = "1.8.0"
-    const val okHttpProfiler = "1.0.5"
+    const val moshi = "1.9.2"
+    const val okHttpProfiler = "1.0.7"
     const val gson = "2.8.5"
-    const val popupBridge = "2.0.0"
-    const val adobeSdkCore = "1.4.1"
-    const val adobeAnalytics = "1.1.1"
-    const val adobeAudienceManager = "1.0.1"
-    const val adobeMobileLibrary = "4.14.0"
     const val jodaTimesVersion = "2.10.3"
-    const val testJodaTimeVersion = "2.10.3"
+    const val testJodaTimeVersion = "2.10.5"
 
     // Testing
-    const val junit = "4.12"
-    const val testRunner = "1.2.0"
-    const val testExt = "1.1.1"
-    const val espresso = "3.2.0"
-    const val mockito = "2.24.0"
-    const val mockitoKotlin = "2.0.0"
+    const val junit = "4.13"
+    const val testRunner = "1.3.0-alpha05"
+    const val testExt = "1.1.2-alpha05"
+    const val espresso = "3.3.0-alpha05"
+    const val mockito = "3.3.3"
+    const val mockitoKotlin = "2.2.0"
     const val timberVersion = "4.7.1"
     const val mockk = "1.9.3"
-    const val googleServicesVersion = "4.2.0"
+    const val googleServicesVersion = "4.3.3"
     const val fabricVersion = "1.28.0"
     const val crashlyticsVersion = "2.9.9"
     const val firebaseVersion = "16.0.8"
-    const val mockWebServerVersion = "4.2.2"
-
+    const val mockWebServerVersion = "4.5.0"
 }
 
 object ApiKeys {
-    const val movieDb:String = "aa94b3c2c71ca34288378f22d536ab1f"
+    const val movieDb: String = "aa94b3c2c71ca34288378f22d536ab1f"
 }

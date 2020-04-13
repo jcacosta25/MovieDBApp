@@ -38,7 +38,7 @@
         android:id="@+id/showDetailFragment"
         android:name="io.jcal.theMovie.presentation.ui.ShowDetailFragment"
         android:label="@string/show_detail_title"
-        tools:layout="@layout/fragment_show_detail" >
+        tools:layout="@layout/fragment_show_detail">
         <argument
             android:name="showId"
             app:argType="integer" />

@@ -1,10 +1,14 @@
 package io.jcal.movies_provider.repository.api.network.coroutinesAdapter
 
-import java.lang.reflect.Type
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Deferred
 import okhttp3.ResponseBody
-import retrofit2.*
+import retrofit2.Call
+import retrofit2.CallAdapter
+import retrofit2.Callback
+import retrofit2.Converter
+import retrofit2.Response
+import java.lang.reflect.Type
 
 /**
  * A Retrofit converter to return objects wrapped in [NetworkResponse] class
