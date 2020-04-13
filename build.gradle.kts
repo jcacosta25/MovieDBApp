@@ -143,4 +143,97 @@ subprojects {
         report = file("$buildDir/reports/${project.name}/format-report.txt")
         setDisabledRules(arrayOf("import-ordering"))
     }
+
+    fun taskName(
+        taskName: String = "",
+        taskNames: MutableList<String> = mutableListOf()
+    ): String = if (taskNames.isEmpty()) {
+        taskNames.add(taskName)
+        taskName
+    } else {
+        var name = ""
+        taskNames.forEach {
+            name = if (name.isEmpty()) {
+                it
+            } else {
+                "_$it"
+            }
+        }
+        name
+    }
+
+    fun runModuleTask(
+        module: String,
+        taskName: String = "",
+        taskNames: MutableList<String> = mutableListOf()
+    ): Task {
+        return tasks.create("${module}_${taskName(taskName, taskNames)}") {
+            val project = subprojects.asSequence().filter { it.name == module }.first()
+            project.childProjects.forEach { (_, module) ->
+                taskNames.forEach { taskName ->
+                    val task = module.getTasksByName(taskName, true)
+                    this.dependsOn(task)
+                }
+            }
+        }
+    }
+
+    fun runAppTask(taskName: String = "", taskNames: MutableList<String> = mutableListOf()): Task {
+        if (taskNames.isEmpty()) {
+            taskNames.add(taskName)
+        }
+        return tasks.create("app_${taskName(taskName, taskNames)}") {
+            taskNames.forEach { taskName ->
+                this.dependsOn(":app:$taskName")
+            }
+        }
+    }
+
+    tasks.create("projectClean") {
+        group = "cleanup"
+        description = "Runs all clean on all project modules"
+        dependsOn(
+            runAppTask(taskName = "clean")
+        )
+    }
+
+    tasks.create("projectFormat") {
+        group = "formatting"
+        description = "Runs Code format on all project modules"
+        dependsOn(
+            runAppTask(taskName = "ktFormat")
+        )
+    }
+
+    tasks.create("projectLinter") {
+        group = "verification"
+        description = "Runs Code Lint Checker on all project modules"
+        dependsOn(
+            runAppTask(taskNames = mutableListOf("lint", "ktLint"))
+        )
+    }
+
+    tasks.create("projectUnitTest") {
+        group = "verification"
+        description = "Runs Unit Test on all project modules"
+        dependsOn(
+            runAppTask(taskName = "testDebugUnitTest")
+        )
+    }
+
+    tasks.create("projectJacocoReport") {
+        group = "verification"
+        description = "Runs Jacoco Test Report on all project modules"
+        dependsOn(
+            runAppTask(taskName = "jacocoTestReport")
+        )
+    }
+
+    tasks.create("projectTestCoverageVerification") {
+        group = "verification"
+        description = "Runs Jacoco Test Report on all project modules"
+        dependsOn(
+            runAppTask(taskName = "jacocoTestCoverageVerification")
+        )
+    }
 }
