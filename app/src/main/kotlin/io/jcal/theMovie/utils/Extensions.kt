@@ -1,5 +1,6 @@
 package io.jcal.theMovie.utils
 
+import android.view.View
 import kotlinx.coroutines.Job
 
 fun Job?.cancelIfActive() {
@@ -7,3 +8,5 @@ fun Job?.cancelIfActive() {
         cancel()
     }
 }
+
+fun View.toTransitionGroup() = this to transitionName

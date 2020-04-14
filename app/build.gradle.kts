@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
-    id("androidx.navigation.safeargs")
     kotlin("android")
     kotlin("android.extensions")
+    id("androidx.navigation.safeargs.kotlin")
     kotlin("kapt")
 }
 

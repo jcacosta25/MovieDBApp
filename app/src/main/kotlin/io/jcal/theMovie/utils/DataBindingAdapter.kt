@@ -10,16 +10,19 @@ class DataBindingAdapter {
         @JvmStatic
         @BindingAdapter("android:image_url")
         fun loadImage(imageView: AppCompatImageView, url: String?) {
-            if (!url.isNullOrEmpty()) {
-                Picasso.get()
-                    .load(url)
-                    .placeholder(R.drawable.background_place_holder)
-                    .error(R.drawable.background_place_holder)
-                    .fit()
-                    .centerCrop()
-                    .into(imageView)
-            } else {
-                imageView.setImageResource(R.drawable.background_place_holder)
+            imageView.apply {
+                transitionName = url
+                url?.let {
+                    Picasso.get()
+                        .load(it)
+                        .placeholder(R.drawable.background_place_holder)
+                        .error(R.drawable.background_place_holder)
+                        .fit()
+                        .centerCrop()
+                        .into(this)
+                }.let {
+                    this.setImageResource(R.drawable.background_place_holder)
+                }
             }
         }
     }

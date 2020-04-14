@@ -5,8 +5,7 @@
 
     <androidx.appcompat.widget.ContentFrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/productGridBackgroundColor">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/popular_shows_rv"

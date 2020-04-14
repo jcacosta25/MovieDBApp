@@ -45,7 +45,7 @@ class MovieAdapter(
         ) {
             binding.movie = movie
             binding.root.setOnClickListener {
-                movieClickListener.invoke(movie, position, binding.root)
+                movieClickListener.invoke(movie, position, binding.appCompatImageView)
             }
 
             binding.executePendingBindings()

@@ -24,10 +24,10 @@ abstract class NetworkBoundResourceFlowCoroutines<ModelType : BaseModel, T> {
 
     protected abstract suspend fun saveCallResult(item: ModelType)
 
-    protected fun shouldFetch(
+    private fun shouldFetch(
         data: ModelType?,
         time: Long = forecastCacheThresholdMillis
-    ): Boolean = true
+    ): Boolean = time == forecastCacheThresholdMillis
 
     protected fun shouldLoad(params: T, data: ModelType): Boolean = true
 

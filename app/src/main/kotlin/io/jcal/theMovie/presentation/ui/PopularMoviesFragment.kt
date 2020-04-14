@@ -9,15 +9,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import dagger.android.support.DaggerFragment
 import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.FragmentPopularMoviesListBinding
 import io.jcal.theMovie.presentation.mapper.model.BaseUIModel.Companion.SUCCESS
 import io.jcal.theMovie.presentation.mapper.model.MovieUIModelList
-import io.jcal.theMovie.presentation.ui.PopularMoviesFragmentDirections.popularMoviesToMovieDetail
 import io.jcal.theMovie.presentation.ui.adapter.MovieAdapter
 import io.jcal.theMovie.presentation.viewmodel.MoviesViewModel
 import io.jcal.theMovie.utils.SpacingItemDecoration
+import io.jcal.theMovie.utils.toTransitionGroup
 import javax.inject.Inject
 
 class PopularMoviesFragment : DaggerFragment() {
@@ -51,8 +53,12 @@ class PopularMoviesFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = MovieAdapter(
-            movieClickListener = { movie, _, rootView ->
-                rootView.findNavController().navigate(popularMoviesToMovieDetail(movie.id))
+            movieClickListener = { movie, _, image ->
+                val extras = FragmentNavigatorExtras(
+                    image.toTransitionGroup()
+                )
+                findNavController()
+                    .navigate(PopularMoviesFragmentDirections.popularMoviesToMovieDetail(movie.id),extras)
             }
         )
         binding.popularMoviesRv.adapter = adapter
@@ -105,7 +111,6 @@ class PopularMoviesFragment : DaggerFragment() {
     }
 
     companion object {
-        private const val BUNDLE_MOVIE = "movies"
         private const val BUNDLE_MOVIES_INSTANCE_STATE = "movies_instance_state"
         private const val SPACING = 16
     }

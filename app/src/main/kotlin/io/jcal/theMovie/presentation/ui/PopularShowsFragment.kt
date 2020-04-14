@@ -9,15 +9,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import dagger.android.support.DaggerFragment
 import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.FragmentPopularShowsBinding
 import io.jcal.theMovie.presentation.mapper.model.BaseUIModel.Companion.SUCCESS
 import io.jcal.theMovie.presentation.mapper.model.TvShowUIList
-import io.jcal.theMovie.presentation.ui.PopularShowsFragmentDirections.popularShowsToShowDetail
 import io.jcal.theMovie.presentation.ui.adapter.ShowAdapter
 import io.jcal.theMovie.presentation.viewmodel.TvShowsViewModel
 import io.jcal.theMovie.utils.SpacingItemDecoration
+import io.jcal.theMovie.utils.toTransitionGroup
 import javax.inject.Inject
 
 class PopularShowsFragment : DaggerFragment() {
@@ -44,7 +46,11 @@ class PopularShowsFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
         adapter = ShowAdapter(
             showClickListener = { show, _, rootView ->
-                rootView.findNavController().navigate(popularShowsToShowDetail(show.id))
+                val extras = FragmentNavigatorExtras(
+                    rootView.toTransitionGroup()
+                )
+                findNavController()
+                    .navigate(PopularShowsFragmentDirections.popularShowsToShowDetail(show.id),extras)
             }
         )
         binding.popularShowsRv.adapter = adapter

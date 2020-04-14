@@ -32,7 +32,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="188dp"
             android:layout_marginEnd="8dp"
-            android:image_url="@{movie.posterPath}"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="@+id/show_path_view"
             app:layout_constraintHorizontal_bias="0.0"

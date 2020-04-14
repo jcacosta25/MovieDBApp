@@ -44,7 +44,11 @@ class ShowAdapter(
         ) {
             binding.show = show
             binding.root.setOnClickListener {
-                showClickListener.invoke(show, position, binding.root)
+                showClickListener.invoke(
+                    show,
+                    position,
+                    binding.showImageView
+                )
             }
             binding.executePendingBindings()
         }

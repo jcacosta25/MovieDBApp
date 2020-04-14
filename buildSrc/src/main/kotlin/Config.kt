@@ -63,6 +63,8 @@ object Libs {
     const val navigationFragment =
         "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
+    const val navigationFeature =
+        "androidx.navigation:navigation-dynamic-features-fragment:${Versions.navigation}"
 
     const val dataBinding = "com.android.databinding:compiler:${Versions.dataBinding}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timberVersion}"
