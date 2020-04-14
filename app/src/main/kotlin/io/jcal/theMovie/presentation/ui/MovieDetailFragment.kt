@@ -1,7 +1,6 @@
 package io.jcal.theMovie.presentation.ui
 
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import androidx.transition.TransitionInflater
 import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerFragment
 import io.jcal.theMovie.R
@@ -47,7 +47,7 @@ class MovieDetailFragment : DaggerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.showPosterImageView.apply {
+        binding.moviePosterImageView.apply {
             transitionName = args.uri
             Picasso.get()
                 .load(args.uri)

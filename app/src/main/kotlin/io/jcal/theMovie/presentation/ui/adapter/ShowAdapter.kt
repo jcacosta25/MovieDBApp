@@ -47,7 +47,7 @@ class ShowAdapter(
                 showClickListener.invoke(
                     show,
                     position,
-                    binding.showImageView
+                    binding.showPosterImageView
                 )
             }
             binding.executePendingBindings()

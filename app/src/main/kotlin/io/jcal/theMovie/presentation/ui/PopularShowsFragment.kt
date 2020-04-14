@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import dagger.android.support.DaggerFragment
@@ -45,12 +44,12 @@ class PopularShowsFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         adapter = ShowAdapter(
-            showClickListener = { show, _, rootView ->
+            showClickListener = { show, _, poster ->
                 val extras = FragmentNavigatorExtras(
-                    rootView.toTransitionGroup()
+                    poster.toTransitionGroup()
                 )
                 findNavController()
-                    .navigate(PopularShowsFragmentDirections.popularShowsToShowDetail(show.id),extras)
+                    .navigate(PopularShowsFragmentDirections.popularShowsToShowDetail(show.id,show.posterPath),extras)
             }
         )
         binding.popularShowsRv.adapter = adapter

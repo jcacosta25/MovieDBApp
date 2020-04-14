@@ -8,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import dagger.android.support.DaggerFragment
@@ -53,12 +52,12 @@ class PopularMoviesFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = MovieAdapter(
-            movieClickListener = { movie, _, image ->
+            movieClickListener = { movie, _, poster ->
                 val extras = FragmentNavigatorExtras(
-                    image.toTransitionGroup()
+                    poster.toTransitionGroup()
                 )
                 findNavController()
-                    .navigate(PopularMoviesFragmentDirections.popularMoviesToMovieDetail(movie.id),extras)
+                    .navigate(PopularMoviesFragmentDirections.popularMoviesToMovieDetail(movie.id,movie.posterPath),extras)
             }
         )
         binding.popularMoviesRv.adapter = adapter

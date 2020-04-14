@@ -11,18 +11,28 @@ class DataBindingAdapter {
         @BindingAdapter("android:image_url")
         fun loadImage(imageView: AppCompatImageView, url: String?) {
             imageView.apply {
+                Picasso.get()
+                    .load(url)
+                    .placeholder(R.drawable.background_place_holder)
+                    .error(R.drawable.background_place_holder)
+                    .fit()
+                    .centerCrop()
+                    .into(this)
+            }
+        }
+
+        @JvmStatic
+        @BindingAdapter("android:poster_url")
+        fun loadPoster(imageView: AppCompatImageView, url: String?) {
+            imageView.apply {
                 transitionName = url
-                url?.let {
-                    Picasso.get()
-                        .load(it)
-                        .placeholder(R.drawable.background_place_holder)
-                        .error(R.drawable.background_place_holder)
-                        .fit()
-                        .centerCrop()
-                        .into(this)
-                }.let {
-                    this.setImageResource(R.drawable.background_place_holder)
-                }
+                Picasso.get()
+                    .load(url)
+                    .placeholder(R.drawable.background_place_holder)
+                    .error(R.drawable.background_place_holder)
+                    .fit()
+                    .centerCrop()
+                    .into(this)
             }
         }
     }
