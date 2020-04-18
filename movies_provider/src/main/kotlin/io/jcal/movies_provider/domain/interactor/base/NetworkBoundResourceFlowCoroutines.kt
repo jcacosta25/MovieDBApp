@@ -29,7 +29,7 @@ abstract class NetworkBoundResourceFlowCoroutines<ModelType : BaseModel, T> {
         time: Long = forecastCacheThresholdMillis
     ): Boolean = time == forecastCacheThresholdMillis
 
-    protected fun shouldLoad(params: T, data: ModelType): Boolean = true
+    protected fun shouldLoad(params: T, data: ModelType): Boolean = false
 
     protected abstract suspend fun loadFromDb(params: T): ModelType
 

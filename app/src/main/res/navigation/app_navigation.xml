@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/popularMoviesFragment"
-        android:name="io.jcal.theMovie.presentation.ui.PopularMoviesFragment"
+        android:name="io.jcal.theMovie.presentation.ui.home.PopularMoviesFragment"
         android:label="@string/movies_title"
         tools:layout="@layout/fragment_popular_movies_list">
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/popularShowsFragment"
-        android:name="io.jcal.theMovie.presentation.ui.PopularShowsFragment"
+        android:name="io.jcal.theMovie.presentation.ui.home.PopularShowsFragment"
         android:label="@string/shows_title"
         tools:layout="@layout/fragment_popular_shows">
 
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="io.jcal.theMovie.presentation.ui.MovieDetailFragment"
+        android:name="io.jcal.theMovie.presentation.ui.movies.MovieDetailFragment"
         android:label="@string/movie_detail_title"
         tools:layout="@layout/fragment_movie_detail">
         <argument
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/showDetailFragment"
-        android:name="io.jcal.theMovie.presentation.ui.ShowDetailFragment"
+        android:name="io.jcal.theMovie.presentation.ui.series.ShowDetailFragment"
         android:label="@string/show_detail_title"
         tools:layout="@layout/fragment_show_detail">
         <argument

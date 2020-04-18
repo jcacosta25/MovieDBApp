@@ -100,6 +100,7 @@ dependencies {
     implementation(Libs.design)
     implementation(Libs.picasso)
     implementation(Libs.multiDex)
+    implementation(Libs.paging)
     implementation(Libs.navigationFragment)
     implementation(Libs.navigationUi)
     kapt(Libs.daggerCompiler)

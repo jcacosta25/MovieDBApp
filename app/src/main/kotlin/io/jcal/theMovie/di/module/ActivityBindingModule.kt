@@ -2,10 +2,10 @@ package io.jcal.theMovie.di.module
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import io.jcal.theMovie.presentation.ui.MovieDetailFragment
-import io.jcal.theMovie.presentation.ui.PopularMoviesFragment
-import io.jcal.theMovie.presentation.ui.PopularShowsFragment
-import io.jcal.theMovie.presentation.ui.ShowDetailFragment
+import io.jcal.theMovie.presentation.ui.movies.MovieDetailFragment
+import io.jcal.theMovie.presentation.ui.home.PopularMoviesFragment
+import io.jcal.theMovie.presentation.ui.home.PopularShowsFragment
+import io.jcal.theMovie.presentation.ui.series.ShowDetailFragment
 
 @Module
 abstract class ActivityBindingModule {

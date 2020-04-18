@@ -68,7 +68,7 @@ object Libs {
 
     const val dataBinding = "com.android.databinding:compiler:${Versions.dataBinding}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timberVersion}"
-    const val pagingRuntime = "android.arch.paging:runtime:${Versions.paging}"
+    const val paging = "androidx.paging:paging-runtime-ktx:${Versions.paging}"
     const val workManagerRunTime = "androidx.work:work-runtime-ktx:${Versions.workManager}"
 
     // Network
@@ -118,6 +118,7 @@ object TestLibs {
     const val workManager = "androidx.work:work-testing:${Versions.workManager}"
     const val mockWebServer = "com.squareup.okhttp3:mockwebserver:${Versions.mockWebServerVersion}"
     const val testJodaTime = "joda-time:joda-time:${Versions.testJodaTimeVersion}"
+    const val paging = "androidx.paging:paging-common-ktx:${Versions.paging}"
 }
 
 object Android {

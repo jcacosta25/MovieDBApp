@@ -1,4 +1,4 @@
-package io.jcal.theMovie.presentation.ui
+package io.jcal.theMovie.presentation.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,8 +15,9 @@ import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.FragmentPopularShowsBinding
 import io.jcal.theMovie.presentation.mapper.model.BaseUIModel.Companion.SUCCESS
 import io.jcal.theMovie.presentation.mapper.model.TvShowUIList
+import io.jcal.theMovie.presentation.ui.home.PopularShowsFragmentDirections
 import io.jcal.theMovie.presentation.ui.adapter.ShowAdapter
-import io.jcal.theMovie.presentation.viewmodel.TvShowsViewModel
+import io.jcal.theMovie.presentation.ui.home.viewmodel.TvShowsViewModel
 import io.jcal.theMovie.utils.SpacingItemDecoration
 import io.jcal.theMovie.utils.toTransitionGroup
 import javax.inject.Inject
@@ -49,7 +50,11 @@ class PopularShowsFragment : DaggerFragment() {
                     poster.toTransitionGroup()
                 )
                 findNavController()
-                    .navigate(PopularShowsFragmentDirections.popularShowsToShowDetail(show.id,show.posterPath),extras)
+                    .navigate(
+                        PopularShowsFragmentDirections.popularShowsToShowDetail(
+                            show.id,
+                            show.posterPath
+                        ),extras)
             }
         )
         binding.popularShowsRv.adapter = adapter

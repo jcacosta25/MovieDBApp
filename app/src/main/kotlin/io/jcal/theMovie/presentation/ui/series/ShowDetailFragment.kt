@@ -1,4 +1,4 @@
-package io.jcal.theMovie.presentation.ui
+package io.jcal.theMovie.presentation.ui.series
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,26 +13,26 @@ import androidx.transition.TransitionInflater
 import com.squareup.picasso.Picasso
 import dagger.android.support.DaggerFragment
 import io.jcal.theMovie.R
-import io.jcal.theMovie.databinding.FragmentMovieDetailBinding
+import io.jcal.theMovie.databinding.FragmentShowDetailBinding
 import io.jcal.theMovie.presentation.mapper.model.BaseUIModel.Companion.SUCCESS
-import io.jcal.theMovie.presentation.viewmodel.MovieDetailViewModel
 import javax.inject.Inject
 
-class MovieDetailFragment : DaggerFragment() {
+class ShowDetailFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel by viewModels<MovieDetailViewModel> { viewModelFactory }
-    private lateinit var binding: FragmentMovieDetailBinding
+    private val viewModel by viewModels<TvShowDetailViewModel> { viewModelFactory }
+    private lateinit var binding: FragmentShowDetailBinding
 
-    private val args: MovieDetailFragmentArgs by navArgs()
+    private val args: ShowDetailFragmentArgs by navArgs()
 
-    private val movieId by lazy { args.movieId }
+    private val tvShowId by lazy { args.showId }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
     }
 
     override fun onCreateView(
@@ -40,14 +40,13 @@ class MovieDetailFragment : DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_movie_detail, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_show_detail, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.moviePosterImageView.apply {
+        binding.showPosterImageView.apply {
             transitionName = args.uri
             Picasso.get()
                 .load(args.uri)
@@ -62,12 +61,12 @@ class MovieDetailFragment : DaggerFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.getMovie(movieId)
+        viewModel.getTvShow(tvShowId)
 
-        viewModel.movieDetail().observe(viewLifecycleOwner, Observer { movie ->
-            when (movie.state) {
+        viewModel.tvShowDetail().observe(viewLifecycleOwner, Observer { show ->
+            when (show.state) {
                 SUCCESS -> {
-                    binding.movie = movie
+                    binding.show = show
                 }
             }
         })

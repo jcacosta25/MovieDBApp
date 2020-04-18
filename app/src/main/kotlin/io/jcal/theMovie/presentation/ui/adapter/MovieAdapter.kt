@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.MoviePreviewContentBinding
@@ -49,6 +50,28 @@ class MovieAdapter(
             }
 
             binding.executePendingBindings()
+        }
+    }
+}
+
+class MoviePagedAdapter(private val movieClickListener: (MovieUIModel, Int, View) -> Unit) :
+    PagedListAdapter<MovieUIModel, MovieAdapter.MovieViewHolder>(MovieUIModel.MOVIE_DIF) {
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): MovieAdapter.MovieViewHolder = MovieAdapter.MovieViewHolder(
+        DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.movie_preview_content,
+            parent,
+            false
+        )
+    )
+
+    override fun onBindViewHolder(holder: MovieAdapter.MovieViewHolder, position: Int) {
+        getItem(position)?.let {
+            holder.bind(movieClickListener, position, it)
         }
     }
 }

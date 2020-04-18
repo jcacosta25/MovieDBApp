@@ -1,4 +1,4 @@
-package io.jcal.theMovie.presentation.viewmodel
+package io.jcal.theMovie.presentation.ui.series
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData

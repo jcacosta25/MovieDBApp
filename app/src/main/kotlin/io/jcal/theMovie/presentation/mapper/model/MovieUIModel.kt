@@ -1,6 +1,7 @@
 package io.jcal.theMovie.presentation.mapper.model
 
 import android.os.Parcelable
+import androidx.recyclerview.widget.DiffUtil
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -27,7 +28,19 @@ data class MovieUIModel(
     val video: Boolean = false,
     val voteAverage: Double = EMPTY_DOUBLE,
     val voteCount: Int
-) : BaseUIModel(), Parcelable
+) : BaseUIModel(), Parcelable {
+
+    companion object {
+
+        val MOVIE_DIF = object :DiffUtil.ItemCallback<MovieUIModel>() {
+            override fun areItemsTheSame(oldItem: MovieUIModel, newItem: MovieUIModel): Boolean  =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(oldItem: MovieUIModel, newItem: MovieUIModel): Boolean =
+                oldItem == newItem
+        }
+    }
+}
 
 @Parcelize
 data class MovieUIModelList(
@@ -43,3 +56,5 @@ data class DatesUIModel(
     val maximum: String,
     val minimum: String
 ) : BaseUIModel()
+
+

@@ -23,7 +23,7 @@ class UseCasePopularMoviesFlow @Inject constructor(
     override fun getLoadingObject(): MoviesModel = MoviesModel()
 
     data class Params constructor(
-        val language: String = HttpBaseValues.LANGUAGE,
-        val page: Int = HttpBaseValues.PAGE
+        val page: Int = HttpBaseValues.PAGE,
+        val language: String = HttpBaseValues.LANGUAGE
     )
 }
