@@ -2,42 +2,28 @@ package io.jcal.theMovie.presentation.ui.movies
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations.map
-import androidx.lifecycle.Transformations.switchMap
 import androidx.lifecycle.ViewModel
-import io.jcal.movies_provider.domain.interactor.UseCaseMovie
+import androidx.lifecycle.viewModelScope
+import io.jcal.movies_provider.domain.interactor.UseCaseGetMovie
 import io.jcal.theMovie.presentation.mapper.PresentationDataMapper
 import io.jcal.theMovie.presentation.mapper.model.MovieUIModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MovieDetailViewModel @Inject constructor(
-    private val useCaseMovie: UseCaseMovie,
+    private val useCaseGetMovie: UseCaseGetMovie,
     private val mapper: PresentationDataMapper
 ) : ViewModel() {
 
     private val movie: MediatorLiveData<MovieUIModel> = MediatorLiveData()
 
-    private val movieId: MutableLiveData<Int> = MutableLiveData()
-
-    init {
-        movie.addSource(
-            switchMap(movieId) { movieId ->
-                map(
-                    useCaseMovie.execute(
-                        UseCaseMovie.Params(movieId)
-                    )
-                ) { response ->
-                    mapper.convert(response)
-                }
-            }
-        ) { movieDetail ->
-            movie.postValue(movieDetail)
-        }
-    }
-
     fun getMovie(movieId: Int) {
-        this.movieId.postValue(movieId)
+        viewModelScope.launch {
+            useCaseGetMovie.execute(UseCaseGetMovie.Params(movieId)).collect {
+                movie.postValue(mapper.convert(it))
+            }
+        }
     }
 
     fun movieDetail(): LiveData<MovieUIModel> = movie

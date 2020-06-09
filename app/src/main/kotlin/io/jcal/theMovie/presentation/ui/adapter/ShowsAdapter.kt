@@ -4,16 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.ShowPreviewContentBinding
 import io.jcal.theMovie.presentation.mapper.model.TvShowUIModel
 
-class ShowAdapter(
-    private val movies: MutableList<TvShowUIModel> = mutableListOf(),
-    val showClickListener: (TvShowUIModel, Int, View) -> Unit
-) :
-    RecyclerView.Adapter<ShowAdapter.ShowViewHolder>() {
+class ShowsAdapter(
+    val showClickListener: (TvShowUIModel, Int, View) -> Unit = { _, _, _ -> }
+) : PagedListAdapter<TvShowUIModel, ShowsAdapter.ShowViewHolder>(TvShowUIModel.SHOW_DIF) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShowViewHolder =
         ShowViewHolder(
             DataBindingUtil.inflate(
@@ -24,16 +23,11 @@ class ShowAdapter(
             )
         )
 
-    fun addAll(show: List<TvShowUIModel>) {
-        this.movies.addAll(show)
-        notifyDataSetChanged()
-    }
-
     override fun onBindViewHolder(holder: ShowViewHolder, position: Int) {
-        holder.bind(movies[position], showClickListener, position)
+        getItem(position)?.let {
+            holder.bind(it, showClickListener, position)
+        }
     }
-
-    override fun getItemCount(): Int = movies.size
 
     inner class ShowViewHolder(private val binding: ShowPreviewContentBinding) :
         RecyclerView.ViewHolder(binding.root) {

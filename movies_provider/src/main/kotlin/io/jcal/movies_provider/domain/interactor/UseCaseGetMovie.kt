@@ -1,25 +1,27 @@
 package io.jcal.movies_provider.domain.interactor
 
-import androidx.lifecycle.LiveData
-import io.jcal.movies_provider.domain.interactor.base.NetworkBoundResourceLiveDataCoroutines
+import io.jcal.movies_provider.domain.interactor.base.NetworkBoundResource
 import io.jcal.movies_provider.repository.MDBRepository
 import io.jcal.movies_provider.repository.api.network.HttpBaseValues
 import io.jcal.movies_provider.repository.mapper.model.MovieModel
 import javax.inject.Inject
 
-class UseCaseMovie @Inject constructor(
+class UseCaseGetMovie @Inject constructor(
     private val repository: MDBRepository
-) : NetworkBoundResourceLiveDataCoroutines<MovieModel, UseCaseMovie.Params>() {
+) : NetworkBoundResource<MovieModel, UseCaseGetMovie.Params>() {
 
-    override fun saveCallResult(item: MovieModel) {
-        repository.insertMovie(item)
+    override suspend fun saveCallResult(item: MovieModel) {
+        item.state
     }
 
-    override fun loadFromDb(params: Params): LiveData<MovieModel> =
+    override suspend fun loadFromDb(params: Params): MovieModel =
         repository.loadMovie(params.movieId)
 
+    override val parameters: Params
+        get() = Params()
+
     override suspend fun createCall(params: Params): MovieModel =
-        repository.getMovie(params.movieId)
+        repository.fetchMovie(params.movieId)
 
     override fun getLoadingObject(): MovieModel = MovieModel()
 

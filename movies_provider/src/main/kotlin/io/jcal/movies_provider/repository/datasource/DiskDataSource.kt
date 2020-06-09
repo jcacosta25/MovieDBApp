@@ -1,6 +1,5 @@
 package io.jcal.movies_provider.repository.datasource
 
-import androidx.lifecycle.LiveData
 import io.jcal.movies_provider.repository.db.entity.MovieEntity
 import io.jcal.movies_provider.repository.db.entity.TvShowSeasons
 import io.jcal.movies_provider.repository.mapper.model.MovieModel
@@ -10,43 +9,31 @@ import io.jcal.movies_provider.repository.mapper.model.TvShowsModel
 
 interface DiskDataSource {
 
-    fun insertMovies(entity: List<MovieEntity>): List<Long>
+    suspend fun insertMovies(entity: List<MovieEntity>): List<Long>
 
-    fun insertMovie(entity: MovieEntity): Long
+    suspend fun insertMovie(entity: MovieEntity): Long
 
-    fun selectMovie(movieId: Int): LiveData<MovieEntity>
+    suspend fun insertTvShows(entity: List<TvShowSeasons>): List<Long>
 
-    fun selectAllMovies(): LiveData<List<MovieEntity>>
+    suspend fun insertTvShow(entity: TvShowSeasons): Long
 
-    fun insertTvShows(entity: List<TvShowSeasons>): List<Long>
-
-    fun insertTvShow(entity: TvShowSeasons): Long
-
-    fun selectTvShow(showId: Int): LiveData<TvShowSeasons>
-
-    fun selectAllTvShows(): LiveData<List<TvShowSeasons>>
-
-    fun insertMoviesModel(entity: List<MovieModel>): List<Long>
+    suspend fun insertMoviesModel(entity: List<MovieModel>): List<Long>
 
     suspend fun insertMoviesModelCoroutine(entity: List<MovieModel>)
 
-    fun insertMovieModel(entity: MovieModel): Long
+    suspend fun insertMovieModel(entity: MovieModel): Long
 
     suspend fun insertMovieModelCoroutines(entity: MovieModel)
 
-    fun selectMovieModel(movieId: Int): LiveData<MovieModel>
-
-    suspend fun selectMovieModelCoroutines(movieId: Int): MovieModel?
-
-    fun selectAllMoviesModel(): LiveData<MoviesModel>
+    suspend fun selectMovieModel(movieId: Int): MovieModel
 
     suspend fun selectAllMoviesModelCoroutines(): MoviesModel
 
-    fun insertTvShowsModel(entity: List<TvShowModel>): List<Long>
+    suspend fun insertTvShowsModel(entity: List<TvShowModel>): List<Long>
 
-    fun insertTvShowModel(entity: TvShowModel): Long
+    suspend fun insertTvShowModel(entity: TvShowModel): Long
 
-    fun selectTvShowModel(showId: Int): LiveData<TvShowModel>
+    suspend fun selectTvShowModel(showId: Int): TvShowModel
 
-    fun selectAllTvShowsModel(): LiveData<TvShowsModel>
+    suspend fun selectAllTvShowsModel(): TvShowsModel
 }

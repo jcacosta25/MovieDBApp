@@ -1,6 +1,5 @@
 package io.jcal.movies_provider.repository
 
-import androidx.lifecycle.LiveData
 import io.jcal.movies_provider.repository.datasource.CloudDataSource
 import io.jcal.movies_provider.repository.datasource.DiskDataSource
 import io.jcal.movies_provider.repository.mapper.model.MovieModel
@@ -14,40 +13,41 @@ class MDBRepositoryImpl @Inject constructor(
     private val diskDataSource: DiskDataSource
 ) : MDBRepository {
 
-    override suspend fun getPopularMovies(language: String, page: Int): MoviesModel =
+    override suspend fun fetchPopularMovies(language: String, page: Int): MoviesModel =
         cloudDataSource.fetchPopularMovies(language, page)
 
-    override fun loadPopularMovies(): LiveData<MoviesModel> = diskDataSource.selectAllMoviesModel()
-
-    override suspend fun loadPopularMoviesCoroutines(): MoviesModel =
+    override suspend fun loadPopularMovies(): MoviesModel =
         diskDataSource.selectAllMoviesModelCoroutines()
 
     override suspend fun insertMoviesCoroutines(model: MoviesModel) {
         diskDataSource.insertMoviesModelCoroutine(model.results)
     }
 
-    override suspend fun getMovie(movieId: Int): MovieModel = cloudDataSource.fetchMovie(movieId)
+    override suspend fun fetchMovie(movieId: Int): MovieModel = cloudDataSource.fetchMovie(movieId)
 
-    override fun loadMovie(movieId: Int): LiveData<MovieModel> =
+    override suspend fun loadMovie(movieId: Int): MovieModel =
         diskDataSource.selectMovieModel(movieId)
 
-    override suspend fun getPopularShows(): TvShowsModel = cloudDataSource.fetchPopularTvShows()
+    override suspend fun fetchPopularShows(language: String, page: Int): TvShowsModel =
+        cloudDataSource.fetchPopularTvShows(language, page)
 
-    override fun loadPopularShows(): LiveData<TvShowsModel> = diskDataSource.selectAllTvShowsModel()
+    override suspend fun loadPopularShows(): TvShowsModel = diskDataSource.selectAllTvShowsModel()
 
-    override suspend fun getShow(showId: Int): TvShowModel =
+    override suspend fun fetchShow(showId: Int): TvShowModel =
         cloudDataSource.fetchTvShow(showId)
 
-    override fun loadShow(showId: Int): LiveData<TvShowModel> =
+    override suspend fun loadShow(showId: Int): TvShowModel =
         diskDataSource.selectTvShowModel(showId)
 
-    override fun insertAllMovies(model: MoviesModel): List<Long> =
+    override suspend fun insertAllMovies(model: MoviesModel): List<Long> =
         diskDataSource.insertMoviesModel(model.results)
 
-    override fun insertMovie(model: MovieModel): Long = diskDataSource.insertMovieModel(model)
+    override suspend fun insertMovie(model: MovieModel): Long =
+        diskDataSource.insertMovieModel(model)
 
-    override fun insertTvShows(model: TvShowsModel): List<Long> =
+    override suspend fun insertTvShows(model: TvShowsModel): List<Long> =
         diskDataSource.insertTvShowsModel(model.results)
 
-    override fun insertTvShow(model: TvShowModel): Long = diskDataSource.insertTvShowModel(model)
+    override suspend fun insertTvShow(model: TvShowModel): Long =
+        diskDataSource.insertTvShowModel(model)
 }

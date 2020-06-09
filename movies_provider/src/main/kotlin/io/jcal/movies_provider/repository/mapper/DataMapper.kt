@@ -32,28 +32,28 @@ class DataMapper @Inject constructor() {
 
     fun convert(response: MovieDTO?): MovieModel =
         MovieModel(
-            id = emptyInt(response?.id),
-            adult = emptyBoolean(response?.adult),
-            backdropPath = emptyString(response?.backdropPath?.let { IMAGE_PATH.plus(it) }),
-            budget = emptyInt(response?.budget),
-            genreIds = emptyList(response?.genreIds ?: response?.genres?.map { it.id }),
-            homepage = emptyString(response?.homepage),
-            imdbId = emptyString(response?.imdbId),
-            originalLanguage = emptyString(response?.originalLanguage),
-            originalTitle = emptyString(response?.originalTitle),
-            overview = emptyString(response?.overview),
-            popularity = emptyDouble(response?.popularity),
-            posterPath = emptyString(response?.posterPath?.let { IMAGE_PATH.plus(it) }),
-            releaseDate = emptyString(response?.releaseDate),
-            revenue = emptyInt(response?.revenue),
-            runtime = emptyInt(response?.runtime),
-            // spokenLanguageModels = response?.spokenLanguageModels.map { it.name },
-            status = emptyString(response?.status),
-            tagline = emptyString(response?.tagline),
-            title = emptyString(response?.title),
-            video = emptyBoolean(response?.video),
-            voteAverage = emptyDouble(response?.voteAverage),
-            voteCount = emptyInt(response?.voteCount)
+            id = response?.id.orEmpty(),
+            adult = response?.adult.orFalse(),
+            backdropPath = response?.backdropPath?.let { IMAGE_PATH.plus(it) }.orEmpty(),
+            budget = response?.budget.orEmpty(),
+            genreIds = response?.genreIds ?: response?.genres?.map { it.id }.orEmpty(),
+            homepage = response?.homepage.orEmpty(),
+            imdbId = response?.imdbId.orEmpty(),
+            originalLanguage = response?.originalLanguage.orEmpty(),
+            originalTitle = response?.originalTitle.orEmpty(),
+            overview = response?.overview.orEmpty(),
+            popularity = response?.popularity.orEmpty(),
+            posterPath = response?.posterPath?.let { IMAGE_PATH.plus(it) }.orEmpty(),
+            releaseDate = response?.releaseDate.orEmpty(),
+            revenue = response?.revenue.orEmpty(),
+            runtime = response?.runtime.orEmpty(),
+            spokenLanguageModels = response?.spokenLanguageModels?.map { it.name }.orEmpty(),
+            status = response?.status.orEmpty(),
+            tagline = response?.tagline.orEmpty(),
+            title = response?.title.orEmpty(),
+            video = response?.video.orFalse(),
+            voteAverage = response?.voteAverage.orEmpty(),
+            voteCount = response?.voteCount.orEmpty()
         ).apply {
             if (response == null) {
                 setError(PARSING_ERROR)
@@ -62,33 +62,35 @@ class DataMapper @Inject constructor() {
             }
         }
 
-    fun convert(entity: MovieEntity): MovieModel {
-        val model = MovieModel(
-            id = entity.id,
-            adult = entity.adult,
-            backdropPath = IMAGE_PATH.plus(entity.backdropPath),
-            budget = entity.budget,
-            genreIds = entity.genreIds,
-            homepage = entity.homepage,
-            imdbId = entity.imdbId,
-            originalLanguage = entity.originalLanguage,
-            originalTitle = entity.originalTitle,
-            overview = entity.overview,
-            popularity = entity.popularity,
-            posterPath = IMAGE_PATH.plus(entity.posterPath),
-            releaseDate = entity.releaseDate,
-            revenue = entity.revenue,
-            runtime = entity.runtime,
-            spokenLanguageModels = entity.spokenLanguageModels,
-            status = entity.status,
-            tagline = entity.tagline,
-            title = entity.title,
-            video = entity.video,
-            voteAverage = entity.voteAverage,
-            voteCount = entity.voteCount
-        )
-        model.state = SUCCESS
-        return model
+    fun convert(entity: MovieEntity?): MovieModel = MovieModel(
+        id = entity?.id.orEmpty(),
+        adult = entity?.adult.orFalse(),
+        backdropPath = entity?.backdropPath?.let { IMAGE_PATH.plus(it) }.orEmpty(),
+        budget = entity?.budget.orEmpty(),
+        genreIds = entity?.genreIds.orEmpty(),
+        homepage = entity?.homepage.orEmpty(),
+        imdbId = entity?.imdbId.orEmpty(),
+        originalLanguage = entity?.originalLanguage.orEmpty(),
+        originalTitle = entity?.originalTitle.orEmpty(),
+        overview = entity?.overview.orEmpty(),
+        popularity = entity?.popularity.orEmpty(),
+        posterPath = entity?.posterPath?.let { IMAGE_PATH.plus(entity.posterPath) }.orEmpty(),
+        releaseDate = entity?.releaseDate.orEmpty(),
+        revenue = entity?.revenue.orEmpty(),
+        runtime = entity?.runtime.orEmpty(),
+        spokenLanguageModels = entity?.spokenLanguageModels.orEmpty(),
+        status = entity?.status.orEmpty(),
+        tagline = entity?.tagline.orEmpty(),
+        title = entity?.title.orEmpty(),
+        video = entity?.video.orFalse(),
+        voteAverage = entity?.voteAverage.orEmpty(),
+        voteCount = entity?.voteCount.orEmpty()
+    ).apply {
+        if (entity == null) {
+            setError(PARSING_ERROR)
+        } else {
+            setSuccess()
+        }
     }
 
     fun convert(model: MovieModel): MovieEntity {
@@ -121,10 +123,10 @@ class DataMapper @Inject constructor() {
     fun convert(response: EpisodeDTO): EpisodeModel {
         val model = EpisodeModel(
             id = response.id,
-            airDate = emptyString(response.airDate),
+            airDate = response.airDate,
             episodeNumber = response.episodeNumber,
-            name = emptyString(response.name),
-            overview = emptyString(response.overview),
+            name = response.name,
+            overview = response.overview,
             productionCode = response.productionCode,
             seasonNumber = response.seasonNumber,
             showId = response.showId,
@@ -171,20 +173,16 @@ class DataMapper @Inject constructor() {
         )
     }
 
-    fun convert(response: SeasonDTO, showId: Int = response._id.toInt()): SeasonModel {
+    fun convert(response: SeasonDTO?, showId: Int = response?._id.orEmpty().toInt()): SeasonModel {
         val model = SeasonModel(
-            id = response.id,
-            airDate = emptyString(response.airDate),
-            episodeCount = response.episodeCount,
-            name = emptyString(response.name),
-            overview = emptyString(response.overview),
-            posterPath = IMAGE_PATH.plus(response.posterPath),
-            seasonNumber = response.seasonNumber,
-            episodes = if (response.episodes == null) listOf() else response.episodes.map {
-                convert(
-                    it
-                )
-            },
+            id = response?.id.orEmpty(),
+            airDate = response?.airDate.orEmpty(),
+            episodeCount = response?.episodeCount.orEmpty(),
+            name = response?.name.orEmpty(),
+            overview = response?.overview.orEmpty(),
+            posterPath = response?.posterPath?.let { IMAGE_PATH.plus(it) }.orEmpty(),
+            seasonNumber = response?.seasonNumber.orEmpty(),
+            episodes = response?.episodes?.map { convert(it) }.orEmpty(),
             showId = showId
         )
         model.state = SUCCESS
@@ -253,34 +251,34 @@ class DataMapper @Inject constructor() {
 
     fun convert(response: TvShowDTO?): TvShowModel =
         TvShowModel(
-            id = emptyInt(response?.id),
-            airDate = emptyString(response?.airDate),
-            episodeCount = emptyInt(response?.episodeCount),
-            seasonNumber = emptyInt(response?.seasonNumber),
-            backdropPath = emptyString(response?.backdropPath?.let { IMAGE_PATH.plus(it) }),
-            episodeRunTime = emptyList(response?.episodeRunTime),
-            firstAirDate = emptyString(response?.firstAirDate),
-            homepage = emptyString(response?.homepage),
-            inProduction = emptyBoolean(response?.inProduction),
-            languages = emptyList(response?.languages),
-            lastAirDate = emptyString(response?.lastAirDate),
-            lastEpisodeToAir = emptyInt(response?.lastEpisodeToAir?.id),
-            nextEpisodeToAir = emptyInt(response?.nextEpisodeToAir?.id),
-            numberOfEpisodes = emptyInt(response?.numberOfEpisodes),
-            name = emptyString(response?.name),
-            numberOfSeasons = emptyInt(response?.numberOfSeasons),
-            originCountry = emptyList(response?.originCountry),
-            originalLanguage = emptyString(response?.originalLanguage),
-            originalName = emptyString(response?.originalName),
-            overview = emptyString(response?.overview),
-            popularity = emptyDouble(response?.popularity),
-            posterPath = emptyString(response?.posterPath?.let { IMAGE_PATH.plus(it) }),
-            seasons = emptyList(response?.seasons?.map { convert(it, response.id) }),
-            status = emptyString(response?.status),
-            type = emptyString(response?.type),
-            voteAverage = emptyDouble(response?.voteAverage),
-            voteCount = emptyInt(response?.voteCount),
-            genreIds = emptyList(response?.genreIds)
+            id = response?.id.orEmpty(),
+            airDate = response?.airDate.orEmpty(),
+            episodeCount = response?.episodeCount.orEmpty(),
+            seasonNumber = response?.seasonNumber.orEmpty(),
+            backdropPath = response?.backdropPath?.let { IMAGE_PATH.plus(it) }.orEmpty(),
+            episodeRunTime = response?.episodeRunTime.orEmpty(),
+            firstAirDate = response?.firstAirDate.orEmpty(),
+            homepage = response?.homepage.orEmpty(),
+            inProduction = response?.inProduction.orFalse(),
+            languages = response?.languages.orEmpty(),
+            lastAirDate = response?.lastAirDate.orEmpty(),
+            lastEpisodeToAir = response?.lastEpisodeToAir?.id.orEmpty(),
+            nextEpisodeToAir = response?.nextEpisodeToAir?.id.orEmpty(),
+            numberOfEpisodes = response?.numberOfEpisodes.orEmpty(),
+            name = response?.name.orEmpty(),
+            numberOfSeasons = response?.numberOfSeasons.orEmpty(),
+            originCountry = response?.originCountry.orEmpty(),
+            originalLanguage = response?.originalLanguage.orEmpty(),
+            originalName = response?.originalName.orEmpty(),
+            overview = response?.overview.orEmpty(),
+            popularity = response?.popularity.orEmpty(),
+            posterPath = response?.posterPath?.let { IMAGE_PATH.plus(it) }.orEmpty(),
+            seasons = response?.seasons?.map { convert(it, response.id) }.orEmpty(),
+            status = response?.status.orEmpty(),
+            type = response?.type.orEmpty(),
+            voteAverage = response?.voteAverage.orEmpty(),
+            voteCount = response?.voteCount.orEmpty(),
+            genreIds = response?.genreIds.orEmpty()
         ).apply {
             if (response == null) {
                 setError(PARSING_ERROR)
@@ -289,36 +287,37 @@ class DataMapper @Inject constructor() {
             }
         }
 
-    fun convert(entity: TvShowSeasons): TvShowModel {
+    fun convert(entity: TvShowSeasons?): TvShowModel {
         val model = TvShowModel(
-            id = entity.tvShowEntity.id,
-            airDate = entity.tvShowEntity.airDate,
-            episodeCount = entity.tvShowEntity.episodeCount,
-            seasonNumber = entity.tvShowEntity.seasonNumber,
-            backdropPath = IMAGE_PATH.plus(entity.tvShowEntity.backdropPath),
-            episodeRunTime = entity.tvShowEntity.episodeRunTime,
-            firstAirDate = entity.tvShowEntity.firstAirDate,
-            homepage = entity.tvShowEntity.homepage,
-            inProduction = entity.tvShowEntity.inProduction,
-            languages = entity.tvShowEntity.languages,
-            lastAirDate = entity.tvShowEntity.lastAirDate,
-            lastEpisodeToAir = entity.tvShowEntity.lastEpisodeToAir,
-            name = entity.tvShowEntity.name,
-            nextEpisodeToAir = entity.tvShowEntity.nextEpisodeToAir,
-            numberOfEpisodes = entity.tvShowEntity.numberOfEpisodes,
-            numberOfSeasons = entity.tvShowEntity.numberOfSeasons,
-            originCountry = entity.tvShowEntity.originCountry,
-            originalLanguage = entity.tvShowEntity.originalLanguage,
-            originalName = entity.tvShowEntity.originalName,
-            overview = entity.tvShowEntity.overview,
-            popularity = entity.tvShowEntity.popularity,
-            posterPath = IMAGE_PATH.plus(entity.tvShowEntity.posterPath),
-            seasons = entity.seasons.map { convert(it) },
-            status = entity.tvShowEntity.status,
-            type = entity.tvShowEntity.type,
-            voteAverage = entity.tvShowEntity.voteAverage,
-            voteCount = entity.tvShowEntity.voteCount,
-            genreIds = entity.tvShowEntity.genreIds
+            id = entity?.tvShowEntity?.id.orEmpty(),
+            airDate = entity?.tvShowEntity?.airDate.orEmpty(),
+            episodeCount = entity?.tvShowEntity?.episodeCount.orEmpty(),
+            seasonNumber = entity?.tvShowEntity?.seasonNumber.orEmpty(),
+            backdropPath = entity?.tvShowEntity?.backdropPath?.let { IMAGE_PATH.plus(it) }
+                .orEmpty(),
+            episodeRunTime = entity?.tvShowEntity?.episodeRunTime.orEmpty(),
+            firstAirDate = entity?.tvShowEntity?.firstAirDate.orEmpty(),
+            homepage = entity?.tvShowEntity?.homepage.orEmpty(),
+            inProduction = entity?.tvShowEntity?.inProduction.orFalse(),
+            languages = entity?.tvShowEntity?.languages.orEmpty(),
+            lastAirDate = entity?.tvShowEntity?.lastAirDate.orEmpty(),
+            lastEpisodeToAir = entity?.tvShowEntity?.lastEpisodeToAir.orEmpty(),
+            name = entity?.tvShowEntity?.name.orEmpty(),
+            nextEpisodeToAir = entity?.tvShowEntity?.nextEpisodeToAir.orEmpty(),
+            numberOfEpisodes = entity?.tvShowEntity?.numberOfEpisodes.orEmpty(),
+            numberOfSeasons = entity?.tvShowEntity?.numberOfSeasons.orEmpty(),
+            originCountry = entity?.tvShowEntity?.originCountry.orEmpty(),
+            originalLanguage = entity?.tvShowEntity?.originalLanguage.orEmpty(),
+            originalName = entity?.tvShowEntity?.originalName.orEmpty(),
+            overview = entity?.tvShowEntity?.overview.orEmpty(),
+            popularity = entity?.tvShowEntity?.popularity.orEmpty(),
+            posterPath = entity?.tvShowEntity?.posterPath?.let { IMAGE_PATH.plus(it) }.orEmpty(),
+            seasons = entity?.seasons?.map { convert(it) }.orEmpty(),
+            status = entity?.tvShowEntity?.status.orEmpty(),
+            type = entity?.tvShowEntity?.type.orEmpty(),
+            voteAverage = entity?.tvShowEntity?.voteAverage.orEmpty(),
+            voteCount = entity?.tvShowEntity?.voteCount.orEmpty(),
+            genreIds = entity?.tvShowEntity?.genreIds.orEmpty()
         )
         model.state = SUCCESS
         return model
@@ -360,7 +359,7 @@ class DataMapper @Inject constructor() {
     }
 
     fun convert(response: DatesDTO?): DatesModel =
-        DatesModel(emptyString(response?.maximum), emptyString(response?.minimum))
+        DatesModel(response?.maximum.orEmpty(), response?.minimum.orEmpty())
 
     fun convert(response: MoviesDTO?): MoviesModel {
         if (response == null) {
@@ -403,10 +402,10 @@ class DataMapper @Inject constructor() {
     fun convert(response: TvShowsDTO?): TvShowsModel =
         TvShowsModel(
             dates = convert(response?.dates),
-            page = emptyInt(response?.page),
-            results = emptyList(response?.results?.map { convert(it) }),
-            totalPages = emptyInt(response?.totalPages),
-            totalResult = emptyInt(response?.totalResults)
+            page = response?.page.orEmpty(),
+            results = response?.results?.map { convert(it) }.orEmpty(),
+            totalPages = response?.totalPages.orEmpty(),
+            totalResult = response?.totalResults.orEmpty()
         ).apply {
             if (response == null) {
                 setError(PARSING_ERROR)
@@ -442,21 +441,25 @@ class DataMapper @Inject constructor() {
         return this
     }
 
-    private fun emptyString(string: String?): String = string ?: EMPTY_STRING
-
-    private fun <T> emptyList(list: List<T>?): List<T> = list ?: listOf()
-
-    private fun emptyInt(int: Int?): Int = int ?: EMPTY_INT
-
-    private fun emptyBoolean(boolean: Boolean?): Boolean = boolean ?: EMPTY_BOOLEAN
-
-    private fun emptyDouble(double: Double?): Double = double ?: EMPTY_DOUBLE
-
     companion object {
         private const val EMPTY_STRING = ""
-        private const val EMPTY_INT = 0
+        const val EMPTY_INT = 0
         private const val EMPTY_BOOLEAN = false
-        private const val EMPTY_DOUBLE = 0.0
+        const val EMPTY_DOUBLE = 0.0
         private const val IMAGE_PATH = "https://image.tmdb.org/t/p/original"
     }
 }
+
+fun Int?.orEmpty(): Int = this ?: DataMapper.EMPTY_INT
+
+fun Float?.orEmpty(): Float = this ?: DataMapper.EMPTY_INT.toFloat()
+
+fun Long?.orEmpty(): Long = this ?: DataMapper.EMPTY_INT.toLong()
+
+fun Double?.orEmpty(): Double = this ?: DataMapper.EMPTY_DOUBLE
+
+fun Boolean?.orFalse(): Boolean = this ?: false
+
+fun Boolean?.orTrue(): Boolean = this ?: true
+
+fun Int?.orDefault(def: Int): Int = this ?: def

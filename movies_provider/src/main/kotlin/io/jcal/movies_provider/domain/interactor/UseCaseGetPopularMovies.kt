@@ -1,26 +1,29 @@
 package io.jcal.movies_provider.domain.interactor
 
-import io.jcal.movies_provider.domain.interactor.base.NetworkBoundResourceFlowCoroutines
+import io.jcal.movies_provider.domain.interactor.base.NetworkBoundResource
 import io.jcal.movies_provider.repository.MDBRepository
 import io.jcal.movies_provider.repository.api.network.HttpBaseValues
 import io.jcal.movies_provider.repository.mapper.model.MoviesModel
 import javax.inject.Inject
 
-class UseCasePopularMoviesFlow @Inject constructor(
+class UseCaseGetPopularMovies @Inject constructor(
     private val repository: MDBRepository
-) : NetworkBoundResourceFlowCoroutines<MoviesModel, UseCasePopularMoviesFlow.Params>() {
+) : NetworkBoundResource<MoviesModel, UseCaseGetPopularMovies.Params>() {
 
     override suspend fun saveCallResult(item: MoviesModel) {
         repository.insertMoviesCoroutines(item)
     }
 
     override suspend fun loadFromDb(params: Params): MoviesModel =
-        repository.loadPopularMoviesCoroutines()
+        repository.loadPopularMovies()
 
     override suspend fun createCall(params: Params): MoviesModel =
-        repository.getPopularMovies(params.language, params.page)
+        repository.fetchPopularMovies(params.language, params.page)
 
     override fun getLoadingObject(): MoviesModel = MoviesModel()
+
+    override val parameters: Params
+        get() = Params()
 
     data class Params constructor(
         val page: Int = HttpBaseValues.PAGE,
