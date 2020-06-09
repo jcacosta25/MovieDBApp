@@ -13,7 +13,7 @@ interface MovieDao : BaseDao<MovieEntity> {
     fun findByMovie(movieId: Int): LiveData<MovieEntity>
 
     @Query("select * from ${DatabaseConstants.TABLE_MOVIE} where ${DatabaseConstants.COLUMN_ID} = :movieId")
-    suspend fun findMovieCoroutines(movieId: Int): MovieEntity
+    suspend fun findMovieCoroutines(movieId: Int): MovieEntity?
 
     @Query("select * from ${DatabaseConstants.TABLE_MOVIE}")
     fun getAllMovies(): LiveData<List<MovieEntity>>

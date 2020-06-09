@@ -15,7 +15,6 @@ import dagger.android.support.DaggerFragment
 import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.FragmentMovieDetailBinding
 import io.jcal.theMovie.presentation.mapper.model.BaseUIModel.Companion.SUCCESS
-import io.jcal.theMovie.presentation.ui.movies.MovieDetailFragmentArgs
 import javax.inject.Inject
 
 class MovieDetailFragment : DaggerFragment() {

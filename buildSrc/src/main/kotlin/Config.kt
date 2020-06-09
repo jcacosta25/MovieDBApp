@@ -5,7 +5,6 @@ object BuildPlugins {
     const val navigation =
         "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation}"
     const val googleServices = "com.google.gms:google-services:${Versions.googleServicesVersion}"
-    const val fabric = "io.fabric.tools:gradle:${Versions.fabricVersion}"
     const val ktlint = "org.jmailen.gradle:kotlinter-gradle:${Versions.ktlint}"
     const val jacoco = "org.jacoco:org.jacoco.core:${Versions.jacoco}"
 }
@@ -77,8 +76,6 @@ object Libs {
         "com.squareup.retrofit2:converter-scalars:${Versions.retrofit}"
     const val retrofitConverterMoshi = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
     const val retrofitConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
-    const val retrofitKotlinCoroutine =
-        "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:${Versions.retrofitCoroutines}"
     const val gson = "com.google.code.gson:gson:${Versions.gson}"
     const val okHttp = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
     const val okHttpInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}"
@@ -87,7 +84,6 @@ object Libs {
     const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
     const val okHttpProfiler =
         "com.itkacher.okhttpprofiler:okhttpprofiler:${Versions.okHttpProfiler}"
-    const val jwt = "com.auth0.android:jwtdecode:1.2.0"
     const val crashlytics = "com.crashlytics.sdk.android:crashlytics:${Versions.crashlyticsVersion}"
     const val firebaseCore = "com.google.firebase:firebase-core:${Versions.firebaseVersion}"
 
@@ -146,37 +142,36 @@ object Versions {
         if (versionHotFix != 0) "${versionMajor}.${versionMinor}.${versionHotFix}" else "${versionMajor}.${versionMinor}"
 
     // Plugins
-    const val androidGradlePlugin = "3.6.2"
+    const val androidGradlePlugin = "4.0.0"
     const val ktlint = "2.1.3"
     const val jacoco = "0.8.5"
 
     // Kotlin
-    const val kotlin = "1.3.71"
-    const val coroutines = "1.3.5"
+    const val kotlin = "1.3.72"
+    const val coroutines = "1.3.7"
 
     // Support Lib
-    const val support = "1.1.0"
+    const val support = "1.3.0-alpha01"
     const val cardView = "1.0.0"
-    const val constraintLayout = "1.1.3"
-    const val androidX = "1.3.0-beta01"
-    const val recyclerViewVersion = "1.2.0-alpha02"
+    const val constraintLayout = "2.0.0-beta6"
+    const val androidX = "1.4.0-alpha01"
+    const val recyclerViewVersion = "1.2.0-alpha03"
 
     // Libraries
     const val lifeCycle = "2.2.0"
     const val archVersion = "2.1.0"
     const val room = "2.2.5"
     const val paging = "2.1.2"
-    const val retrofit = "2.8.1"
-    const val retrofitCoroutines = "0.9.2"
-    const val okHttp = "4.5.0"
-    const val dagger = "2.27"
+    const val retrofit = "2.9.0"
+    const val okHttp = "4.7.2"
+    const val dagger = "2.28"
     const val dataBinding = "4.1.0-alpha04"
     const val playServices = "16.1.0"
     const val multidex = "2.0.1"
     const val picasso = "2.71828"
-    const val navigation = "2.3.0-alpha04"
-    const val workManager = "2.3.4"
-    const val design = "1.2.0-alpha05"
+    const val navigation = "2.3.0-beta01"
+    const val workManager = "2.4.0-beta01"
+    const val design = "1.3.0-alpha01"
     const val threeTenABP = "1.2.1"
     const val moshi = "1.9.2"
     const val okHttpProfiler = "1.0.7"
@@ -192,7 +187,7 @@ object Versions {
     const val mockito = "3.3.3"
     const val mockitoKotlin = "2.2.0"
     const val timberVersion = "4.7.1"
-    const val mockk = "1.9.3"
+    const val mockk = "1.10.0"
     const val googleServicesVersion = "4.3.3"
     const val fabricVersion = "1.28.0"
     const val crashlyticsVersion = "2.9.9"

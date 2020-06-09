@@ -1,6 +1,5 @@
 package io.jcal.movies_provider.repository
 
-import androidx.lifecycle.LiveData
 import io.jcal.movies_provider.repository.mapper.model.MovieModel
 import io.jcal.movies_provider.repository.mapper.model.MoviesModel
 import io.jcal.movies_provider.repository.mapper.model.TvShowModel
@@ -8,31 +7,29 @@ import io.jcal.movies_provider.repository.mapper.model.TvShowsModel
 
 interface MDBRepository {
 
-    suspend fun getPopularMovies(language: String, page: Int): MoviesModel
+    suspend fun fetchPopularMovies(language: String, page: Int): MoviesModel
 
-    fun loadPopularMovies(): LiveData<MoviesModel>
+    suspend fun loadPopularMovies(): MoviesModel
 
-    suspend fun loadPopularMoviesCoroutines(): MoviesModel
-
-    fun insertAllMovies(model: MoviesModel): List<Long>
+    suspend fun insertAllMovies(model: MoviesModel): List<Long>
 
     suspend fun insertMoviesCoroutines(model: MoviesModel)
 
-    suspend fun getMovie(movieId: Int): MovieModel
+    suspend fun fetchMovie(movieId: Int): MovieModel
 
-    fun loadMovie(movieId: Int): LiveData<MovieModel>
+    suspend fun loadMovie(movieId: Int): MovieModel
 
-    fun insertMovie(model: MovieModel): Long
+    suspend fun insertMovie(model: MovieModel): Long
 
-    suspend fun getPopularShows(): TvShowsModel
+    suspend fun fetchPopularShows(language: String, page: Int): TvShowsModel
 
-    fun loadPopularShows(): LiveData<TvShowsModel>
+    suspend fun loadPopularShows(): TvShowsModel
 
-    fun insertTvShows(model: TvShowsModel): List<Long>
+    suspend fun insertTvShows(model: TvShowsModel): List<Long>
 
-    suspend fun getShow(showId: Int): TvShowModel
+    suspend fun fetchShow(showId: Int): TvShowModel
 
-    fun loadShow(showId: Int): LiveData<TvShowModel>
+    suspend fun loadShow(showId: Int): TvShowModel
 
-    fun insertTvShow(model: TvShowModel): Long
+    suspend fun insertTvShow(model: TvShowModel): Long
 }

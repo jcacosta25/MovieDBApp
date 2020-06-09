@@ -32,8 +32,8 @@ data class MovieUIModel(
 
     companion object {
 
-        val MOVIE_DIF = object :DiffUtil.ItemCallback<MovieUIModel>() {
-            override fun areItemsTheSame(oldItem: MovieUIModel, newItem: MovieUIModel): Boolean  =
+        val MOVIE_DIF = object : DiffUtil.ItemCallback<MovieUIModel>() {
+            override fun areItemsTheSame(oldItem: MovieUIModel, newItem: MovieUIModel): Boolean =
                 oldItem.id == newItem.id
 
             override fun areContentsTheSame(oldItem: MovieUIModel, newItem: MovieUIModel): Boolean =
@@ -56,5 +56,3 @@ data class DatesUIModel(
     val maximum: String,
     val minimum: String
 ) : BaseUIModel()
-
-

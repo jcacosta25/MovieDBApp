@@ -5,11 +5,10 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     kotlin("kapt")
 }
-
 android {
     compileSdkVersion(Versions.compileSdk)
     buildToolsVersion(Versions.buildTools)
-    dataBinding.isEnabled = true
+    buildFeatures.dataBinding = true
     androidExtensions.isExperimental = true
     defaultConfig {
         applicationId = "io.jcal.theMovie"

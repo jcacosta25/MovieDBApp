@@ -121,7 +121,7 @@ class ResourceCoroutines<T, U>(
             )
         }
 
-        fun <T, U> loading(data: T): ResourceCoroutines<T, U> {
+        fun <T, U> loading(data: T? = null): ResourceCoroutines<T, U> {
             return ResourceCoroutines(
                 Status.LOADING,
                 data

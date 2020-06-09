@@ -1,6 +1,7 @@
 package io.jcal.theMovie.presentation.mapper.model
 
 import android.os.Parcelable
+import androidx.recyclerview.widget.DiffUtil
 import io.jcal.movies_provider.repository.mapper.model.BaseModel
 import kotlinx.android.parcel.Parcelize
 
@@ -43,7 +44,21 @@ data class TvShowUIModel(
     val voteAverage: Double,
     val voteCount: Int,
     val genreIds: List<Int>
-) : BaseUIModel(), Parcelable
+) : BaseUIModel(), Parcelable {
+    companion object {
+
+        val SHOW_DIF = object : DiffUtil.ItemCallback<TvShowUIModel>() {
+            override fun areItemsTheSame(oldItem: TvShowUIModel, newItem: TvShowUIModel): Boolean =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(
+                oldItem: TvShowUIModel,
+                newItem: TvShowUIModel
+            ): Boolean =
+                oldItem == newItem
+        }
+    }
+}
 
 @Parcelize
 data class SeasonUIModel(

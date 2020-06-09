@@ -5,6 +5,7 @@ open class BaseModel(
     var error: Boolean = false,
     var errorCode: Int = BASE_ERROR_CODE
 ) {
+    var isSuccess: Boolean = false
     fun setError(errorCode: Int) {
         this.errorCode = errorCode
         this.error = true
@@ -14,6 +15,7 @@ open class BaseModel(
     fun setSuccess() {
         this.state = SUCCESS
         this.error = false
+        this.isSuccess = true
         this.errorCode = BASE_ERROR_CODE
     }
 

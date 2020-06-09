@@ -4,19 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import dagger.android.support.DaggerFragment
-import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.FragmentPopularShowsBinding
-import io.jcal.theMovie.presentation.mapper.model.BaseUIModel.Companion.SUCCESS
-import io.jcal.theMovie.presentation.mapper.model.TvShowUIList
-import io.jcal.theMovie.presentation.ui.home.PopularShowsFragmentDirections
-import io.jcal.theMovie.presentation.ui.adapter.ShowAdapter
+import io.jcal.theMovie.presentation.ui.adapter.ShowsAdapter
 import io.jcal.theMovie.presentation.ui.home.viewmodel.TvShowsViewModel
 import io.jcal.theMovie.utils.SpacingItemDecoration
 import io.jcal.theMovie.utils.toTransitionGroup
@@ -25,26 +20,28 @@ import javax.inject.Inject
 class PopularShowsFragment : DaggerFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var factory: ViewModelProvider.Factory
 
-    private val viewModel by viewModels<TvShowsViewModel> { viewModelFactory }
+    private val viewModel by viewModels<TvShowsViewModel> { factory }
     private lateinit var binding: FragmentPopularShowsBinding
-    private lateinit var adapter: ShowAdapter
-    private var recyclerInstanceState: TvShowUIList? = null
+    private lateinit var adapter: ShowsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_popular_shows, container, false)
-        return binding.root
+    ): View? = FragmentPopularShowsBinding.inflate(
+        inflater,
+        container,
+        false
+    ).let {
+        binding = it
+        binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = ShowAdapter(
+        adapter = ShowsAdapter(
             showClickListener = { show, _, poster ->
                 val extras = FragmentNavigatorExtras(
                     poster.toTransitionGroup()
@@ -54,7 +51,8 @@ class PopularShowsFragment : DaggerFragment() {
                         PopularShowsFragmentDirections.popularShowsToShowDetail(
                             show.id,
                             show.posterPath
-                        ),extras)
+                        ), extras
+                    )
             }
         )
         binding.popularShowsRv.adapter = adapter
@@ -69,15 +67,8 @@ class PopularShowsFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
-        viewModel.popularTvShows().observe(viewLifecycleOwner, Observer { response ->
-            when (response.state) {
-                SUCCESS -> {
-                    if (recyclerInstanceState == null) {
-                        adapter.addAll(response.results)
-                    }
-                }
-            }
+        viewModel.tvShows.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
         })
     }
 

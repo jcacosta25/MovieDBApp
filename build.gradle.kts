@@ -23,6 +23,9 @@ buildscript {
     }
 }
 
+application {
+    mainClassName = "main.MainKt"
+}
 
 allprojects {
     repositories {
