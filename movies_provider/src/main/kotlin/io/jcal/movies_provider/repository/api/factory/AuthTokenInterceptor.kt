@@ -5,12 +5,12 @@ import okhttp3.Response
 import java.io.IOException
 import javax.inject.Inject
 
-class AuthTokenInterceptor @Inject constructor(val apiKey: String) : Interceptor {
+class AuthTokenInterceptor @Inject constructor(private val apiKey: String) : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
         request = request.newBuilder()
-            .url(request.url().newBuilder().addQueryParameter(API_KEY, apiKey).build())
+            .url(request.url.newBuilder().addQueryParameter(API_KEY, apiKey).build())
             .build()
         return chain.proceed(request)
     }

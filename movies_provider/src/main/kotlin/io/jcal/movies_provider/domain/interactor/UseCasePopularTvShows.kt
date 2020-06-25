@@ -1,35 +1,32 @@
 package io.jcal.movies_provider.domain.interactor
 
-import androidx.lifecycle.LiveData
-import io.jcal.movies_provider.domain.executors.AppExecutors
 import io.jcal.movies_provider.domain.interactor.base.NetworkBoundResource
-import io.jcal.movies_provider.domain.interactor.base.NetworkUtil
-import io.jcal.movies_provider.repository.Repository
+import io.jcal.movies_provider.repository.MDBRepository
 import io.jcal.movies_provider.repository.api.network.HttpBaseValues
 import io.jcal.movies_provider.repository.mapper.model.TvShowsModel
 import javax.inject.Inject
 
 class UseCasePopularTvShows @Inject constructor(
-    appExecutors: AppExecutors,
-    private val repository: Repository,
-    private val utils: NetworkUtil
-) : NetworkBoundResource<TvShowsModel, UseCasePopularTvShows.Params>(appExecutors) {
+    private val repository: MDBRepository
+) : NetworkBoundResource<TvShowsModel, UseCasePopularTvShows.Params>() {
 
-    override fun saveCallResult(item: TvShowsModel) {
-        repository.insertTvShows(item.results)
+    override suspend fun saveCallResult(item: TvShowsModel) {
+        repository.insertTvShows(item)
     }
 
-    override fun shouldFetch(data: TvShowsModel?): Boolean = utils.isConnected
+    override suspend fun loadFromDb(params: Params): TvShowsModel =
+        repository.loadPopularShows()
 
-    override fun loadFromDb(params: Params): LiveData<TvShowsModel> = repository.loadAllTvShows()
+    override val parameters: Params
+        get() = Params()
 
-    override fun createCall(params: Params): LiveData<TvShowsModel> =
-        repository.fetchPopularTvShows()
+    override suspend fun createCall(params: Params): TvShowsModel =
+        repository.fetchPopularShows(params.language, params.page)
 
     override fun getLoadingObject(): TvShowsModel = TvShowsModel()
 
     data class Params constructor(
-        val language: String = HttpBaseValues.LANGUAGE,
-        val page: Int = HttpBaseValues.PAGE
+        val page: Int = HttpBaseValues.PAGE,
+        val language: String = HttpBaseValues.LANGUAGE
     )
 }

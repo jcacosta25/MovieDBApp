@@ -1,14 +1,14 @@
 plugins {
     id("com.android.application")
-    id("androidx.navigation.safeargs")
     kotlin("android")
     kotlin("android.extensions")
+    id("androidx.navigation.safeargs.kotlin")
     kotlin("kapt")
 }
-
 android {
     compileSdkVersion(Versions.compileSdk)
-    dataBinding.isEnabled = true
+    buildToolsVersion(Versions.buildTools)
+    buildFeatures.dataBinding = true
     androidExtensions.isExperimental = true
     defaultConfig {
         applicationId = "io.jcal.theMovie"
@@ -17,9 +17,16 @@ android {
         versionCode = Android.versionCode
         versionName = Android.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "ApiKey", ApiKeys.movieDb)
         vectorDrawables {
             useSupportLibrary = true
+        }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = mapOf(
+                    "room.incremental" to "true",
+                    "room.schemaLocation" to "$projectDir/schemas"
+                )
+            }
         }
     }
 
@@ -53,6 +60,7 @@ android {
     }
 
     packagingOptions {
+        exclude("META-INF/DEPENDENCIES")
         exclude("META-INF/LGPL2.1")
         exclude("META-INF/ASL2.0")
         exclude("META-INF/LICENSE")
@@ -67,11 +75,19 @@ android {
         exclude("NOTICE")
         exclude("LICENSE")
         exclude("META-INF/services/javax.annotation.processing.Processor")
+        exclude("META-INF/notice.txt")
+        exclude("META-INF/ASL2.0")
+        exclude("META-INF/atomicfu.kotlin_module")
     }
+
     compileOptions {
         setTargetCompatibility(1.8)
         setSourceCompatibility(1.8)
     }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
 }
 
 dependencies {
@@ -83,10 +99,12 @@ dependencies {
     implementation(Libs.design)
     implementation(Libs.picasso)
     implementation(Libs.multiDex)
+    implementation(Libs.paging)
     implementation(Libs.navigationFragment)
     implementation(Libs.navigationUi)
     kapt(Libs.daggerCompiler)
     kapt(Libs.daggerAndroidProcessor)
+    kapt(Libs.lifeCycleCompiler)
     testImplementation(TestLibs.jUnit)
     androidTestImplementation(TestLibs.testRunner)
     androidTestImplementation(TestLibs.espressoCore)

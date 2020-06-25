@@ -1,18 +1,26 @@
 plugins {
     id("com.android.library")
-    kotlin("kapt")
     kotlin("android")
+    kotlin("kapt")
     kotlin("android.extensions")
 }
 android {
     compileSdkVersion(Versions.compileSdk)
+    buildToolsVersion(Versions.buildTools)
     defaultConfig {
         minSdkVersion(Android.minSdkVersion)
         targetSdkVersion(Android.targetSdkVersion)
         versionCode = Android.versionCode
         versionName = Android.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "ApiKey", ApiKeys.movieDb)
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = mapOf(
+                    "room.incremental" to "true",
+                    "room.schemaLocation" to "$projectDir/schemas"
+                )
+            }
+        }
     }
 
     buildTypes {
@@ -34,14 +42,28 @@ android {
         getByName("main").java.srcDirs("src/main/kotlin")
         getByName("test").java.srcDirs("src/test/kotlin")
     }
+
+    compileOptions {
+        setTargetCompatibility(1.8)
+        setSourceCompatibility(1.8)
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
 }
 
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
     api(Libs.kotlin)
     api(Libs.kotlinReflect)
+    api(Libs.coroutines)
+    api(Libs.coroutinesAndroid)
     api(Libs.lifeCycleExtensions)
     api(Libs.lifeCycleCommon)
+    api(Libs.lifeCycleViewModel)
+    api(Libs.lifeCycleLiveData)
     api(Libs.core)
     api(Libs.timber)
     api(Libs.dagger)
@@ -55,7 +77,7 @@ dependencies {
     api(Libs.retrofitConverterGson)
     api(Libs.okHttp)
     api(Libs.okHttpInterceptor)
-    api(Libs.archRoomTime)
+    api(Libs.roomCoroutines)
     kapt(Libs.daggerAndroidProcessor)
     kapt(Libs.daggerCompiler)
     kapt(Libs.roomCompiler)

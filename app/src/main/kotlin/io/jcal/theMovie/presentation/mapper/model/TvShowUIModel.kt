@@ -1,44 +1,20 @@
 package io.jcal.theMovie.presentation.mapper.model
 
-import android.os.Parcel
 import android.os.Parcelable
+import androidx.recyclerview.widget.DiffUtil
 import io.jcal.movies_provider.repository.mapper.model.BaseModel
+import kotlinx.android.parcel.Parcelize
 
-
+@Parcelize
 data class TvShowUIList(
     val dates: DatesUIModel,
     val page: Int,
     val results: List<TvShowUIModel>,
     val totalPages: Int,
     val totalResult: Int
-) : BaseUIModel(), Parcelable {
-    constructor(source: Parcel) : this(
-        source.readParcelable<DatesUIModel>(DatesUIModel::class.java.classLoader),
-        source.readInt(),
-        source.createTypedArrayList(TvShowUIModel.CREATOR),
-        source.readInt(),
-        source.readInt()
-    )
+) : BaseUIModel(), Parcelable
 
-    override fun describeContents() = 0
-
-    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeParcelable(dates, 0)
-        writeInt(page)
-        writeTypedList(results)
-        writeInt(totalPages)
-        writeInt(totalResult)
-    }
-
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<TvShowUIList> = object : Parcelable.Creator<TvShowUIList> {
-            override fun createFromParcel(source: Parcel): TvShowUIList = TvShowUIList(source)
-            override fun newArray(size: Int): Array<TvShowUIList?> = arrayOfNulls(size)
-        }
-    }
-}
-
+@Parcelize
 data class TvShowUIModel(
     val id: Int,
     val airDate: String,
@@ -69,80 +45,22 @@ data class TvShowUIModel(
     val voteCount: Int,
     val genreIds: List<Int>
 ) : BaseUIModel(), Parcelable {
-    constructor(source: Parcel) : this(
-        source.readInt(),
-        source.readString(),
-        source.readInt(),
-        source.readInt(),
-        source.readString(),
-        ArrayList<Int>().apply { source.readList(this, Int::class.java.classLoader) },
-        source.readString(),
-        source.readString(),
-        1 == source.readInt(),
-        source.createStringArrayList(),
-        source.readString(),
-        source.readInt(),
-        source.readString(),
-        source.readInt(),
-        source.readInt(),
-        source.readInt(),
-        source.createStringArrayList(),
-        source.readString(),
-        source.readString(),
-        source.readString(),
-        source.readDouble(),
-        source.readString(),
-        source.createTypedArrayList(SeasonUIModel.CREATOR),
-        source.readString(),
-        source.readString(),
-        source.readDouble(),
-        source.readInt(),
-        ArrayList<Int>().apply { source.readList(this, Int::class.java.classLoader) }
-    )
-
-    override fun describeContents() = 0
-
-    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeInt(id)
-        writeString(airDate)
-        writeInt(episodeCount)
-        writeInt(seasonNumber)
-        writeString(backdropPath)
-        writeList(episodeRunTime)
-        writeString(firstAirDate)
-        writeString(homepage)
-        writeInt((if (inProduction) 1 else 0))
-        writeStringList(languages)
-        writeString(lastAirDate)
-        writeInt(lastEpisodeToAir)
-        writeString(name)
-        writeInt(nextEpisodeToAir)
-        writeInt(numberOfEpisodes)
-        writeInt(numberOfSeasons)
-        writeStringList(originCountry)
-        writeString(originalLanguage)
-        writeString(originalName)
-        writeString(overview)
-        writeDouble(popularity)
-        writeString(posterPath)
-        writeTypedList(seasons)
-        writeString(status)
-        writeString(type)
-        writeDouble(voteAverage)
-        writeInt(voteCount)
-        writeList(genreIds)
-    }
-
     companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<TvShowUIModel> =
-            object : Parcelable.Creator<TvShowUIModel> {
-                override fun createFromParcel(source: Parcel): TvShowUIModel = TvShowUIModel(source)
-                override fun newArray(size: Int): Array<TvShowUIModel?> = arrayOfNulls(size)
-            }
+
+        val SHOW_DIF = object : DiffUtil.ItemCallback<TvShowUIModel>() {
+            override fun areItemsTheSame(oldItem: TvShowUIModel, newItem: TvShowUIModel): Boolean =
+                oldItem.id == newItem.id
+
+            override fun areContentsTheSame(
+                oldItem: TvShowUIModel,
+                newItem: TvShowUIModel
+            ): Boolean =
+                oldItem == newItem
+        }
     }
 }
 
+@Parcelize
 data class SeasonUIModel(
     val id: Int,
     val airDate: String,
@@ -153,44 +71,9 @@ data class SeasonUIModel(
     val seasonNumber: Int,
     val episodes: List<EpisodeUIModel>,
     val showId: Int
-) : BaseModel(), Parcelable {
-    constructor(source: Parcel) : this(
-        source.readInt(),
-        source.readString(),
-        source.readInt(),
-        source.readString(),
-        source.readString(),
-        source.readString(),
-        source.readInt(),
-        source.createTypedArrayList(EpisodeUIModel.CREATOR),
-        source.readInt()
-    )
+) : BaseModel(), Parcelable
 
-    override fun describeContents() = 0
-
-    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeInt(id)
-        writeString(airDate)
-        writeInt(episodeCount)
-        writeString(name)
-        writeString(overview)
-        writeString(posterPath)
-        writeInt(seasonNumber)
-        writeTypedList(episodes)
-        writeInt(showId)
-    }
-
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<SeasonUIModel> =
-            object : Parcelable.Creator<SeasonUIModel> {
-                override fun createFromParcel(source: Parcel): SeasonUIModel = SeasonUIModel(source)
-                override fun newArray(size: Int): Array<SeasonUIModel?> = arrayOfNulls(size)
-            }
-    }
-}
-
-
+@Parcelize
 data class EpisodeUIModel(
     val id: Int,
     val airDate: String,
@@ -203,45 +86,4 @@ data class EpisodeUIModel(
     val stillPath: String,
     val voteAverage: Int,
     val voteCount: Int
-) : BaseUIModel(), Parcelable {
-    constructor(source: Parcel) : this(
-        source.readInt(),
-        source.readString(),
-        source.readInt(),
-        source.readString(),
-        source.readString(),
-        source.readString(),
-        source.readInt(),
-        source.readInt(),
-        source.readString(),
-        source.readInt(),
-        source.readInt()
-    )
-
-    override fun describeContents() = 0
-
-    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeInt(id)
-        writeString(airDate)
-        writeInt(episodeNumber)
-        writeString(name)
-        writeString(overview)
-        writeString(productionCode)
-        writeInt(seasonNumber)
-        writeInt(showId)
-        writeString(stillPath)
-        writeInt(voteAverage)
-        writeInt(voteCount)
-    }
-
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<EpisodeUIModel> =
-            object : Parcelable.Creator<EpisodeUIModel> {
-                override fun createFromParcel(source: Parcel): EpisodeUIModel =
-                    EpisodeUIModel(source)
-
-                override fun newArray(size: Int): Array<EpisodeUIModel?> = arrayOfNulls(size)
-            }
-    }
-}
+) : BaseUIModel(), Parcelable

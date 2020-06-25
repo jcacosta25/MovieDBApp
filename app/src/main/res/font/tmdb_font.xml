@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- regular -->
+    <font
+        android:font="@font/roboto_mono"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/roboto_mono"
+        app:fontStyle="normal"
+        app:fontWeight="400" />
+
+    <font
+        android:font="@font/source_sans_pro_regular"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/source_sans_pro_regular"
+        app:fontStyle="normal"
+        app:fontWeight="400" />
+
+    <!-- light -->
+    <font
+        android:font="@font/roboto_mono_light"
+        android:fontStyle="normal"
+        android:fontWeight="300"
+        app:font="@font/roboto_mono_light"
+        app:fontStyle="normal"
+        app:fontWeight="300" />
+
+    <font
+        android:font="@font/source_sans_pro_light"
+        android:fontStyle="normal"
+        android:fontWeight="300"
+        app:font="@font/source_sans_pro_light"
+        app:fontStyle="normal"
+        app:fontWeight="300" />
+
+    <!-- italic -->
+    <font
+        android:font="@font/source_sans_pro_italic"
+        android:fontStyle="italic"
+        android:fontWeight="400"
+        app:font="@font/source_sans_pro_italic"
+        app:fontStyle="italic"
+        app:fontWeight="400" />
+
+    <!-- bold -->
+
+    <font
+        android:font="@font/source_sans_pro_semi_bold"
+        android:fontStyle="normal"
+        android:fontWeight="600"
+        app:font="@font/source_sans_pro_semi_bold"
+        app:fontStyle="normal"
+        app:fontWeight="600" />
+
+    <font
+        android:font="@font/source_sans_pro_bold"
+        android:fontStyle="normal"
+        android:fontWeight="700"
+        app:font="@font/source_sans_pro_bold"
+        app:fontStyle="normal"
+        app:fontWeight="700" />
+
+</font-family>

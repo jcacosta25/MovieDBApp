@@ -5,4 +5,5 @@
     <string name="movie_detail_title">Movie</string>
     <string name="show_detail_title">Show</string>
     <string name="overview_title">Overview</string>
+    <string name="poster_transition">poster_transition</string>
 </resources>

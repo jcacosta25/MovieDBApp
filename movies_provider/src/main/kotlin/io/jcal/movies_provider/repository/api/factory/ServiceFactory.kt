@@ -2,13 +2,13 @@ package io.jcal.movies_provider.repository.api.factory
 
 import com.itkacher.okhttpprofiler.OkHttpProfilerInterceptor
 import io.jcal.movies_provider.BuildConfig
+import io.jcal.movies_provider.repository.api.network.coroutinesAdapter.NetworkResponseAdapterFactory
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit
-import java.util.concurrent.*
-
+import java.util.concurrent.TimeUnit
 
 object ServiceFactory {
 
@@ -21,6 +21,7 @@ object ServiceFactory {
         Retrofit.Builder()
             .baseUrl(url)
             .addCallAdapterFactory(adapter)
+            .addCallAdapterFactory(NetworkResponseAdapterFactory())
             .addConverterFactory(converter)
             .client(client)
             .build()
@@ -43,7 +44,6 @@ object ServiceFactory {
             .scheme(SCHEME)
             .host(HOST)
             .build()
-
 
     private const val MAX_READ_TIME_OUT_SECONDS = 60L
     private const val MAX_CONNECTION_TIME_OUT_SECONDS = 60L

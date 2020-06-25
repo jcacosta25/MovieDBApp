@@ -49,7 +49,7 @@ data class MovieDTO(
     @SerializedName(value = "genres")
     val genres: List<GenreDTO>,
     @SerializedName(value = "genre_ids")
-    val genreIds: List<Int>,
+    val genreIds: List<Int>?,
     @SerializedName(value = "homepage")
     val homepage: String,
     @SerializedName(value = "imdb_id")
@@ -150,13 +150,13 @@ data class TvShowDTO(
     @SerializedName(value = "last_air_date")
     val lastAirDate: String,
     @SerializedName(value = "last_episode_to_air")
-    val lastEpisodeToAir: EpisodeDTO,
+    val lastEpisodeToAir: EpisodeDTO?,
     @SerializedName(value = "name")
     val name: String,
     @SerializedName(value = "networks")
     val networks: List<TvNetworkDTO>,
     @SerializedName(value = "next_episode_to_air")
-    val nextEpisodeToAir: EpisodeDTO,
+    val nextEpisodeToAir: EpisodeDTO?,
     @SerializedName(value = "number_of_episodes")
     val numberOfEpisodes: Int,
     @SerializedName(value = "number_of_seasons")
@@ -176,7 +176,7 @@ data class TvShowDTO(
     @SerializedName(value = "production_companies")
     val productionCompanies: List<ProductionCompanyDTO>,
     @SerializedName(value = "seasons")
-    val seasons: List<SeasonDTO>,
+    val seasons: List<SeasonDTO>?,
     @SerializedName(value = "status")
     val status: String,
     @SerializedName(value = "type")
@@ -207,7 +207,7 @@ data class SeasonDTO(
     @SerializedName(value = "season_number")
     val seasonNumber: Int,
     @SerializedName(value = "episodes")
-    val episodes: List<EpisodeDTO>
+    val episodes: List<EpisodeDTO>?
 )
 
 data class EpisodeDTO(
@@ -322,4 +322,13 @@ data class PeopleDTO(
     val popularity: Double,
     @SerializedName(value = "profile_path")
     val profilePath: String
+)
+
+data class ServerErrorDto(
+    @SerializedName(value = "status_message")
+    val statusMessage: String?,
+    @SerializedName(value = "success")
+    val success: Boolean = false,
+    @SerializedName(value = "status_code")
+    val statusCode: Int?
 )

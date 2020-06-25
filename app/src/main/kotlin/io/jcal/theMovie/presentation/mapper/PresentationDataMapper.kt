@@ -137,15 +137,16 @@ class PresentationDataMapper @Inject constructor() {
         return uiModel
     }
 
-    fun convert(model: TvShowsModel): TvShowUIList {
-        val uiModel = TvShowUIList(
-            dates = convert(model.dates),
-            page = model.page,
-            results = model.results.map { convert(it) },
-            totalPages = model.totalPages,
-            totalResult = model.totalResult
-        )
-        uiModel.state = model.state
-        return uiModel
+    fun getErrorMessage(errorCode: Int): Int = errorCode
+
+    fun convert(model: TvShowsModel): TvShowUIList = TvShowUIList(
+        dates = convert(model.dates),
+        page = model.page,
+        results = model.results.map { convert(it) },
+        totalPages = model.totalPages,
+        totalResult = model.totalResult
+    ).apply {
+        this.error = model.error
+        this.state = model.state
     }
 }

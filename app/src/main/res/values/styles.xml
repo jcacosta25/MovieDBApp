@@ -1,20 +1,179 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
-        <item name="colorControlActivated">@color/colorControlActivated</item>
-        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+
+    <style name="Widget.AppTheme.Toolbar" parent="Widget.MaterialComponents.AppBarLayout.Primary">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="titleTextColor">@android:color/white</item>
+        <item name="subtitleTextColor">@android:color/white</item>
+        <item name="android:theme">@style/AppTheme</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="android:padding">12dp</item>
+        <item name="iconTint">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorPrimaryInverse">@android:color/white</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.DayNight.ActionBar</item>
+        <item name="titleTextAppearance">@style/TextAppearance.AppTheme.Toolbar.Title</item>
+        <item name="android:actionMenuTextColor">@color/colorAccent</item>
+        <item name="android:actionMenuTextAppearance">
+            @style/TextAppearance.AppTheme.Toolbar.MenuText
+        </item>
+        <item name="actionMenuTextAppearance">@style/TextAppearance.AppTheme.Toolbar.MenuText</item>
+        <item name="subtitleTextAppearance">@style/TextAppearance.AppTheme.Toolbar.SubTitle</item>
     </style>
 
-    <style name="Widget.AppTheme.Toolbar" parent="Widget.AppCompat.Toolbar">
-        <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:theme">@style/AppTheme</item>
-        <item name="android:padding">12dp</item>
-        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+    <!-- NAVIGATION COMPONENTS-->
+    <style name="Widget.AppTheme.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconTint">@color/colorSecondaryVariant</item>
+        <item name="itemTextColor">@color/colorSecondaryVariant</item>
+        <item name="android:colorControlNormal">@color/unSelectedElement</item>
+
+    </style>
+
+    <style name="PopupTheme" parent="Theme.AppCompat.Light">
+        <item name="android:background">@color/colorSurface</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+    <!-- END NAVIGATION COMPONENTS-->
+
+    <!-- BUTTONS -->
+    <style name="Widget.AppTheme.Button.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">20dp</item>
+    </style>
+
+    <style name="Widget.AppTheme.Button.OutlinedButton.White" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="rippleColor">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:colorAccent">@android:color/white</item>
+        <item name="strokeColor">@android:color/white</item>
+        <item name="android:colorControlHighlight">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="cornerRadius">20dp</item>
+    </style>
+
+
+    <style name="Widget.AppTheme.Button" parent="Widget.MaterialComponents.Button">
+        <item name="cornerRadius">20dp</item>
+    </style>
+
+    <style name="Widget.AppTheme.Button.Small" parent="Widget.AppTheme.Button">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">12sp</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="android:minHeight">34dip</item>
+        <item name="android:minWidth">64dip</item>
+    </style>
+
+    <style name="Widget.AppTheme.Button.Small.Legacy" parent="Widget.AppCompat.Button">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">12sp</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="android:minHeight">34dip</item>
+        <!--        <item name="android:background">@drawable/button_background_rounded_corners</item>-->
+        <item name="android:minWidth">64dip</item>
+    </style>
+
+    <style name="Widget.AppTheme.Button.Secondary" parent="Widget.MaterialComponents.Button">
+        <!--        <item name="backgroundTint">@color/pink</item>-->
+        <!--        <item name="backgroundTintMode">@color/pink</item>-->
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Widget.AppTheme.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <!--        <item name="android:textColor">@color/gray_font_color</item>-->
+        <!--        <item name="rippleColor">@color/light_blue</item>-->
+        <!--        <item name="iconTint">@color/light_blue</item>-->
+    </style>
+
+
+    <style name="Widget.AppTheme.Button.TextButton.Small" parent="Widget.MaterialComponents.Button.TextButton">
+        <!--        <item name="android:textColor">@color/gray_font_color</item>-->
+        <!--        <item name="rippleColor">@color/light_blue</item>-->
+        <!--        <item name="iconTint">@color/light_blue</item>-->
+        <item name="android:minHeight">34dip</item>
+        <item name="android:minWidth">64dip</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Widget.AppTheme.Button.TextButton.Snackbar" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
+                <item name="android:fontFamily">@font/tmdb_font</item>
+                <item name="fontFamily">@font/tmdb_font</item>
+    </style>
+
+    <style name="Widget.AppTheme.Snackbar.TextView" parent="@style/Widget.MaterialComponents.Snackbar.TextView">
+        <item name="android:fontFamily">@font/tmdb_font</item>
+        <item name="fontFamily">@font/tmdb_font</item>
+    </style>
+
+    <style name="Widget.AppTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="cornerRadius">20dp</item>
+        <item name="boxCornerRadiusBottomEnd">20dp</item>
+        <item name="boxCornerRadiusBottomStart">20dp</item>
+        <item name="boxCornerRadiusTopEnd">20dp</item>
+        <item name="boxCornerRadiusTopStart">20dp</item>
+    </style>
+
+    <style name="Widget.AppTheme.TextInputLayout.White" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@android:color/white</item>
+        <item name="boxBackgroundColor">@android:color/white</item>
+        <item name="helperTextTextColor">@android:color/white</item>
+        <item name="cornerRadius">20dp</item>
+        <item name="boxCornerRadiusBottomEnd">20dp</item>
+        <item name="boxCornerRadiusBottomStart">20dp</item>
+        <item name="boxCornerRadiusTopEnd">20dp</item>
+        <item name="boxCornerRadiusTopStart">20dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="boxStrokeErrorColor">@android:color/white</item>
+        <item name="hintTextColor">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/white</item>
+    </style>
+
+    <style name="Widget.AppTheme.TextInputLayout.Filled" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense" />
+
+    <style name="Widget.AppTheme.Button.TextButton.Icon" parent="Widget.MaterialComponents.Button.TextButton.Icon">
+        <item name="rippleColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Widget.AppTheme.Button.IconOnly" parent="Widget.AppTheme.Button.TextButton.Icon">
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:minWidth">48dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+    <!-- END BUTTONS -->
+
+    <!--Components-->
+
+    <!--Bottom Sheets-->
+    <style name="ThemeOverlay.AppTheme.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@style/Animation.AppTheme.BottomSheet.Modal</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="bottomSheetStyle">@style/Widget.AppTheme.BottomSheet.Modal</item>
+        <item name="android:navigationBarColor">?colorSurface</item>
+        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">
+            @android:color/transparent
+        </item>
+    </style>
+
+    <style name="Widget.AppTheme.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearanceOverlay">?shapeAppearanceLargeComponent</item>
+    </style>
+
+    <!--Navigation Drawer-->
+    <style name="Widget.AppTheme.NavigationView" parent="Widget.MaterialComponents.NavigationView">
+        <item name="itemTextAppearance">?textAppearanceBody2</item>
     </style>
 
 </resources>

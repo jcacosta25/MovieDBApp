@@ -8,9 +8,7 @@ import dagger.Provides
 import io.jcal.movies_provider.di.NetworkModule.Companion.API_TOKEN_PROPERTY
 import io.jcal.movies_provider.repository.db.DatabaseConstants.DATABASE_NAME
 import io.jcal.movies_provider.repository.db.DatabaseConstants.DATABASE_NAME_PROPERTY
-import io.jcal.theMovie.BuildConfig
 import javax.inject.Named
-
 
 @Module
 class ApplicationModule {
@@ -27,5 +25,5 @@ class ApplicationModule {
 
     @Provides
     @Named(API_TOKEN_PROPERTY)
-    fun provideMovieDBApiToken():String = BuildConfig.ApiKey
+    fun provideMovieDBApiToken(): String = "aa94b3c2c71ca34288378f22d536ab1f"
 }

@@ -10,6 +10,7 @@ object HttpErrorCodes {
     const val NOT_FOUND_ERROR = 404
     const val INVALID_SERVER_ERROR = 500
     const val NO_NETWORK_RESPONSE_CODE = -1
+    const val EXCEPTION_RESPONSE_CODE = 99999
 }
 
 object HttpBaseValues {

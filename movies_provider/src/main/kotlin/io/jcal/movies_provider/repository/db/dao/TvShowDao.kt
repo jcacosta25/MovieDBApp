@@ -1,6 +1,5 @@
 package io.jcal.movies_provider.repository.db.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -18,48 +17,47 @@ interface TvShowDao {
 
     @Transaction
     @Query("select * from ${DatabaseConstants.TABLE_TV_SHOW} where ${DatabaseConstants.COLUMN_ID} = :showId")
-    fun findShow(showId: Int): LiveData<TvShowSeasons>
+    suspend fun findShow(showId: Int): TvShowSeasons?
 
     @Query("select * from ${DatabaseConstants.TABLE_SEASON} where ${DatabaseConstants.COLUMN_SHOW_ID} = :showId")
-    fun findShowSeasons(showId: Int): LiveData<SeasonEntity>
+    suspend fun findShowSeasons(showId: Int): List<SeasonEntity>
 
     @Transaction
     @Query("select * from ${DatabaseConstants.TABLE_TV_SHOW}")
-    fun getAllShows(): LiveData<List<TvShowSeasons>>
+    suspend fun getAllShows(): List<TvShowSeasons>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertSeasons(entities: List<SeasonEntity>): List<Long>
+    suspend fun insertSeasons(entities: List<SeasonEntity>): List<Long>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertSeasonEntity(entity: SeasonEntity): Long
+    suspend fun insertSeasonEntity(entity: SeasonEntity): Long
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertEpisodes(entity: List<EpisodeEntity>): List<Long>
+    suspend fun insertEpisodes(entity: List<EpisodeEntity>): List<Long>
 
     @Transaction
-    fun insertSeason(episodes: SeasonEpisodes): Long {
+    suspend fun insertSeason(episodes: SeasonEpisodes): Long {
         insertEpisodes(episodes.episodes)
         return insertSeasonEntity(episodes.season)
     }
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertShows(entities: List<TvShowEntity>): List<Long>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertShows(entities: List<TvShowEntity>): List<Long>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertShow(entity: TvShowEntity): Long
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertShow(entity: TvShowEntity): Long
 
     @Transaction
-    fun insert(show: TvShowSeasons): Long {
+    suspend fun insert(show: TvShowSeasons): Long {
         show.seasons.map { insertSeasonEntity(it) }
         return insertShow(show.tvShowEntity)
     }
 
     @Transaction
-    fun insertAll(shows: List<TvShowSeasons>): List<Long> {
+    suspend fun insertAll(shows: List<TvShowSeasons>): List<Long> {
         return shows.map { show ->
             show.seasons.map { insertSeasonEntity(it) }
             insertShow(show.tvShowEntity)
         }
     }
-
 }

@@ -9,10 +9,10 @@ import io.jcal.movies_provider.di.NetworkModule
 import io.jcal.movies_provider.di.RepositoryModule
 import io.jcal.movies_provider.di.StorageModule
 import io.jcal.theMovie.di.scopes.ViewModelKey
-import io.jcal.theMovie.presentation.viewmodel.MovieDetailViewModel
-import io.jcal.theMovie.presentation.viewmodel.MoviesViewModel
-import io.jcal.theMovie.presentation.viewmodel.TvShowDetailViewModel
-import io.jcal.theMovie.presentation.viewmodel.TvShowsViewModel
+import io.jcal.theMovie.presentation.ui.movies.MovieDetailViewModel
+import io.jcal.theMovie.presentation.ui.home.viewmodel.MoviesViewModel
+import io.jcal.theMovie.presentation.ui.series.TvShowDetailViewModel
+import io.jcal.theMovie.presentation.ui.home.viewmodel.TvShowsViewModel
 import io.jcal.theMovie.utils.ViewModelFactoryProvider
 
 @Module(includes = [RepositoryModule::class, NetworkModule::class, StorageModule::class])

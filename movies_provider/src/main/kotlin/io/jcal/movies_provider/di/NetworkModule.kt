@@ -4,11 +4,10 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import io.jcal.movies_provider.BuildConfig
 import io.jcal.movies_provider.repository.api.MovieDBService
 import io.jcal.movies_provider.repository.api.factory.AuthTokenInterceptor
 import io.jcal.movies_provider.repository.api.factory.ServiceFactory
-import io.jcal.movies_provider.repository.api.network.LiveDataCallAdapterFactory
+import io.jcal.movies_provider.repository.api.network.liveDataAdapter.LiveDataCallAdapterFactory
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import retrofit2.Converter
@@ -23,31 +22,28 @@ class NetworkModule {
     fun providesHttpUrl(): HttpUrl = ServiceFactory.providesHttpUrl()
 
     @Provides
-    fun providesTokenInterceptor(@Named(API_TOKEN_PROPERTY) apiToken: String = BuildConfig.ApiKey): AuthTokenInterceptor =
+    fun providesTokenInterceptor(@Named(API_TOKEN_PROPERTY) apiToken: String): AuthTokenInterceptor =
         AuthTokenInterceptor(apiToken)
 
     @Provides
     @Named(GSON_PROPERTY)
     fun provideGson(): Gson = GsonBuilder().create()
 
-
     @Provides
     fun provideJsonConverterFactory(@Named(GSON_PROPERTY) gson: Gson): Converter.Factory =
         GsonConverterFactory.create(gson)
 
-
     @Provides
     fun providesHttpClient(tokenInterceptor: AuthTokenInterceptor): OkHttpClient =
         ServiceFactory.buildOkHttpClient(tokenInterceptor)
-
 
     @Provides
     fun provideRetrofit(
         url: HttpUrl,
         client: OkHttpClient,
         converter: Converter.Factory,
-        liveDataCallAdapterFactory: LiveDataCallAdapterFactory
-    ): Retrofit = ServiceFactory.buildRetrofit(url, client, converter, liveDataCallAdapterFactory)
+        adapterFactory: LiveDataCallAdapterFactory
+    ): Retrofit = ServiceFactory.buildRetrofit(url, client, converter, adapterFactory)
 
     @Provides
     fun provideMovieDbService(retrofit: Retrofit): MovieDBService =

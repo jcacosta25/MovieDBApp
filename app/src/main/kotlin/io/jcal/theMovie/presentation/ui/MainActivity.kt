@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp() = navController.navigateUp()
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment))
-                || super.onOptionsItemSelected(item)
+        item.onNavDestinationSelected(findNavController(R.id.nav_host_fragment)) ||
+            super.onOptionsItemSelected(item)
 
     private fun hideBottomNavigation() {
         // bottom_navigation is BottomNavigationView
