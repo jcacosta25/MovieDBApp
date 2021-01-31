@@ -11,7 +11,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import dagger.android.support.DaggerFragment
 import io.jcal.theMovie.databinding.FragmentPopularMoviesListBinding
-import io.jcal.theMovie.presentation.ui.adapter.MoviesAdapter
+import io.jcal.theMovie.presentation.ui.adapter.MovieAdapter
 import io.jcal.theMovie.presentation.ui.home.viewmodel.MoviesViewModel
 import io.jcal.theMovie.utils.SpacingItemDecoration
 import io.jcal.theMovie.utils.toTransitionGroup
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class PopularMoviesFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentPopularMoviesListBinding
-    private lateinit var adapter: MoviesAdapter
+    private lateinit var adapter: MovieAdapter
 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
@@ -43,7 +43,7 @@ class PopularMoviesFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = MoviesAdapter(
+        adapter = MovieAdapter(
             movieClickListener = { movie, _, poster ->
                 val extras = FragmentNavigatorExtras(
                     poster.toTransitionGroup()
@@ -53,7 +53,8 @@ class PopularMoviesFragment : DaggerFragment() {
                         PopularMoviesFragmentDirections.popularMoviesToMovieDetail(
                             movie.id,
                             movie.posterPath
-                        ), extras
+                        ),
+                        extras
                     )
             }
         )
@@ -65,13 +66,13 @@ class PopularMoviesFragment : DaggerFragment() {
             )
         )
         binding.popularMoviesRv.setHasFixedSize(true)
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.moviesLiveData.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        viewModel.moviesLiveData.observe(
+            viewLifecycleOwner,
+            Observer {
+                adapter.submitList(it)
+            }
+        )
     }
 
     companion object {

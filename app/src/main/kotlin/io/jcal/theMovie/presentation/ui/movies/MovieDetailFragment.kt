@@ -56,19 +56,18 @@ class MovieDetailFragment : DaggerFragment() {
                 .centerCrop()
                 .into(this)
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
         viewModel.getMovie(movieId)
 
-        viewModel.movieDetail().observe(viewLifecycleOwner, Observer { movie ->
-            when (movie.state) {
-                SUCCESS -> {
-                    binding.movie = movie
+        viewModel.movieDetail().observe(
+            viewLifecycleOwner,
+            Observer { movie ->
+                when (movie.state) {
+                    SUCCESS -> {
+                        binding.movie = movie
+                    }
                 }
             }
-        })
+        )
     }
 }

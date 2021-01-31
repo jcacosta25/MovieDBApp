@@ -23,7 +23,7 @@ jobs:
       - name: Run Unit Test
         run: ./gradlew test --stacktrace
       - name: Run Coverage and Verification
-        run: ./gradlew jacocoTestReport jacocoTestCoverageVerification
+        run: ./gradlew jacocoFullReport
 
 
   apk:

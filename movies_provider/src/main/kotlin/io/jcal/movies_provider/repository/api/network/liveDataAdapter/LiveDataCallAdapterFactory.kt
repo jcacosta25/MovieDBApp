@@ -88,23 +88,23 @@ class LiveDataCallAdapter<R, E>(
                 super.onActive()
                 if (started.compareAndSet(false, true)) {
                     customCallAdapter.enqueue(object :
-                        Callback<R, E?> {
-                        override fun onResponse(response: Response<R, E?>) {
-                            postValue(
-                                ApiResponse(
-                                    response
+                            Callback<R, E?> {
+                            override fun onResponse(response: Response<R, E?>) {
+                                postValue(
+                                    ApiResponse(
+                                        response
+                                    )
                                 )
-                            )
-                        }
+                            }
 
-                        override fun onFailure(e: IOException) {
-                            postValue(
-                                ApiResponse(
-                                    e
+                            override fun onFailure(e: IOException) {
+                                postValue(
+                                    ApiResponse(
+                                        e
+                                    )
                                 )
-                            )
-                        }
-                    })
+                            }
+                        })
                 }
             }
         }

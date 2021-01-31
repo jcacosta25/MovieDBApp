@@ -21,9 +21,11 @@ class NetworkUtil @Inject constructor(private val context: Context) {
             } else {
                 manager.activeNetwork?.let { network ->
                     manager.getNetworkCapabilities(network)?.let {
-                        return (it.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || it.hasTransport(
-                            NetworkCapabilities.TRANSPORT_WIFI
-                        ))
+                        return (
+                            it.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || it.hasTransport(
+                                NetworkCapabilities.TRANSPORT_WIFI
+                            )
+                            )
                     }
                 }.let {
                     false

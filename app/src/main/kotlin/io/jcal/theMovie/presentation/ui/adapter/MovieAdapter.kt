@@ -10,8 +10,8 @@ import io.jcal.theMovie.R
 import io.jcal.theMovie.databinding.MoviePreviewContentBinding
 import io.jcal.theMovie.presentation.mapper.model.MovieUIModel
 
-class MoviesAdapter(private val movieClickListener: (MovieUIModel, Int, View) -> Unit) :
-    PagedListAdapter<MovieUIModel, MoviesAdapter.MovieViewHolder>(MovieUIModel.MOVIE_DIF) {
+class MovieAdapter(private val movieClickListener: (MovieUIModel, Int, View) -> Unit) :
+    PagedListAdapter<MovieUIModel, MovieAdapter.MovieViewHolder>(MovieUIModel.MOVIE_DIF) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

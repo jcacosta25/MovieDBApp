@@ -1,8 +1,8 @@
 plugins {
     id("com.android.library")
     kotlin("android")
+    id("kotlin-parcelize")
     kotlin("kapt")
-    kotlin("android.extensions")
 }
 android {
     compileSdkVersion(Versions.compileSdk)
@@ -15,10 +15,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = mapOf(
+                arguments(mapOf(
                     "room.incremental" to "true",
                     "room.schemaLocation" to "$projectDir/schemas"
-                )
+                ))
             }
         }
     }
@@ -37,6 +37,15 @@ android {
     lintOptions {
         isAbortOnError = true
     }
+    
+    kotlinter {
+        ignoreFailures = false
+        indentSize = 4
+        reporters = arrayOf("checkstyle", "plain")
+        experimentalRules = true
+        disabledRules = arrayOf("import-ordering", "no-wildcard-imports", "final-newline","no-trailing-spaces","indent")
+    }
+    
     sourceSets {
         getByName("androidTest").java.srcDirs("src/androidTest/kotlin")
         getByName("main").java.srcDirs("src/main/kotlin")
@@ -44,8 +53,8 @@ android {
     }
 
     compileOptions {
-        setTargetCompatibility(1.8)
-        setSourceCompatibility(1.8)
+        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
@@ -60,7 +69,6 @@ dependencies {
     api(Libs.kotlinReflect)
     api(Libs.coroutines)
     api(Libs.coroutinesAndroid)
-    api(Libs.lifeCycleExtensions)
     api(Libs.lifeCycleCommon)
     api(Libs.lifeCycleViewModel)
     api(Libs.lifeCycleLiveData)

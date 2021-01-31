@@ -2,7 +2,7 @@ package io.jcal.theMovie.presentation.mapper.model
 
 import android.os.Parcelable
 import androidx.annotation.StringRes
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 open class BaseUIModel(

@@ -81,11 +81,13 @@ data class TvShowSeasons(
 
 @Entity(
     tableName = DatabaseConstants.TABLE_SEASON,
-    foreignKeys = [ForeignKey(
-        entity = TvShowEntity::class,
-        parentColumns = arrayOf(DatabaseConstants.COLUMN_ID),
-        childColumns = arrayOf(DatabaseConstants.COLUMN_SHOW_ID)
-    )]
+    foreignKeys = [
+        ForeignKey(
+            entity = TvShowEntity::class,
+            parentColumns = arrayOf(DatabaseConstants.COLUMN_ID),
+            childColumns = arrayOf(DatabaseConstants.COLUMN_SHOW_ID)
+        )
+    ]
 )
 data class SeasonEntity(
     @NonNull
@@ -120,11 +122,13 @@ data class SeasonEpisodes(
 
 @Entity(
     tableName = DatabaseConstants.TABLE_EPISODE,
-    foreignKeys = [ForeignKey(
-        entity = SeasonEntity::class,
-        parentColumns = arrayOf(DatabaseConstants.COLUMN_ID),
-        childColumns = arrayOf(DatabaseConstants.COLUMN_SEASON_ID)
-    )]
+    foreignKeys = [
+        ForeignKey(
+            entity = SeasonEntity::class,
+            parentColumns = arrayOf(DatabaseConstants.COLUMN_ID),
+            childColumns = arrayOf(DatabaseConstants.COLUMN_SEASON_ID)
+        )
+    ]
 )
 data class EpisodeEntity(
     @NonNull

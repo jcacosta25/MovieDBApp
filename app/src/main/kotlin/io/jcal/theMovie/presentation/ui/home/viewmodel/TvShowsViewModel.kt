@@ -26,7 +26,8 @@ class TvShowsViewModel @Inject constructor(
 
     private val listing = Listing<TvShowUIModel>(
         pagedList = LivePagedListBuilder(
-            source, PagedList.Config.Builder()
+            source,
+            PagedList.Config.Builder()
                 .setPageSize(30)
                 .setEnablePlaceholders(false)
                 .build()

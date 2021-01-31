@@ -63,13 +63,14 @@ internal fun <S : Any, E : Any> HttpException.extractFromHttpException(errorConv
     val errorBody = when {
         error == null -> null // No error content available
         error.contentLength() == 0L -> null // Error content is empty
-        else -> try {
-            // There is error content present, so we should try to extract it
-            errorConverter.convert(error)
-        } catch (e: Exception) {
-            // If unable to extract content, return with a null body and don't parse further
-            return NetworkResponse.ServerError(body = null, code = responseCode, headers = headers)
-        }
+        else ->
+            try {
+                // There is error content present, so we should try to extract it
+                errorConverter.convert(error)
+            } catch (e: Exception) {
+                // If unable to extract content, return with a null body and don't parse further
+                return NetworkResponse.ServerError(body = null, code = responseCode, headers = headers)
+            }
     }
     return NetworkResponse.ServerError(
         errorBody = errorBody,

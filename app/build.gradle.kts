@@ -1,15 +1,14 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("android.extensions")
+    id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
-    kotlin("kapt")
+    id("kotlin-kapt")
 }
 android {
     compileSdkVersion(Versions.compileSdk)
     buildToolsVersion(Versions.buildTools)
     buildFeatures.dataBinding = true
-    androidExtensions.isExperimental = true
     defaultConfig {
         applicationId = "io.jcal.theMovie"
         minSdkVersion(Android.minSdkVersion)
@@ -22,17 +21,14 @@ android {
         }
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = mapOf(
+                arguments(mapOf(
                     "room.incremental" to "true",
                     "room.schemaLocation" to "$projectDir/schemas"
-                )
+                ))
             }
         }
     }
 
-    configurations.all {
-        resolutionStrategy.force("org.jetbrains:annotations:16.0.1")
-    }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -47,7 +43,15 @@ android {
     lintOptions {
         isAbortOnError = true
     }
-
+    
+    kotlinter {
+        ignoreFailures = false
+        indentSize = 4
+        reporters = arrayOf("checkstyle", "plain")
+        experimentalRules = true
+        disabledRules = arrayOf("import-ordering", "no-wildcard-imports", "final-newline","no-trailing-spaces","indent")
+    }
+    
     repositories {
         flatDir {
             dirs("libs")
@@ -81,8 +85,8 @@ android {
     }
 
     compileOptions {
-        setTargetCompatibility(1.8)
-        setSourceCompatibility(1.8)
+        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()

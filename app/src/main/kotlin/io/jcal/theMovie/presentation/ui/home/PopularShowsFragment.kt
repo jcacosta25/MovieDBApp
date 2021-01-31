@@ -51,7 +51,8 @@ class PopularShowsFragment : DaggerFragment() {
                         PopularShowsFragmentDirections.popularShowsToShowDetail(
                             show.id,
                             show.posterPath
-                        ), extras
+                        ),
+                        extras
                     )
             }
         )
@@ -67,9 +68,12 @@ class PopularShowsFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.tvShows.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        viewModel.tvShows.observe(
+            viewLifecycleOwner,
+            Observer {
+                adapter.submitList(it)
+            }
+        )
     }
 
     companion object {

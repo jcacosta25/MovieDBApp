@@ -2,7 +2,7 @@ package io.jcal.theMovie.presentation.mapper.model
 
 import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class MovieUIModel(

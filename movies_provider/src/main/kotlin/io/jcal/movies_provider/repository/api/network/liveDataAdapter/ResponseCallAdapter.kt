@@ -61,39 +61,39 @@ class ResponseCallAdapter<R, E>(
 
                 executor.execute {
                     callback.onResponse(object :
-                        Response<R, E?> {
+                            Response<R, E?> {
 
-                        override val isSuccessful: Boolean
-                            get() = response.isSuccessful
+                            override val isSuccessful: Boolean
+                                get() = response.isSuccessful
 
-                        override fun body(): R {
-                            return response.body()!!
-                        }
+                            override fun body(): R {
+                                return response.body()!!
+                            }
 
-                        override fun error(): E? {
-                            return try {
-                                val converter =
-                                    retrofit.responseBodyConverter<E>(errorType, annotations)
-                                val errorBody = response.errorBody()
-                                if (errorBody != null) {
-                                    converter.convert(errorBody)
-                                } else {
+                            override fun error(): E? {
+                                return try {
+                                    val converter =
+                                        retrofit.responseBodyConverter<E>(errorType, annotations)
+                                    val errorBody = response.errorBody()
+                                    if (errorBody != null) {
+                                        converter.convert(errorBody)
+                                    } else {
+                                        null
+                                    }
+                                } catch (e: IOException) {
                                     null
                                 }
-                            } catch (e: IOException) {
-                                null
                             }
-                        }
 
-                        override fun code(): Int = response.code()
+                            override fun code(): Int = response.code()
 
-                        override fun headers(): Headers = response.headers()
+                            override fun headers(): Headers = response.headers()
 
-                        override fun endpointPath(): String =
-                            response.raw().request.url.toString()
+                            override fun endpointPath(): String =
+                                response.raw().request.url.toString()
 
-                        override fun message(): String = response.message()
-                    })
+                            override fun message(): String = response.message()
+                        })
                 }
             }
 

@@ -1,3 +1,7 @@
+
+inline val org.gradle.plugin.use.PluginDependenciesSpec.`ktlint`: org.gradle.plugin.use.PluginDependencySpec
+    get() = id(Plugins.ktlint)
+
 object BuildPlugins {
     const val android = "com.android.tools.build:gradle:${Versions.androidGradlePlugin}"
     const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
@@ -129,9 +133,9 @@ object Android {
 object Versions {
     // Build Config
     const val minSdk = 21
-    const val compileSdk = 29
+    const val compileSdk = 30
     const val targetSdk = compileSdk
-    const val buildTools = "29.0.2"
+    const val buildTools = "30.0.3"
 
     // App version
     const val appVersionCode = 1
@@ -142,36 +146,36 @@ object Versions {
         if (versionHotFix != 0) "${versionMajor}.${versionMinor}.${versionHotFix}" else "${versionMajor}.${versionMinor}"
 
     // Plugins
-    const val androidGradlePlugin = "4.0.0"
-    const val ktlint = "2.1.3"
-    const val jacoco = "0.8.5"
+    const val androidGradlePlugin = "4.1.2"
+    const val ktlint = "3.3.0"
+    const val jacoco = "0.8.6"
 
     // Kotlin
-    const val kotlin = "1.3.72"
-    const val coroutines = "1.3.7"
+    const val kotlin = "1.4.21"
+    const val coroutines = "1.4.2"
 
     // Support Lib
-    const val support = "1.3.0-alpha01"
+    const val support = "1.3.0-alpha02"
     const val cardView = "1.0.0"
-    const val constraintLayout = "2.0.0-beta6"
-    const val androidX = "1.4.0-alpha01"
+    const val constraintLayout = "1.3.0-rc01"
+    const val androidX = "1.5.0-alpha04"
     const val recyclerViewVersion = "1.2.0-alpha03"
 
     // Libraries
-    const val lifeCycle = "2.2.0"
+    const val lifeCycle = "2.3.0-rc01"
     const val archVersion = "2.1.0"
     const val room = "2.2.5"
     const val paging = "2.1.2"
     const val retrofit = "2.9.0"
     const val okHttp = "4.7.2"
-    const val dagger = "2.28"
+    const val dagger = "2.31"
     const val dataBinding = "4.1.0-alpha04"
     const val playServices = "16.1.0"
     const val multidex = "2.0.1"
     const val picasso = "2.71828"
-    const val navigation = "2.3.0-beta01"
-    const val workManager = "2.4.0-beta01"
-    const val design = "1.3.0-alpha01"
+    const val navigation = "2.3.2"
+    const val workManager = "2.5.0-beta01"
+    const val design = "1.3.0-alpha03"
     const val threeTenABP = "1.2.1"
     const val moshi = "1.9.2"
     const val okHttpProfiler = "1.0.7"
@@ -187,7 +191,7 @@ object Versions {
     const val mockito = "3.3.3"
     const val mockitoKotlin = "2.2.0"
     const val timberVersion = "4.7.1"
-    const val mockk = "1.10.0"
+    const val mockk = "1.10.2"
     const val googleServicesVersion = "4.3.3"
     const val fabricVersion = "1.28.0"
     const val crashlyticsVersion = "2.9.9"

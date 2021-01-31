@@ -56,19 +56,18 @@ class ShowDetailFragment : DaggerFragment() {
                 .centerCrop()
                 .into(this)
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
         viewModel.getTvShow(tvShowId)
 
-        viewModel.tvShowDetail().observe(viewLifecycleOwner, Observer { show ->
-            when (show.state) {
-                SUCCESS -> {
-                    binding.show = show
+        viewModel.tvShowDetail().observe(
+            viewLifecycleOwner,
+            Observer { show ->
+                when (show.state) {
+                    SUCCESS -> {
+                        binding.show = show
+                    }
                 }
             }
-        })
+        )
     }
 }

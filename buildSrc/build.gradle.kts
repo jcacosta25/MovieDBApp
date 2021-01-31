@@ -1,9 +1,15 @@
 plugins {
+    `java-gradle-plugin`
     `kotlin-dsl`
+    `kotlin-dsl-precompiled-script-plugins`
+}
+repositories {
+    google()
+    jcenter()
+    maven { url = uri("https://plugins.gradle.org/m2/") }
 }
 
-repositories {
-    // The org.jetbrains.kotlin.jvm plugin requires a repository
-    // where to download the Kotlin compiler dependencies from.
-    jcenter()
+dependencies {
+    implementation("com.android.tools.build:gradle:4.1.2")
+    implementation("org.jmailen.gradle:kotlinter-gradle:3.3.0")
 }
