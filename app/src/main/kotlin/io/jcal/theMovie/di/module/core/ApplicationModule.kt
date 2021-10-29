@@ -12,18 +12,18 @@ import javax.inject.Named
 
 @Module
 class ApplicationModule {
-    @Provides
-    fun providesApplicationContext(application: Application): Context =
-        application.applicationContext
-
-    @Provides
-    fun providesResources(application: Application): Resources = application.resources
-
-    @Provides
-    @Named(DATABASE_NAME_PROPERTY)
-    fun provideDatabaseName(): String = DATABASE_NAME
-
-    @Provides
-    @Named(API_TOKEN_PROPERTY)
-    fun provideMovieDBApiToken(): String = "aa94b3c2c71ca34288378f22d536ab1f"
+	@Provides
+	fun providesApplicationContext(application: Application): Context =
+		application.applicationContext
+	
+	@Provides
+	fun providesResources(application: Application): Resources = application.resources
+	
+	@Provides
+	@Named(DATABASE_NAME_PROPERTY)
+	fun provideDatabaseName(): String = DATABASE_NAME
+	
+	@Provides
+	@Named(API_TOKEN_PROPERTY)
+	fun provideMovieDBApiToken(): String = "aa94b3c2c71ca34288378f22d536ab1f"
 }

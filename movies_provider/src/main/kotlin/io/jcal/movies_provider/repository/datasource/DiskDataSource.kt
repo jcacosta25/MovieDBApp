@@ -9,31 +9,31 @@ import io.jcal.movies_provider.repository.mapper.model.TvShowsModel
 
 interface DiskDataSource {
 
-    suspend fun insertMovies(entity: List<MovieEntity>): List<Long>
+	suspend fun insertMovies(entity: List<MovieEntity>): List<Long>
 
-    suspend fun insertMovie(entity: MovieEntity): Long
+	suspend fun insertMovie(entity: MovieEntity): Long
 
-    suspend fun insertTvShows(entity: List<TvShowSeasons>): List<Long>
+	suspend fun insertTvShows(entity: List<TvShowSeasons>): List<Long>
 
-    suspend fun insertTvShow(entity: TvShowSeasons): Long
+	suspend fun insertTvShow(entity: TvShowSeasons): Long
 
-    suspend fun insertMoviesModel(entity: List<MovieModel>): List<Long>
+	suspend fun insertMoviesModel(entity: List<MovieModel>): List<Long>
 
-    suspend fun insertMoviesModelCoroutine(entity: List<MovieModel>)
+	suspend fun insertMoviesModelCoroutine(entity: List<MovieModel>)
 
-    suspend fun insertMovieModel(entity: MovieModel): Long
+	suspend fun insertMovieModel(entity: MovieModel): Long
 
-    suspend fun insertMovieModelCoroutines(entity: MovieModel)
+	suspend fun insertMovieModelCoroutines(entity: MovieModel)
 
-    suspend fun selectMovieModel(movieId: Int): MovieModel
+	suspend fun selectMovieModel(movieId: Int): MovieModel
 
-    suspend fun selectAllMoviesModelCoroutines(): MoviesModel
+	suspend fun selectAllMoviesModelCoroutines(): MoviesModel
 
-    suspend fun insertTvShowsModel(entity: List<TvShowModel>): List<Long>
+	suspend fun insertTvShowsModel(entity: List<TvShowModel>): List<Long>
 
-    suspend fun insertTvShowModel(entity: TvShowModel): Long
+	suspend fun insertTvShowModel(entity: TvShowModel): Long
 
-    suspend fun selectTvShowModel(showId: Int): TvShowModel
+	suspend fun selectTvShowModel(showId: Int): TvShowModel
 
-    suspend fun selectAllTvShowsModel(): TvShowsModel
+	suspend fun selectAllTvShowsModel(): TvShowsModel
 }

@@ -10,13 +10,13 @@ open class BaseUIModel(
     var state: String = LOADING,
     @StringRes var messageId: Int = 0
 ) : Parcelable {
-
-    companion object {
-        const val SUCCESS = "success"
-        const val LOADING = "loading"
-        const val ERROR = "error"
-        const val EMPTY_DOUBLE = 0.0
-    }
+	
+	companion object {
+		const val SUCCESS = "success"
+		const val LOADING = "loading"
+		const val ERROR = "error"
+		const val EMPTY_DOUBLE = 0.0
+	}
 }
 
 /**
@@ -26,8 +26,8 @@ open class BaseUIModel(
  * @return [T] sub class
  */
 fun <T : BaseUIModel> T.baseCopy(base: BaseUIModel): T {
-    state = base.state
-    error = base.error
-    messageId = base.messageId
-    return this
+	state = base.state
+	error = base.error
+	messageId = base.messageId
+	return this
 }

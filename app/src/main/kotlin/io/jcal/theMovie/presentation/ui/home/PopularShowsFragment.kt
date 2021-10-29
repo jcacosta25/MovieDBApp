@@ -18,15 +18,15 @@ import io.jcal.theMovie.utils.toTransitionGroup
 import javax.inject.Inject
 
 class PopularShowsFragment : DaggerFragment() {
-
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
-
-    private val viewModel by viewModels<TvShowsViewModel> { factory }
-    private lateinit var binding: FragmentPopularShowsBinding
-    private lateinit var adapter: ShowsAdapter
-
-    override fun onCreateView(
+	
+	@Inject
+	lateinit var factory: ViewModelProvider.Factory
+	
+	private val viewModel by viewModels<TvShowsViewModel> { factory }
+	private lateinit var binding: FragmentPopularShowsBinding
+	private lateinit var adapter: ShowsAdapter
+	
+	override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,13 +35,13 @@ class PopularShowsFragment : DaggerFragment() {
         container,
         false
     ).let {
-        binding = it
-        binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        adapter = ShowsAdapter(
+		binding = it
+		binding.root
+	}
+	
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		adapter = ShowsAdapter(
             showClickListener = { show, _, poster ->
                 val extras = FragmentNavigatorExtras(
                     poster.toTransitionGroup()
@@ -56,27 +56,27 @@ class PopularShowsFragment : DaggerFragment() {
                     )
             }
         )
-        binding.popularShowsRv.adapter = adapter
-        binding.popularShowsRv.addItemDecoration(
+		binding.popularShowsRv.adapter = adapter
+		binding.popularShowsRv.addItemDecoration(
             SpacingItemDecoration(
                 requireContext(),
                 SPACING
             )
         )
-        binding.popularShowsRv.setHasFixedSize(true)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel.tvShows.observe(
+		binding.popularShowsRv.setHasFixedSize(true)
+	}
+	
+	override fun onActivityCreated(savedInstanceState: Bundle?) {
+		super.onActivityCreated(savedInstanceState)
+		viewModel.tvShows.observe(
             viewLifecycleOwner,
             Observer {
                 adapter.submitList(it)
             }
         )
-    }
-
-    companion object {
-        private const val SPACING = 16
-    }
+	}
+	
+	companion object {
+		private const val SPACING = 16
+	}
 }

@@ -5,11 +5,11 @@ import org.junit.Before
 
 internal class NetworkBoundResourceFlowCoroutinesTest {
 
-    @Before
-    fun setUp() {
-    }
+	@Before
+	fun setUp() {
+	}
 
-    @After
-    fun tearDown() {
-    }
+	@After
+	fun tearDown() {
+	}
 }

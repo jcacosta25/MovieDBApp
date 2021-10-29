@@ -18,56 +18,56 @@ import io.jcal.theMovie.presentation.mapper.model.BaseUIModel.Companion.SUCCESS
 import javax.inject.Inject
 
 class ShowDetailFragment : DaggerFragment() {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel by viewModels<TvShowDetailViewModel> { viewModelFactory }
-    private lateinit var binding: FragmentShowDetailBinding
-
-    private val args: ShowDetailFragmentArgs by navArgs()
-
-    private val tvShowId by lazy { args.showId }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        sharedElementEnterTransition =
-            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_show_detail, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.showPosterImageView.apply {
-            transitionName = args.uri
-            Picasso.get()
-                .load(args.uri)
-                .placeholder(R.drawable.background_place_holder)
-                .error(R.drawable.background_place_holder)
-                .fit()
-                .centerCrop()
-                .into(this)
-        }
-
-        viewModel.getTvShow(tvShowId)
-
-        viewModel.tvShowDetail().observe(
-            viewLifecycleOwner,
-            Observer { show ->
-                when (show.state) {
-                    SUCCESS -> {
-                        binding.show = show
-                    }
-                }
-            }
-        )
-    }
+	
+	@Inject
+	lateinit var viewModelFactory: ViewModelProvider.Factory
+	
+	private val viewModel by viewModels<TvShowDetailViewModel> { viewModelFactory }
+	private lateinit var binding: FragmentShowDetailBinding
+	
+	private val args: ShowDetailFragmentArgs by navArgs()
+	
+	private val tvShowId by lazy { args.showId }
+	
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		sharedElementEnterTransition =
+			TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+	}
+	
+	override fun onCreateView(
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
+	): View? {
+		binding = DataBindingUtil.inflate(inflater, R.layout.fragment_show_detail, container, false)
+		return binding.root
+	}
+	
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		binding.showPosterImageView.apply {
+			transitionName = args.uri
+			Picasso.get()
+				.load(args.uri)
+				.placeholder(R.drawable.background_place_holder)
+				.error(R.drawable.background_place_holder)
+				.fit()
+				.centerCrop()
+				.into(this)
+		}
+		
+		viewModel.getTvShow(tvShowId)
+		
+		viewModel.tvShowDetail().observe(
+			viewLifecycleOwner,
+			Observer { show ->
+				when (show.state) {
+					SUCCESS -> {
+						binding.show = show
+					}
+				}
+			}
+		)
+	}
 }

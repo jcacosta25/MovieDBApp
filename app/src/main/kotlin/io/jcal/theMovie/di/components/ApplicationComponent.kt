@@ -13,22 +13,22 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    modules = [
-        ApplicationModule::class,
-        AndroidInjectionModule::class,
-        ActivityBindingModule::class
-    ]
+	modules = [
+		ApplicationModule::class,
+		AndroidInjectionModule::class,
+		ActivityBindingModule::class
+	]
 )
 interface ApplicationComponent : AndroidInjector<MovieDBApp> {
-
-    @Component.Builder
-    interface Builder {
-
-        @BindsInstance
-        fun application(application: Application): Builder
-
-        fun build(): ApplicationComponent
-    }
-
-    fun context(): Context
+	
+	@Component.Builder
+	interface Builder {
+		
+		@BindsInstance
+		fun application(application: Application): Builder
+		
+		fun build(): ApplicationComponent
+	}
+	
+	fun context(): Context
 }

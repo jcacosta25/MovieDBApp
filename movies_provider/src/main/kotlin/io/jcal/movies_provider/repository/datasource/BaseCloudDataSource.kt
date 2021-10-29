@@ -7,23 +7,23 @@ import io.jcal.movies_provider.repository.api.network.coroutinesAdapter.NetworkR
 
 abstract class BaseCloudDataSource {
 
-    protected suspend fun <T, U> getResultCoroutines(call: suspend () -> NetworkResponse<T, U>): ResourceCoroutines<T, U> =
-        try {
-            when (val response = call()) {
-                // Handle Success
-                is NetworkResponse.Success ->
-                    ResourceCoroutines.success(data = response.body)
-                // Handle Server Error
-                is NetworkResponse.ServerError ->
-                    ResourceCoroutines.error(
-                        errorCode = response.code,
-                        errorBody = response.errorBody
-                    )
-                // Handle Network Error
-                is NetworkResponse.NetworkError ->
-                    ResourceCoroutines.error(NO_NETWORK_RESPONSE_CODE)
-            }
-        } catch (e: Exception) {
-            ResourceCoroutines.error(EXCEPTION_RESPONSE_CODE)
-        }
+	protected suspend fun <T, U> getResultCoroutines(call: suspend () -> NetworkResponse<T, U>): ResourceCoroutines<T, U> =
+		try {
+			when (val response = call()) {
+				// Handle Success
+				is NetworkResponse.Success ->
+					ResourceCoroutines.success(data = response.body)
+				// Handle Server Error
+				is NetworkResponse.ServerError ->
+					ResourceCoroutines.error(
+						errorCode = response.code,
+						errorBody = response.errorBody
+					)
+				// Handle Network Error
+				is NetworkResponse.NetworkError ->
+					ResourceCoroutines.error(NO_NETWORK_RESPONSE_CODE)
+			}
+		} catch (e: Exception) {
+			ResourceCoroutines.error(EXCEPTION_RESPONSE_CODE)
+		}
 }

@@ -12,41 +12,41 @@ import okhttp3.Headers
 </E></R> */
 interface Response<R, E> {
 
-    /**
-     * Checks whether this request was successful, by delegating to the underlying retrofit Response.
-     * Retrofit considers response codes >= 200 and =< 300 as successful.
-     *
-     * @return true if the request was successful; false otherwise
-     */
-    val isSuccessful: Boolean
+	/**
+	 * Checks whether this request was successful, by delegating to the underlying retrofit Response.
+	 * Retrofit considers response codes >= 200 and =< 300 as successful.
+	 *
+	 * @return true if the request was successful; false otherwise
+	 */
+	val isSuccessful: Boolean
 
-    /**
-     * @return the response body
-     */
-    fun body(): R
+	/**
+	 * @return the response body
+	 */
+	fun body(): R
 
-    /**
-     * @return the error; possibly `null`
-     */
-    @Nullable
-    fun error(): E
+	/**
+	 * @return the error; possibly `null`
+	 */
+	@Nullable
+	fun error(): E
 
-    /**
-     * @return http code
-     */
-    fun code(): Int
+	/**
+	 * @return http code
+	 */
+	fun code(): Int
 
-    /**
-     * @return headers
-     */
-    fun headers(): Headers
+	/**
+	 * @return headers
+	 */
+	fun headers(): Headers
 
-    /**
-     * gets the path of the endpoint.  This will mostly be used for analytics
-     * @return the path of the endpoint with generic parameters
-     */
-    fun endpointPath(): String
+	/**
+	 * gets the path of the endpoint.  This will mostly be used for analytics
+	 * @return the path of the endpoint with generic parameters
+	 */
+	fun endpointPath(): String
 
-    /** wraps [retrofit2.Response.message]  */
-    fun message(): String
+	/** wraps [retrofit2.Response.message]  */
+	fun message(): String
 }

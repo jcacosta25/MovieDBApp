@@ -18,56 +18,57 @@ import io.jcal.theMovie.presentation.mapper.model.BaseUIModel.Companion.SUCCESS
 import javax.inject.Inject
 
 class MovieDetailFragment : DaggerFragment() {
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel by viewModels<MovieDetailViewModel> { viewModelFactory }
-    private lateinit var binding: FragmentMovieDetailBinding
-
-    private val args: MovieDetailFragmentArgs by navArgs()
-
-    private val movieId by lazy { args.movieId }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_movie_detail, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.moviePosterImageView.apply {
-            transitionName = args.uri
-            Picasso.get()
-                .load(args.uri)
-                .placeholder(R.drawable.background_place_holder)
-                .error(R.drawable.background_place_holder)
-                .fit()
-                .centerCrop()
-                .into(this)
-        }
-
-        viewModel.getMovie(movieId)
-
-        viewModel.movieDetail().observe(
-            viewLifecycleOwner,
-            Observer { movie ->
-                when (movie.state) {
-                    SUCCESS -> {
-                        binding.movie = movie
-                    }
-                }
-            }
-        )
-    }
+	
+	@Inject
+	lateinit var viewModelFactory: ViewModelProvider.Factory
+	
+	private val viewModel by viewModels<MovieDetailViewModel> { viewModelFactory }
+	private lateinit var binding: FragmentMovieDetailBinding
+	
+	private val args: MovieDetailFragmentArgs by navArgs()
+	
+	private val movieId by lazy { args.movieId }
+	
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		sharedElementEnterTransition =
+			TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+	}
+	
+	override fun onCreateView(
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
+	): View? {
+		binding =
+			DataBindingUtil.inflate(inflater, R.layout.fragment_movie_detail, container, false)
+		return binding.root
+	}
+	
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		binding.moviePosterImageView.apply {
+			transitionName = args.uri
+			Picasso.get()
+				.load(args.uri)
+				.placeholder(R.drawable.background_place_holder)
+				.error(R.drawable.background_place_holder)
+				.fit()
+				.centerCrop()
+				.into(this)
+		}
+		
+		viewModel.getMovie(movieId)
+		
+		viewModel.movieDetail().observe(
+			viewLifecycleOwner,
+			Observer { movie ->
+				when (movie.state) {
+					SUCCESS -> {
+						binding.movie = movie
+					}
+				}
+			}
+		)
+	}
 }

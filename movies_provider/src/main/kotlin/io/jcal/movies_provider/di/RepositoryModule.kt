@@ -16,18 +16,18 @@ import io.jcal.movies_provider.repository.mapper.DataMapper
 
 @Module
 class RepositoryModule {
-
-    @Provides
-    fun providesDiskDataSource(dataBase: MovieDBDataBase, mapper: DataMapper): DiskDataSource =
-        DiskDataSourceImpl(dataBase, mapper)
-
-    @Provides
-    fun provideCloudDataSource(api: MovieDBService, mapper: DataMapper): CloudDataSource =
-        CloudDataSourceImpl(api, mapper)
-
-    @Provides
-    fun provideNetworkUtils(context: Context): NetworkUtil = NetworkUtil(context)
-
-    @Provides
-    fun provideMDBRepository(repository: MDBRepositoryImpl): MDBRepository = repository
+	
+	@Provides
+	fun providesDiskDataSource(dataBase: MovieDBDataBase, mapper: DataMapper): DiskDataSource =
+		DiskDataSourceImpl(dataBase, mapper)
+	
+	@Provides
+	fun provideCloudDataSource(api: MovieDBService, mapper: DataMapper): CloudDataSource =
+		CloudDataSourceImpl(api, mapper)
+	
+	@Provides
+	fun provideNetworkUtils(context: Context): NetworkUtil = NetworkUtil(context)
+	
+	@Provides
+	fun provideMDBRepository(repository: MDBRepositoryImpl): MDBRepository = repository
 }

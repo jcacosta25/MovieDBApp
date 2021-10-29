@@ -20,23 +20,23 @@ import java.io.IOException
  */
 @JvmOverloads
 suspend inline fun <T : Any, U : Any> executeWithRetry(
-    times: Int = 10,
-    initialDelay: Long = 100, // 0.1 second
-    maxDelay: Long = 1000, // 1 second
-    factor: Double = 2.0,
-    block: () -> NetworkResponse<T, U>
+	times: Int = 10,
+	initialDelay: Long = 100, // 0.1 second
+	maxDelay: Long = 1000, // 1 second
+	factor: Double = 2.0,
+	block: () -> NetworkResponse<T, U>
 ): NetworkResponse<T, U> {
-    var currentDelay = initialDelay
-    repeat(times - 1) {
-        when (val response = block()) {
-            is NetworkResponse.NetworkError -> {
-                delay(currentDelay)
-                currentDelay = (currentDelay * factor).toLong().coerceAtMost(maxDelay)
-            }
-            else -> return response
-        }
-    }
-    return block() // last attempt
+	var currentDelay = initialDelay
+	repeat(times - 1) {
+		when (val response = block()) {
+			is NetworkResponse.NetworkError -> {
+				delay(currentDelay)
+				currentDelay = (currentDelay * factor).toLong().coerceAtMost(maxDelay)
+			}
+			else -> return response
+		}
+	}
+	return block() // last attempt
 }
 
 /**
@@ -51,38 +51,42 @@ suspend inline fun <T : Any, U : Any> executeWithRetry(
  * println(usersResponse() ?: "No users found")
  */
 operator fun <T : Any, U : Any> NetworkResponse<T, U>.invoke(): T? {
-    return if (this is NetworkResponse.Success) body else null
+	return if (this is NetworkResponse.Success) body else null
 }
 
 internal const val UNKNOWN_ERROR_RESPONSE_CODE = 520
 
 internal fun <S : Any, E : Any> HttpException.extractFromHttpException(errorConverter: Converter<ResponseBody, E>): NetworkResponse<S, E> {
-    val error = response()?.errorBody()
-    val responseCode = response()?.code() ?: UNKNOWN_ERROR_RESPONSE_CODE
-    val headers = response()?.headers()
-    val errorBody = when {
-        error == null -> null // No error content available
-        error.contentLength() == 0L -> null // Error content is empty
-        else ->
-            try {
-                // There is error content present, so we should try to extract it
-                errorConverter.convert(error)
-            } catch (e: Exception) {
-                // If unable to extract content, return with a null body and don't parse further
-                return NetworkResponse.ServerError(body = null, code = responseCode, headers = headers)
-            }
-    }
-    return NetworkResponse.ServerError(
-        errorBody = errorBody,
-        code = responseCode,
-        headers = headers
-    )
+	val error = response()?.errorBody()
+	val responseCode = response()?.code() ?: UNKNOWN_ERROR_RESPONSE_CODE
+	val headers = response()?.headers()
+	val errorBody = when {
+		error == null -> null // No error content available
+		error.contentLength() == 0L -> null // Error content is empty
+		else ->
+			try {
+				// There is error content present, so we should try to extract it
+				errorConverter.convert(error)
+			} catch (e: Exception) {
+				// If unable to extract content, return with a null body and don't parse further
+				return NetworkResponse.ServerError(
+					body = null,
+					code = responseCode,
+					headers = headers
+				)
+			}
+	}
+	return NetworkResponse.ServerError(
+		errorBody = errorBody,
+		code = responseCode,
+		headers = headers
+	)
 }
 
 internal fun <S : Any, E : Any> Throwable.extractNetworkResponse(errorConverter: Converter<ResponseBody, E>): NetworkResponse<S, E> {
-    return when (this) {
-        is IOException -> NetworkResponse.NetworkError(this)
-        is HttpException -> extractFromHttpException<S, E>(errorConverter)
-        else -> throw this
-    }
+	return when (this) {
+		is IOException -> NetworkResponse.NetworkError(this)
+		is HttpException -> extractFromHttpException<S, E>(errorConverter)
+		else -> throw this
+	}
 }

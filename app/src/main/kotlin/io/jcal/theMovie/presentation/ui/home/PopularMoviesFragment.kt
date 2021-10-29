@@ -18,64 +18,64 @@ import io.jcal.theMovie.utils.toTransitionGroup
 import javax.inject.Inject
 
 class PopularMoviesFragment : DaggerFragment() {
-
-    private lateinit var binding: FragmentPopularMoviesListBinding
-    private lateinit var adapter: MovieAdapter
-
-    @Inject
-    lateinit var factory: ViewModelProvider.Factory
-
-    private val viewModel by viewModels<MoviesViewModel> { factory }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = FragmentPopularMoviesListBinding.inflate(
-        inflater,
-        container,
-        false
-    ).let {
-        binding = it
-        binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        adapter = MovieAdapter(
-            movieClickListener = { movie, _, poster ->
-                val extras = FragmentNavigatorExtras(
-                    poster.toTransitionGroup()
-                )
-                findNavController()
-                    .navigate(
-                        PopularMoviesFragmentDirections.popularMoviesToMovieDetail(
-                            movie.id,
-                            movie.posterPath
-                        ),
-                        extras
-                    )
-            }
-        )
-        binding.popularMoviesRv.adapter = adapter
-        binding.popularMoviesRv.addItemDecoration(
-            SpacingItemDecoration(
-                requireContext(),
-                SPACING
-            )
-        )
-        binding.popularMoviesRv.setHasFixedSize(true)
-
-        viewModel.moviesLiveData.observe(
-            viewLifecycleOwner,
-            Observer {
-                adapter.submitList(it)
-            }
-        )
-    }
-
-    companion object {
-        private const val SPACING = 16
-    }
+	
+	private lateinit var binding: FragmentPopularMoviesListBinding
+	private lateinit var adapter: MovieAdapter
+	
+	@Inject
+	lateinit var factory: ViewModelProvider.Factory
+	
+	private val viewModel by viewModels<MoviesViewModel> { factory }
+	
+	override fun onCreateView(
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
+	): View? = FragmentPopularMoviesListBinding.inflate(
+		inflater,
+		container,
+		false
+	).let {
+		binding = it
+		binding.root
+	}
+	
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
+		
+		adapter = MovieAdapter(
+			movieClickListener = { movie, _, poster ->
+				val extras = FragmentNavigatorExtras(
+					poster.toTransitionGroup()
+				)
+				findNavController()
+					.navigate(
+						PopularMoviesFragmentDirections.popularMoviesToMovieDetail(
+							movie.id,
+							movie.posterPath
+						),
+						extras
+					)
+			}
+		)
+		binding.popularMoviesRv.adapter = adapter
+		binding.popularMoviesRv.addItemDecoration(
+			SpacingItemDecoration(
+				requireContext(),
+				SPACING
+			)
+		)
+		binding.popularMoviesRv.setHasFixedSize(true)
+		
+		viewModel.moviesLiveData.observe(
+			viewLifecycleOwner,
+			Observer {
+				adapter.submitList(it)
+			}
+		)
+	}
+	
+	companion object {
+		private const val SPACING = 16
+	}
 }

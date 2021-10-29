@@ -103,8 +103,8 @@
     </style>
 
     <style name="Widget.AppTheme.Button.TextButton.Snackbar" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
-                <item name="android:fontFamily">@font/tmdb_font</item>
-                <item name="fontFamily">@font/tmdb_font</item>
+        <item name="android:fontFamily">@font/tmdb_font</item>
+        <item name="fontFamily">@font/tmdb_font</item>
     </style>
 
     <style name="Widget.AppTheme.Snackbar.TextView" parent="@style/Widget.MaterialComponents.Snackbar.TextView">

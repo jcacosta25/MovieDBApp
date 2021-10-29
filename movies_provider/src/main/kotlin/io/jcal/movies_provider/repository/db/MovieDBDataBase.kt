@@ -12,13 +12,13 @@ import io.jcal.movies_provider.repository.db.entity.SeasonEntity
 import io.jcal.movies_provider.repository.db.entity.TvShowEntity
 
 @Database(
-    entities = [MovieEntity::class, TvShowEntity::class, SeasonEntity::class, EpisodeEntity::class],
-    version = DatabaseConstants.DATABASE_VERSION
+	entities = [MovieEntity::class, TvShowEntity::class, SeasonEntity::class, EpisodeEntity::class],
+	version = DatabaseConstants.DATABASE_VERSION
 )
 @TypeConverters(Converter::class)
 abstract class MovieDBDataBase : RoomDatabase() {
 
-    abstract fun movieDao(): MovieDao
+	abstract fun movieDao(): MovieDao
 
-    abstract fun tvShowDao(): TvShowDao
+	abstract fun tvShowDao(): TvShowDao
 }

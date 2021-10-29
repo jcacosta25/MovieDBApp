@@ -14,36 +14,36 @@ import io.jcal.theMovie.presentation.ui.home.viewmodel.paging.ShowsDataSourceFac
 import javax.inject.Inject
 
 class TvShowsViewModel @Inject constructor(
-    useCase: UseCasePopularTvShows,
-    mapper: PresentationDataMapper
+	useCase: UseCasePopularTvShows,
+	mapper: PresentationDataMapper
 ) : ViewModel() {
-
-    private val source = ShowsDataSourceFactory(
-        viewModelScope,
-        useCase,
-        mapper
-    )
-
-    private val listing = Listing<TvShowUIModel>(
-        pagedList = LivePagedListBuilder(
-            source,
-            PagedList.Config.Builder()
-                .setPageSize(30)
-                .setEnablePlaceholders(false)
-                .build()
-        ).build(),
-        resourceState = source.dataSource.switchMap { it.resourceState },
-        refreshState = source.dataSource.switchMap { it.refreshState },
-        refresh = {
-            source.invalidateDataSource()
-        },
-        retry = {
-            source.retryAllField()
-        },
-        clearCoroutineJobs = {
-            source.clear()
-        }
-    )
-
-    val tvShows: LiveData<PagedList<TvShowUIModel>> = listing.pagedList
+	
+	private val source = ShowsDataSourceFactory(
+		viewModelScope,
+		useCase,
+		mapper
+	)
+	
+	private val listing = Listing<TvShowUIModel>(
+		pagedList = LivePagedListBuilder(
+			source,
+			PagedList.Config.Builder()
+				.setPageSize(30)
+				.setEnablePlaceholders(false)
+				.build()
+		).build(),
+		resourceState = source.dataSource.switchMap { it.resourceState },
+		refreshState = source.dataSource.switchMap { it.refreshState },
+		refresh = {
+			source.invalidateDataSource()
+		},
+		retry = {
+			source.retryAllField()
+		},
+		clearCoroutineJobs = {
+			source.clear()
+		}
+	)
+	
+	val tvShows: LiveData<PagedList<TvShowUIModel>> = listing.pagedList
 }

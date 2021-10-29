@@ -10,39 +10,39 @@ import androidx.navigation.fragment.FragmentNavigator
 
 @Navigator.Name("keep_state_fragment")
 class KeepStateNavigator(
-    private val context: Context,
-    private val manager: FragmentManager,
-    private val containerId: Int
+	private val context: Context,
+	private val manager: FragmentManager,
+	private val containerId: Int
 ) : FragmentNavigator(context, manager, containerId) {
-
-    override fun navigate(
-        destination: Destination,
-        args: Bundle?,
-        navOptions: NavOptions?,
-        navigatorExtras: Navigator.Extras?
-    ): NavDestination? {
-        val tag = destination.id.toString()
-        val transaction = manager.beginTransaction()
-
-        val currentFragment = manager.primaryNavigationFragment
-        val initialNavigate = currentFragment != null
-        if (currentFragment != null) {
-            transaction.detach(currentFragment)
-        }
-
-        var fragment = manager.findFragmentByTag(tag)
-        if (fragment == null) {
-            val classname = destination.className
-            fragment = manager.fragmentFactory.instantiate(context.classLoader, classname)
-            transaction.add(containerId, fragment, tag)
-        } else {
-            transaction.attach(fragment)
-        }
-
-        transaction.setPrimaryNavigationFragment(fragment)
-        transaction.setReorderingAllowed(true)
-        transaction.commit()
-
-        return if (initialNavigate) destination else null
-    }
+	
+	override fun navigate(
+		destination: Destination,
+		args: Bundle?,
+		navOptions: NavOptions?,
+		navigatorExtras: Navigator.Extras?
+	): NavDestination? {
+		val tag = destination.id.toString()
+		val transaction = manager.beginTransaction()
+		
+		val currentFragment = manager.primaryNavigationFragment
+		val initialNavigate = currentFragment != null
+		if (currentFragment != null) {
+			transaction.detach(currentFragment)
+		}
+		
+		var fragment = manager.findFragmentByTag(tag)
+		if (fragment == null) {
+			val classname = destination.className
+			fragment = manager.fragmentFactory.instantiate(context.classLoader, classname)
+			transaction.add(containerId, fragment, tag)
+		} else {
+			transaction.attach(fragment)
+		}
+		
+		transaction.setPrimaryNavigationFragment(fragment)
+		transaction.setReorderingAllowed(true)
+		transaction.commit()
+		
+		return if (initialNavigate) destination else null
+	}
 }

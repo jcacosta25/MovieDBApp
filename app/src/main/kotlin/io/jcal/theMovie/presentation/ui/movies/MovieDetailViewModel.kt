@@ -12,19 +12,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MovieDetailViewModel @Inject constructor(
-    private val useCaseGetMovie: UseCaseGetMovie,
-    private val mapper: PresentationDataMapper
+	private val useCaseGetMovie: UseCaseGetMovie,
+	private val mapper: PresentationDataMapper
 ) : ViewModel() {
-
-    private val movie: MediatorLiveData<MovieUIModel> = MediatorLiveData()
-
-    fun getMovie(movieId: Int) {
-        viewModelScope.launch {
-            useCaseGetMovie.execute(UseCaseGetMovie.Params(movieId)).collect {
-                movie.postValue(mapper.convert(it))
-            }
-        }
-    }
-
-    fun movieDetail(): LiveData<MovieUIModel> = movie
+	
+	private val movie: MediatorLiveData<MovieUIModel> = MediatorLiveData()
+	
+	fun getMovie(movieId: Int) {
+		viewModelScope.launch {
+			useCaseGetMovie.execute(UseCaseGetMovie.Params(movieId)).collect {
+				movie.postValue(mapper.convert(it))
+			}
+		}
+	}
+	
+	fun movieDetail(): LiveData<MovieUIModel> = movie
 }

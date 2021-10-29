@@ -17,40 +17,40 @@ import javax.inject.Named
 
 @Module
 class NetworkModule {
-
-    @Provides
-    fun providesHttpUrl(): HttpUrl = ServiceFactory.providesHttpUrl()
-
-    @Provides
-    fun providesTokenInterceptor(@Named(API_TOKEN_PROPERTY) apiToken: String): AuthTokenInterceptor =
-        AuthTokenInterceptor(apiToken)
-
-    @Provides
-    @Named(GSON_PROPERTY)
-    fun provideGson(): Gson = GsonBuilder().create()
-
-    @Provides
-    fun provideJsonConverterFactory(@Named(GSON_PROPERTY) gson: Gson): Converter.Factory =
-        GsonConverterFactory.create(gson)
-
-    @Provides
-    fun providesHttpClient(tokenInterceptor: AuthTokenInterceptor): OkHttpClient =
-        ServiceFactory.buildOkHttpClient(tokenInterceptor)
-
-    @Provides
-    fun provideRetrofit(
-        url: HttpUrl,
-        client: OkHttpClient,
-        converter: Converter.Factory,
-        adapterFactory: LiveDataCallAdapterFactory
-    ): Retrofit = ServiceFactory.buildRetrofit(url, client, converter, adapterFactory)
-
-    @Provides
-    fun provideMovieDbService(retrofit: Retrofit): MovieDBService =
-        retrofit.create(MovieDBService::class.java)
-
-    companion object {
-        const val API_TOKEN_PROPERTY = "api_token"
-        const val GSON_PROPERTY = "retrofit_gson"
-    }
+	
+	@Provides
+	fun providesHttpUrl(): HttpUrl = ServiceFactory.providesHttpUrl()
+	
+	@Provides
+	fun providesTokenInterceptor(@Named(API_TOKEN_PROPERTY) apiToken: String): AuthTokenInterceptor =
+		AuthTokenInterceptor(apiToken)
+	
+	@Provides
+	@Named(GSON_PROPERTY)
+	fun provideGson(): Gson = GsonBuilder().create()
+	
+	@Provides
+	fun provideJsonConverterFactory(@Named(GSON_PROPERTY) gson: Gson): Converter.Factory =
+		GsonConverterFactory.create(gson)
+	
+	@Provides
+	fun providesHttpClient(tokenInterceptor: AuthTokenInterceptor): OkHttpClient =
+		ServiceFactory.buildOkHttpClient(tokenInterceptor)
+	
+	@Provides
+	fun provideRetrofit(
+		url: HttpUrl,
+		client: OkHttpClient,
+		converter: Converter.Factory,
+		adapterFactory: LiveDataCallAdapterFactory
+	): Retrofit = ServiceFactory.buildRetrofit(url, client, converter, adapterFactory)
+	
+	@Provides
+	fun provideMovieDbService(retrofit: Retrofit): MovieDBService =
+		retrofit.create(MovieDBService::class.java)
+	
+	companion object {
+		const val API_TOKEN_PROPERTY = "api_token"
+		const val GSON_PROPERTY = "retrofit_gson"
+	}
 }

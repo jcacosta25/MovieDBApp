@@ -14,37 +14,37 @@ import io.jcal.theMovie.presentation.ui.home.viewmodel.paging.MoviesDataSourceFa
 import javax.inject.Inject
 
 class MoviesViewModel @Inject constructor(
-    useCase: UseCaseGetPopularMovies,
-    mapper: PresentationDataMapper
+	useCase: UseCaseGetPopularMovies,
+	mapper: PresentationDataMapper
 ) : ViewModel() {
-
-    private val source =
-        MoviesDataSourceFactory(
-            viewModelScope,
-            useCase,
-            mapper
-        )
-
-    private val listing = Listing<MovieUIModel>(
-        pagedList = LivePagedListBuilder(
-            source,
-            PagedList.Config.Builder()
-                .setPageSize(30)
-                .setEnablePlaceholders(false)
-                .build()
-        ).build(),
-        resourceState = source.dataSource.switchMap { it.resourceState },
-        refreshState = source.dataSource.switchMap { it.refreshState },
-        refresh = {
-            source.invalidateDataSource()
-        },
-        retry = {
-            source.retryAllField()
-        },
-        clearCoroutineJobs = {
-            source.clear()
-        }
-    )
-
-    val moviesLiveData: LiveData<PagedList<MovieUIModel>> = listing.pagedList
+	
+	private val source =
+		MoviesDataSourceFactory(
+			viewModelScope,
+			useCase,
+			mapper
+		)
+	
+	private val listing = Listing<MovieUIModel>(
+		pagedList = LivePagedListBuilder(
+			source,
+			PagedList.Config.Builder()
+				.setPageSize(30)
+				.setEnablePlaceholders(false)
+				.build()
+		).build(),
+		resourceState = source.dataSource.switchMap { it.resourceState },
+		refreshState = source.dataSource.switchMap { it.refreshState },
+		refresh = {
+			source.invalidateDataSource()
+		},
+		retry = {
+			source.retryAllField()
+		},
+		clearCoroutineJobs = {
+			source.clear()
+		}
+	)
+	
+	val moviesLiveData: LiveData<PagedList<MovieUIModel>> = listing.pagedList
 }

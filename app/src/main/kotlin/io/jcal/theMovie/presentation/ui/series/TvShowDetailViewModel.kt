@@ -12,19 +12,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class TvShowDetailViewModel @Inject constructor(
-    private val useCaseTvShow: UseCaseTvShow,
-    private val mapper: PresentationDataMapper
+	private val useCaseTvShow: UseCaseTvShow,
+	private val mapper: PresentationDataMapper
 ) : ViewModel() {
-
-    private val tvShow: MediatorLiveData<TvShowUIModel> = MediatorLiveData()
-
-    fun getTvShow(tvShowId: Int) {
-        viewModelScope.launch {
-            useCaseTvShow.execute(UseCaseTvShow.Params(tvShowId)).collect {
-                tvShow.postValue(mapper.convert(it))
-            }
-        }
-    }
-
-    fun tvShowDetail(): LiveData<TvShowUIModel> = tvShow
+	
+	private val tvShow: MediatorLiveData<TvShowUIModel> = MediatorLiveData()
+	
+	fun getTvShow(tvShowId: Int) {
+		viewModelScope.launch {
+			useCaseTvShow.execute(UseCaseTvShow.Params(tvShowId)).collect {
+				tvShow.postValue(mapper.convert(it))
+			}
+		}
+	}
+	
+	fun tvShowDetail(): LiveData<TvShowUIModel> = tvShow
 }
