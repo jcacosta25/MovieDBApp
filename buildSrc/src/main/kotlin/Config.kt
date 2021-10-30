@@ -1,7 +1,4 @@
 
-inline val org.gradle.plugin.use.PluginDependenciesSpec.`ktlint`: org.gradle.plugin.use.PluginDependencySpec
-    get() = id(Plugins.ktlint)
-
 object BuildPlugins {
     const val android = "com.android.tools.build:gradle:${Versions.androidGradlePlugin}"
     const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
@@ -135,8 +132,8 @@ object Versions {
     const val minSdk = 21
     const val compileSdk = 30
     const val targetSdk = compileSdk
-    const val buildTools = "30.0.3"
-
+    const val buildTools = "31.0.0"
+    
     // App version
     const val appVersionCode = 1
     const val versionMajor = 0
@@ -144,16 +141,16 @@ object Versions {
     const val versionHotFix = 0
     val appVersionName =
         if (versionHotFix != 0) "${versionMajor}.${versionMinor}.${versionHotFix}" else "${versionMajor}.${versionMinor}"
-
+    
     // Plugins
-    const val androidGradlePlugin = "4.1.2"
-    const val ktlint = "3.3.0"
+    const val androidGradlePlugin = "7.0.3"
+    const val ktlint = "3.6.0"
     const val jacoco = "0.8.6"
-
+    
     // Kotlin
-    const val kotlin = "1.4.21"
-    const val coroutines = "1.4.2"
-
+    const val kotlin = "1.5.31"
+    const val coroutines = "1.5.2"
+    
     // Support Lib
     const val support = "1.3.0-alpha02"
     const val cardView = "1.0.0"

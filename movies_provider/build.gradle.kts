@@ -1,24 +1,23 @@
 plugins {
     id("com.android.library")
     kotlin("android")
-    id("kotlin-parcelize")
     kotlin("kapt")
+    id("kotlin-parcelize")
 }
 android {
-    compileSdkVersion(Versions.compileSdk)
-    buildToolsVersion(Versions.buildTools)
+    compileSdk = Versions.compileSdk
+    buildToolsVersion = Versions.buildTools
     defaultConfig {
-        minSdkVersion(Android.minSdkVersion)
-        targetSdkVersion(Android.targetSdkVersion)
-        versionCode = Android.versionCode
-        versionName = Android.versionName
+        minSdk = Android.minSdkVersion
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments(mapOf(
-                    "room.incremental" to "true",
-                    "room.schemaLocation" to "$projectDir/schemas"
-                ))
+                arguments(
+                    mapOf(
+                        "room.incremental" to "true",
+                        "room.schemaLocation" to "$projectDir/schemas"
+                    )
+                )
             }
         }
     }
@@ -33,8 +32,8 @@ android {
             isTestCoverageEnabled = true
         }
     }
-
-    lintOptions {
+    
+    lint {
         isAbortOnError = true
     }
     
@@ -48,17 +47,11 @@ android {
     
     sourceSets {
         getByName("androidTest").java.srcDirs("src/androidTest/kotlin")
-        getByName("main").java.srcDirs("src/main/kotlin")
+        getByName("main").apply {
+            java.srcDirs("src/main/kotlin")
+            jniLibs.srcDir("libs")
+        }
         getByName("test").java.srcDirs("src/test/kotlin")
-    }
-
-    compileOptions {
-        targetCompatibility = JavaVersion.VERSION_1_8
-        sourceCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 
 }

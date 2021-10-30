@@ -1,5 +1,3 @@
-
-
 plugins {
     id("org.jmailen.kotlinter")
     jacoco

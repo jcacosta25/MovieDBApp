@@ -6,8 +6,6 @@ val jacocoIgnoreList = listOf(name)
 subprojects {
 	apply(plugin = "org.jmailen.kotlinter")
 	
-	
-	
 	tasks.create("ktLint", LintTask::class) {
 		group = "verification"
 		source(files("src"))
