@@ -7,7 +7,7 @@ import io.jcal.movies_provider.repository.mapper.model.TvShowModel
 import javax.inject.Inject
 
 class UseCaseTvShow @Inject constructor(
-	private val repository: MDBRepository
+    private val repository: MDBRepository
 ) : NetworkBoundResource<TvShowModel, UseCaseTvShow.Params>() {
 	
 	override val parameters: Params
@@ -26,7 +26,7 @@ class UseCaseTvShow @Inject constructor(
 	override fun getLoadingObject(): TvShowModel = TvShowModel()
 	
 	data class Params constructor(
-		val tvShowId: Int = HttpBaseValues.BASE_ID,
-		val language: String = HttpBaseValues.LANGUAGE
+	    val tvShowId: Int = HttpBaseValues.BASE_ID,
+	    val language: String = HttpBaseValues.LANGUAGE
 	)
 }

@@ -12,10 +12,10 @@ import javax.inject.Inject
 class LiveDataCallAdapterFactory @Inject constructor() : CallAdapter.Factory() {
 	
 	override fun get(
-        returnType: Type,
-        annotations: Array<Annotation>,
-        retrofit: Retrofit
-    ): CallAdapter<*, *>? {
+	    returnType: Type,
+	    annotations: Array<Annotation>,
+	    retrofit: Retrofit
+	): CallAdapter<*, *>? {
 		if (getRawType(returnType) != LiveData::class.java) {
 			return null
 		}

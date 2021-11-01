@@ -36,10 +36,10 @@ class MovieDetailFragment : DaggerFragment() {
 	}
 	
 	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View? {
+	    inflater: LayoutInflater,
+	    container: ViewGroup?,
+	    savedInstanceState: Bundle?
+	): View {
 		binding =
 			DataBindingUtil.inflate(inflater, R.layout.fragment_movie_detail, container, false)
 		return binding.root
@@ -61,14 +61,13 @@ class MovieDetailFragment : DaggerFragment() {
 		viewModel.getMovie(movieId)
 		
 		viewModel.movieDetail().observe(
-			viewLifecycleOwner,
-			Observer { movie ->
-				when (movie.state) {
-					SUCCESS -> {
-						binding.movie = movie
-					}
+			viewLifecycleOwner
+		) { movie ->
+			when (movie.state) {
+				SUCCESS -> {
+					binding.movie = movie
 				}
 			}
-		)
+		}
 	}
 }

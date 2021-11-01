@@ -22,7 +22,7 @@
                 android:id="@+id/show_poster_image_view"
                 android:layout_width="128dp"
                 android:layout_height="224dp"
-                android:poster_url="@{show.posterPath}"
+                android:image_url="@{show.posterPath}"
                 android:scaleType="centerCrop"
                 android:transitionName="@string/poster_transition"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -14,8 +14,8 @@ import io.jcal.theMovie.presentation.ui.home.viewmodel.paging.ShowsDataSourceFac
 import javax.inject.Inject
 
 class TvShowsViewModel @Inject constructor(
-	useCase: UseCasePopularTvShows,
-	mapper: PresentationDataMapper
+    useCase: UseCasePopularTvShows,
+    mapper: PresentationDataMapper
 ) : ViewModel() {
 	
 	private val source = ShowsDataSourceFactory(

@@ -9,8 +9,8 @@ import io.jcal.movies_provider.repository.mapper.model.TvShowsModel
 import javax.inject.Inject
 
 class MDBRepositoryImpl @Inject constructor(
-	private val cloudDataSource: CloudDataSource,
-	private val diskDataSource: DiskDataSource
+    private val cloudDataSource: CloudDataSource,
+    private val diskDataSource: DiskDataSource
 ) : MDBRepository {
 
 	override suspend fun fetchPopularMovies(language: String, page: Int): MoviesModel =

@@ -14,9 +14,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ShowsDataSource(
-	private val scope: CoroutineScope,
-	private val useCase: UseCasePopularTvShows,
-	private val mapper: PresentationDataMapper
+    private val scope: CoroutineScope,
+    private val useCase: UseCasePopularTvShows,
+    private val mapper: PresentationDataMapper
 ) : PageKeyedDataSource<Int, TvShowUIModel>() {
 	
 	private var retry: (() -> Any)? = null
@@ -39,8 +39,8 @@ class ShowsDataSource(
 	}
 	
 	override fun loadInitial(
-		params: LoadInitialParams<Int>,
-		callback: LoadInitialCallback<Int, TvShowUIModel>
+	    params: LoadInitialParams<Int>,
+	    callback: LoadInitialCallback<Int, TvShowUIModel>
 	) {
 		scope.launch {
 			useCase.execute().collect {

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil.setContentView
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity() {
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+		binding = setContentView(this, R.layout.activity_main)
+		binding.lifecycleOwner = this
 		binding.toolbar.setNavigationOnClickListener {
 			onSupportNavigateUp()
 		}
@@ -77,4 +78,5 @@ class MainActivity : AppCompatActivity() {
 		private const val ENTER_DURATION = 1L
 		private const val EXIT_DURATION = 1L
 	}
+	
 }

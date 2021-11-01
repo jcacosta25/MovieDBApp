@@ -16,10 +16,10 @@ class SpacingItemDecoration(context: Context, padding: Int) : RecyclerView.ItemD
 	}
 	
 	override fun getItemOffsets(
-		outRect: Rect,
-		view: View,
-		parent: RecyclerView,
-		state: RecyclerView.State
+	    outRect: Rect,
+	    view: View,
+	    parent: RecyclerView,
+	    state: RecyclerView.State
 	) {
 		val position = parent.getChildAdapterPosition(view)
 		if (position != state.itemCount.dec()) {

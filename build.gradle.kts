@@ -1,15 +1,10 @@
 plugins {
-    id("org.jmailen.kotlinter")
+    ktlint
     jacoco
-}
-
-apply {
-    from("reports.gradle.kts")
 }
 buildscript {
     repositories {
         google()
-        jcenter()
         maven("https://plugins.gradle.org/m2/")
         mavenCentral()
     }
@@ -24,11 +19,15 @@ buildscript {
     }
 }
 
+apply {
+    from("reports.gradle.kts")
+}
+
 allprojects {
     repositories {
         google()
-        jcenter()
         maven("https://plugins.gradle.org/m2/")
         mavenCentral()
     }
 }
+

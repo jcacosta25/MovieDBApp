@@ -397,9 +397,9 @@ class DataMapper @Inject constructor() {
 		}
 	
 	fun <T : BaseModel> createDomainModel(
-		errorCode: Int? = BASE_ERROR_CODE,
-		clazz: Class<T>,
-		state: String = LOADING
+	    errorCode: Int? = BASE_ERROR_CODE,
+	    clazz: Class<T>,
+	    state: String = LOADING
 	): T {
 		val model = clazz.newInstance()
 		if (errorCode != BASE_ERROR_CODE) {

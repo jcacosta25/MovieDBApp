@@ -7,7 +7,7 @@ import io.jcal.movies_provider.repository.mapper.model.MovieModel
 import javax.inject.Inject
 
 class UseCaseGetMovie @Inject constructor(
-	private val repository: MDBRepository
+    private val repository: MDBRepository
 ) : NetworkBoundResource<MovieModel, UseCaseGetMovie.Params>() {
 	
 	override suspend fun saveCallResult(item: MovieModel) {
@@ -26,7 +26,7 @@ class UseCaseGetMovie @Inject constructor(
 	override fun getLoadingObject(): MovieModel = MovieModel()
 	
 	data class Params constructor(
-		val movieId: Int = HttpBaseValues.BASE_ID,
-		val language: String = HttpBaseValues.LANGUAGE
+	    val movieId: Int = HttpBaseValues.BASE_ID,
+	    val language: String = HttpBaseValues.LANGUAGE
 	)
 }

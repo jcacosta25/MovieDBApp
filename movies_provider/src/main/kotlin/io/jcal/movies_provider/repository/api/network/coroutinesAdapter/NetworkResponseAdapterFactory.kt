@@ -10,9 +10,9 @@ import java.lang.reflect.Type
 class NetworkResponseAdapterFactory : CallAdapter.Factory() {
 
 	override fun get(
-		returnType: Type,
-		annotations: Array<Annotation>,
-		retrofit: Retrofit
+	    returnType: Type,
+	    annotations: Array<Annotation>,
+	    retrofit: Retrofit
 	): CallAdapter<*, *>? {
 		check(returnType is ParameterizedType) { "$returnType must be parameterized. Raw types are not supported" }
 

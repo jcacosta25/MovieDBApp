@@ -36,10 +36,10 @@ class ShowDetailFragment : DaggerFragment() {
 	}
 	
 	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View? {
+	    inflater: LayoutInflater,
+	    container: ViewGroup?,
+	    savedInstanceState: Bundle?
+	): View {
 		binding = DataBindingUtil.inflate(inflater, R.layout.fragment_show_detail, container, false)
 		return binding.root
 	}
@@ -60,14 +60,13 @@ class ShowDetailFragment : DaggerFragment() {
 		viewModel.getTvShow(tvShowId)
 		
 		viewModel.tvShowDetail().observe(
-			viewLifecycleOwner,
-			Observer { show ->
-				when (show.state) {
-					SUCCESS -> {
-						binding.show = show
-					}
+			viewLifecycleOwner
+		) { show ->
+			when (show.state) {
+				SUCCESS -> {
+					binding.show = show
 				}
 			}
-		)
+		}
 	}
 }

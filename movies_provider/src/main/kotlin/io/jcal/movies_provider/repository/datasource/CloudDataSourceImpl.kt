@@ -16,29 +16,29 @@ import io.jcal.movies_provider.repository.mapper.model.TvShowsModel
 import javax.inject.Inject
 
 class CloudDataSourceImpl @Inject constructor(
-	private val api: MovieDBService,
-	private val mapper: DataMapper
+    private val api: MovieDBService,
+    private val mapper: DataMapper
 ) : CloudDataSource, BaseCloudDataSource() {
 	override fun getPopularMovies(
-		language: String,
-		page: Int
+	    language: String,
+	    page: Int
 	): LiveData<ApiResponse<MoviesDTO, MoviesDTO>> =
 		api.getPopularMovies(language, page)
 
 	override fun getPopularTvShows(
-		language: String,
-		page: Int
+	    language: String,
+	    page: Int
 	): LiveData<ApiResponse<TvShowsDTO, TvShowsDTO>> =
 		api.getPopularTvShows(language, page)
 
 	override fun getMovie(
-		movieId: Int,
-		language: String
+	    movieId: Int,
+	    language: String
 	): LiveData<ApiResponse<MovieDTO, MovieDTO>> = api.getMovie(movieId, language)
 
 	override fun getTvShow(
-		tvShowId: Int,
-		language: String
+	    tvShowId: Int,
+	    language: String
 	): LiveData<ApiResponse<TvShowDTO, TvShowDTO>> = api.getTvShow(tvShowId, language)
 
 	override suspend fun fetchPopularMovies(language: String, page: Int): MoviesModel {

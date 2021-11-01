@@ -39,10 +39,10 @@ class NetworkModule {
 	
 	@Provides
 	fun provideRetrofit(
-		url: HttpUrl,
-		client: OkHttpClient,
-		converter: Converter.Factory,
-		adapterFactory: LiveDataCallAdapterFactory
+	    url: HttpUrl,
+	    client: OkHttpClient,
+	    converter: Converter.Factory,
+	    adapterFactory: LiveDataCallAdapterFactory
 	): Retrofit = ServiceFactory.buildRetrofit(url, client, converter, adapterFactory)
 	
 	@Provides

@@ -12,49 +12,49 @@ interface MovieDBService {
 	
 	@GET("/3/movie/popular")
 	fun getPopularMovies(
-		@Query("language") language: String,
-		@Query("page") page: Int
+	    @Query("language") language: String,
+	    @Query("page") page: Int
 	): LiveData<ApiResponse<MoviesDTO, MoviesDTO>>
 	
 	@GET("/3/movie/popular")
 	suspend fun fetchPopularMovies(
-		@Query("language") language: String,
-		@Query("page") page: Int
+	    @Query("language") language: String,
+	    @Query("page") page: Int
 	): NetworkResponse<MoviesDTO, ServerErrorDto>
 	
 	@GET("/3/tv/popular")
 	fun getPopularTvShows(
-		@Query("language") language: String,
-		@Query("page") page: Int
+	    @Query("language") language: String,
+	    @Query("page") page: Int
 	): LiveData<ApiResponse<TvShowsDTO, TvShowsDTO>>
 	
 	@GET("/3/tv/popular")
 	suspend fun fetchPopularTvShows(
-		@Query("language") language: String,
-		@Query("page") page: Int
+	    @Query("language") language: String,
+	    @Query("page") page: Int
 	): NetworkResponse<TvShowsDTO, ServerErrorDto>
 	
 	@GET("/3/movie/{movie_id}")
 	fun getMovie(
-		@Path("movie_id") movieId: Int,
-		@Query("language") language: String
+	    @Path("movie_id") movieId: Int,
+	    @Query("language") language: String
 	): LiveData<ApiResponse<MovieDTO, MovieDTO>>
 	
 	@GET("/3/movie/{movie_id}")
 	suspend fun fetchMovie(
-		@Path("movie_id") movieId: Int,
-		@Query("language") language: String
+	    @Path("movie_id") movieId: Int,
+	    @Query("language") language: String
 	): NetworkResponse<MovieDTO, ServerErrorDto>
 	
 	@GET("/3/tv/{show_id}")
 	fun getTvShow(
-		@Path("show_id") showId: Int,
-		@Query("language") language: String
+	    @Path("show_id") showId: Int,
+	    @Query("language") language: String
 	): LiveData<ApiResponse<TvShowDTO, TvShowDTO>>
 	
 	@GET("/3/tv/{show_id}")
 	suspend fun fetchTvShow(
-		@Path("show_id") showId: Int,
-		@Query("language") language: String
+	    @Path("show_id") showId: Int,
+	    @Query("language") language: String
 	): NetworkResponse<TvShowDTO, ServerErrorDto>
 }

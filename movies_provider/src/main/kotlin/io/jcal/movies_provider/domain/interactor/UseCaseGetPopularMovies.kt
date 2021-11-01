@@ -7,7 +7,7 @@ import io.jcal.movies_provider.repository.mapper.model.MoviesModel
 import javax.inject.Inject
 
 class UseCaseGetPopularMovies @Inject constructor(
-	private val repository: MDBRepository
+    private val repository: MDBRepository
 ) : NetworkBoundResource<MoviesModel, UseCaseGetPopularMovies.Params>() {
 	
 	override suspend fun saveCallResult(item: MoviesModel) {
@@ -26,7 +26,7 @@ class UseCaseGetPopularMovies @Inject constructor(
 		get() = Params()
 	
 	data class Params constructor(
-		val page: Int = HttpBaseValues.PAGE,
-		val language: String = HttpBaseValues.LANGUAGE
+	    val page: Int = HttpBaseValues.PAGE,
+	    val language: String = HttpBaseValues.LANGUAGE
 	)
 }

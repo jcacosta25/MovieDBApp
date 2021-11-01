@@ -8,10 +8,10 @@ import java.lang.reflect.Type
 import java.util.concurrent.Executor
 
 class ResponseCallAdapter<R, E>(
-	private val call: retrofit2.Call<R>,
-	private val retrofit: Retrofit,
-	private val errorType: Type,
-	private val annotations: Array<Annotation>
+    private val call: retrofit2.Call<R>,
+    private val retrofit: Retrofit,
+    private val errorType: Type,
+    private val annotations: Array<Annotation>
 ) : Call<R, E> {
 	private val executor: Executor
 

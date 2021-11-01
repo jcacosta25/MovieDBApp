@@ -14,9 +14,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MoviesDataSource(
-	private val scope: CoroutineScope,
-	private val useCaseGetPopularMovies: UseCaseGetPopularMovies,
-	private val mapper: PresentationDataMapper
+    private val scope: CoroutineScope,
+    private val useCaseGetPopularMovies: UseCaseGetPopularMovies,
+    private val mapper: PresentationDataMapper
 ) : PageKeyedDataSource<Int, MovieUIModel>() {
 	
 	private var retry: (() -> Any)? = null
@@ -39,8 +39,8 @@ class MoviesDataSource(
 	}
 	
 	override fun loadInitial(
-		params: LoadInitialParams<Int>,
-		callback: LoadInitialCallback<Int, MovieUIModel>
+	    params: LoadInitialParams<Int>,
+	    callback: LoadInitialCallback<Int, MovieUIModel>
 	) {
 		scope.launch {
 			useCaseGetPopularMovies.execute().collect {

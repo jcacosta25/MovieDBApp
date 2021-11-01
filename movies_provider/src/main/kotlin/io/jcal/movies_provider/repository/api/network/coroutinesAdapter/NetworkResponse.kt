@@ -14,10 +14,10 @@ sealed class NetworkResponse<T, U> {
 	 * A request that resulted in a response with a non-2xx status code.
 	 */
 	data class ServerError<T, U>(
-		val body: T? = null,
-		val errorBody: U? = null,
-		val code: Int,
-		val headers: Headers? = null
+	    val body: T? = null,
+	    val errorBody: U? = null,
+	    val code: Int,
+	    val headers: Headers? = null
 	) : NetworkResponse<T, U>()
 	
 	/**

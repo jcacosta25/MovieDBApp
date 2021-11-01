@@ -28,10 +28,10 @@ class PopularMoviesFragment : DaggerFragment() {
 	private val viewModel by viewModels<MoviesViewModel> { factory }
 	
 	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View? = FragmentPopularMoviesListBinding.inflate(
+	    inflater: LayoutInflater,
+	    container: ViewGroup?,
+	    savedInstanceState: Bundle?
+	): View = FragmentPopularMoviesListBinding.inflate(
 		inflater,
 		container,
 		false
@@ -68,11 +68,10 @@ class PopularMoviesFragment : DaggerFragment() {
 		binding.popularMoviesRv.setHasFixedSize(true)
 		
 		viewModel.moviesLiveData.observe(
-			viewLifecycleOwner,
-			Observer {
-				adapter.submitList(it)
-			}
-		)
+			viewLifecycleOwner
+		) {
+			adapter.submitList(it)
+		}
 	}
 	
 	companion object {

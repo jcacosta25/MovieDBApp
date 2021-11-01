@@ -1,7 +1,6 @@
 package io.jcal.movies_provider.repository.api.factory
 
 import com.itkacher.okhttpprofiler.OkHttpProfilerInterceptor
-import io.jcal.movies_provider.BuildConfig
 import io.jcal.movies_provider.repository.api.network.coroutinesAdapter.NetworkResponseAdapterFactory
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
@@ -13,10 +12,10 @@ import java.util.concurrent.TimeUnit
 object ServiceFactory {
 
 	fun buildRetrofit(
-		url: HttpUrl,
-		client: OkHttpClient,
-		converter: Converter.Factory,
-		adapter: CallAdapter.Factory
+	    url: HttpUrl,
+	    client: OkHttpClient,
+	    converter: Converter.Factory,
+	    adapter: CallAdapter.Factory
 	): Retrofit =
 		Retrofit.Builder()
 			.baseUrl(url)
@@ -29,9 +28,8 @@ object ServiceFactory {
 	fun buildOkHttpClient(tokenInterceptor: AuthTokenInterceptor): OkHttpClient {
 		val httpClientBuilder = OkHttpClient.Builder()
 
-		if (BuildConfig.DEBUG) {
-			httpClientBuilder.addInterceptor(OkHttpProfilerInterceptor())
-		}
+		httpClientBuilder.addInterceptor(OkHttpProfilerInterceptor())
+		
 		return httpClientBuilder
 			.addInterceptor(tokenInterceptor)
 			.readTimeout(MAX_CONNECTION_TIME_OUT_SECONDS, TimeUnit.SECONDS)

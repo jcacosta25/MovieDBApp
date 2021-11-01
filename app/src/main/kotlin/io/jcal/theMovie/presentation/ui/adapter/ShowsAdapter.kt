@@ -11,7 +11,7 @@ import io.jcal.theMovie.databinding.ShowPreviewContentBinding
 import io.jcal.theMovie.presentation.mapper.model.TvShowUIModel
 
 class ShowsAdapter(
-	val showClickListener: (TvShowUIModel, Int, View) -> Unit = { _, _, _ -> }
+    val showClickListener: (TvShowUIModel, Int, View) -> Unit = { _, _, _ -> }
 ) : PagedListAdapter<TvShowUIModel, ShowsAdapter.ShowViewHolder>(TvShowUIModel.SHOW_DIF) {
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShowViewHolder =
 		ShowViewHolder(
@@ -32,9 +32,9 @@ class ShowsAdapter(
 	inner class ShowViewHolder(private val binding: ShowPreviewContentBinding) :
 		RecyclerView.ViewHolder(binding.root) {
 		fun bind(
-			show: TvShowUIModel,
-			showClickListener: (TvShowUIModel, Int, View) -> Unit,
-			position: Int
+		    show: TvShowUIModel,
+		    showClickListener: (TvShowUIModel, Int, View) -> Unit,
+		    position: Int
 		) {
 			binding.show = show
 			binding.root.setOnClickListener {

@@ -1,9 +1,9 @@
 package io.jcal.movies_provider.repository.mapper.model
 
 open class BaseModel(
-	var state: String = LOADING,
-	var error: Boolean = false,
-	var errorCode: Int = BASE_ERROR_CODE
+    var state: String = LOADING,
+    var error: Boolean = false,
+    var errorCode: Int = BASE_ERROR_CODE
 ) {
 	var isSuccess: Boolean = false
 	fun setError(errorCode: Int) {

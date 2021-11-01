@@ -64,10 +64,10 @@ class Resource<T>(val status: Status, val data: T? = null, val errorCode: Int? =
 }
 
 class ResourceCoroutines<T, U>(
-	val status: Status,
-	val body: T? = null,
-	val errorBody: U? = null,
-	val errorCode: Int? = null
+    val status: Status,
+    val body: T? = null,
+    val errorBody: U? = null,
+    val errorCode: Int? = null
 ) {
 
 	override fun equals(other: Any?): Boolean {
@@ -109,9 +109,9 @@ class ResourceCoroutines<T, U>(
 		}
 
 		fun <T, U> error(
-			errorCode: Int,
-			body: T? = null,
-			errorBody: U? = null
+		    errorCode: Int,
+		    body: T? = null,
+		    errorBody: U? = null
 		): ResourceCoroutines<T, U> {
 			return ResourceCoroutines(
 				status = Status.ERROR,

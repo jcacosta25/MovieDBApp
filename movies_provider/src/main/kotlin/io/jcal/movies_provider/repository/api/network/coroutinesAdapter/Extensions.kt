@@ -20,11 +20,11 @@ import java.io.IOException
  */
 @JvmOverloads
 suspend inline fun <T : Any, U : Any> executeWithRetry(
-	times: Int = 10,
-	initialDelay: Long = 100, // 0.1 second
-	maxDelay: Long = 1000, // 1 second
-	factor: Double = 2.0,
-	block: () -> NetworkResponse<T, U>
+    times: Int = 10,
+    initialDelay: Long = 100, // 0.1 second
+    maxDelay: Long = 1000, // 1 second
+    factor: Double = 2.0,
+    block: () -> NetworkResponse<T, U>
 ): NetworkResponse<T, U> {
 	var currentDelay = initialDelay
 	repeat(times - 1) {

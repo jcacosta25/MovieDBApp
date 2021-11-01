@@ -14,8 +14,8 @@ class StorageModule {
 	
 	@Provides
 	fun providesDatabase(
-		context: Context,
-		@Named(DATABASE_NAME_PROPERTY) databaseName: String = DATABASE_NAME
+	    context: Context,
+	    @Named(DATABASE_NAME_PROPERTY) databaseName: String = DATABASE_NAME
 	): MovieDBDataBase =
 		Room.databaseBuilder(context, MovieDBDataBase::class.java, databaseName).build()
 }

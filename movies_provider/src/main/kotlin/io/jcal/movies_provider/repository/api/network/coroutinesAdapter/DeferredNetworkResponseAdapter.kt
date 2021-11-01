@@ -17,8 +17,8 @@ import java.lang.reflect.Type
  */
 
 internal class DeferredNetworkResponseAdapter<T : Any, U : Any>(
-	private val successBodyType: Type,
-	private val errorConverter: Converter<ResponseBody, U>
+    private val successBodyType: Type,
+    private val errorConverter: Converter<ResponseBody, U>
 ) : CallAdapter<T, Deferred<NetworkResponse<T, U>>> {
 	
 	/**

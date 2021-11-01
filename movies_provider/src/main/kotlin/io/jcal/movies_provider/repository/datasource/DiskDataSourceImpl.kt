@@ -11,8 +11,8 @@ import io.jcal.movies_provider.repository.mapper.model.TvShowsModel
 import javax.inject.Inject
 
 class DiskDataSourceImpl @Inject constructor(
-	private val dataBase: MovieDBDataBase,
-	private val mapper: DataMapper
+    private val dataBase: MovieDBDataBase,
+    private val mapper: DataMapper
 ) :
 	DiskDataSource {
 

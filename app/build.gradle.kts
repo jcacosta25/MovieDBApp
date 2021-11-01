@@ -1,9 +1,9 @@
 plugins {
-	id("com.android.application")
-	kotlin("android")
-	kotlin("kapt")
-	id("kotlin-parcelize")
-	id("androidx.navigation.safeargs.kotlin")
+	android_application
+	kotlin_android
+	kotlin_kapt
+	kotlin_parcelize
+	navigation_safeargs
 }
 android {
 	compileSdk = Versions.compileSdk
@@ -18,30 +18,22 @@ android {
 		vectorDrawables {
 			useSupportLibrary = true
 		}
-		javaCompileOptions {
-			annotationProcessorOptions {
-				arguments(
-					mapOf(
-						"room.incremental" to "true",
-						"room.schemaLocation" to "$projectDir/schemas"
-					)
-				)
-			}
-		}
 	}
 	
 	buildTypes {
 		getByName("release") {
 			isMinifyEnabled = false
 			proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+			multiDexEnabled = true
 		}
 		getByName("debug") {
 			isMinifyEnabled = false
 			isTestCoverageEnabled = true
+			multiDexEnabled = true
 		}
 	}
 	
-	lintOptions {
+	lintOptions.apply {
 		isAbortOnError = true
 	}
 	
@@ -69,32 +61,39 @@ android {
 	}
 	
 	packagingOptions {
-		jniLibs.excludes.addAll(
-			listOfNotNull(
-				"META-INF/DEPENDENCIES",
-				"META-INF/LGPL2.1",
-				"META-INF/ASL2.0",
-				"META-INF/LICENSE",
-				"META-INF/NOTICE",
-				"META-INF/NOTICE.txt",
-				"META-INF/LICENSE.txt",
-				"META-INF/maven/com.squareup.picasso/picasso/pom.xml",
-				"META-INF/maven/com.squareup.picasso/picasso/pom.properties",
-				".readme",
-				"asm-license.txt",
-				"cglib-license.txt",
-				"NOTICE",
-				"LICENSE",
-				"META-INF/services/javax.annotation.processing.Processor",
-				"META-INF/notice.txt",
-				"META-INF/ASL2.0",
-				"META-INF/atomicfu.kotlin_module"
+		jniLibs {
+			excludes.addAll(
+				listOf(
+					"META-INF/DEPENDENCIES",
+					"META-INF/LGPL2.1",
+					"META-INF/ASL2.0",
+					"META-INF/LICENSE",
+					"META-INF/NOTICE",
+					"META-INF/NOTICE.txt",
+					"META-INF/LICENSE.txt",
+					"META-INF/maven/com.squareup.picasso/picasso/pom.xml",
+					"META-INF/maven/com.squareup.picasso/picasso/pom.properties",
+					".readme",
+					"asm-license.txt",
+					"cglib-license.txt",
+					"NOTICE",
+					"LICENSE",
+					"META-INF/services/javax.annotation.processing.Processor",
+					"META-INF/notice.txt",
+					"META-INF/ASL2.0",
+					"META-INF/atomicfu.kotlin_module"
+				)
 			)
-		)
-		
+		}
 	}
 	
-	
+	compileOptions {
+		targetCompatibility = JavaVersion.VERSION_11
+		sourceCompatibility = JavaVersion.VERSION_11
+	}
+	kotlinOptions {
+		jvmTarget = JavaVersion.VERSION_11.toString()
+	}
 }
 
 dependencies {
@@ -117,4 +116,8 @@ dependencies {
 	testImplementation(TestLibs.jUnit)
 	androidTestImplementation(TestLibs.testRunner)
 	androidTestImplementation(TestLibs.espressoCore)
+}
+
+tasks.check {
+	dependsOn("installKotlinterPrePushHook")
 }

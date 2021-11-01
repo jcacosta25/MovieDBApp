@@ -7,7 +7,7 @@ import io.jcal.movies_provider.repository.mapper.model.TvShowsModel
 import javax.inject.Inject
 
 class UseCasePopularTvShows @Inject constructor(
-	private val repository: MDBRepository
+    private val repository: MDBRepository
 ) : NetworkBoundResource<TvShowsModel, UseCasePopularTvShows.Params>() {
 	
 	override suspend fun saveCallResult(item: TvShowsModel) {
@@ -26,7 +26,7 @@ class UseCasePopularTvShows @Inject constructor(
 	override fun getLoadingObject(): TvShowsModel = TvShowsModel()
 	
 	data class Params constructor(
-		val page: Int = HttpBaseValues.PAGE,
-		val language: String = HttpBaseValues.LANGUAGE
+	    val page: Int = HttpBaseValues.PAGE,
+	    val language: String = HttpBaseValues.LANGUAGE
 	)
 }

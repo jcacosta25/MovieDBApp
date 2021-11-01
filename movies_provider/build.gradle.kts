@@ -1,8 +1,8 @@
 plugins {
-    id("com.android.library")
-    kotlin("android")
-    kotlin("kapt")
-    id("kotlin-parcelize")
+    android_library
+    kotlin_android
+    kotlin_kapt
+    kotlin_parcelize
 }
 android {
     compileSdk = Versions.compileSdk
@@ -10,14 +10,11 @@ android {
     defaultConfig {
         minSdk = Android.minSdkVersion
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments(
-                    mapOf(
-                        "room.incremental" to "true",
-                        "room.schemaLocation" to "$projectDir/schemas"
-                    )
-                )
+    
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+                arg( "room.incremental" , "true")
             }
         }
     }
@@ -26,14 +23,16 @@ android {
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            multiDexEnabled = true
         }
         getByName("debug") {
             isMinifyEnabled = false
             isTestCoverageEnabled = true
+            multiDexEnabled = true
         }
     }
     
-    lint {
+    lintOptions.apply {
         isAbortOnError = true
     }
     
@@ -53,7 +52,14 @@ android {
         }
         getByName("test").java.srcDirs("src/test/kotlin")
     }
-
+    
+    compileOptions {
+        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11.toString()
+    }
 }
 
 dependencies {

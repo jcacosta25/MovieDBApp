@@ -25,8 +25,8 @@ abstract class NetworkBoundResource<ModelType : BaseModel, T> {
 	protected abstract suspend fun saveCallResult(item: ModelType)
 	
 	protected open fun shouldFetch(
-		data: ModelType?,
-		time: Long = forecastCacheThresholdMillis
+	    data: ModelType?,
+	    time: Long = forecastCacheThresholdMillis
 	): Boolean = data?.let { true }.let { it ?: (time == forecastCacheThresholdMillis) }
 	
 	protected open fun shouldLoad(params: T, data: ModelType): Boolean = false

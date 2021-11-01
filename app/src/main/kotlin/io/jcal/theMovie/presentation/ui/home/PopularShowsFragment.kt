@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -27,53 +26,54 @@ class PopularShowsFragment : DaggerFragment() {
 	private lateinit var adapter: ShowsAdapter
 	
 	override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = FragmentPopularShowsBinding.inflate(
-        inflater,
-        container,
-        false
-    ).let {
+		inflater: LayoutInflater,
+		container: ViewGroup?,
+		savedInstanceState: Bundle?
+	): View = FragmentPopularShowsBinding.inflate(
+		inflater,
+		container,
+		false
+	).let {
 		binding = it
 		binding.root
+	}
+	
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		
+		viewModel.tvShows.observe(
+			requireActivity()
+		) {
+			adapter.submitList(it)
+		}
 	}
 	
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		adapter = ShowsAdapter(
-            showClickListener = { show, _, poster ->
-                val extras = FragmentNavigatorExtras(
-                    poster.toTransitionGroup()
-                )
-                findNavController()
-                    .navigate(
-                        PopularShowsFragmentDirections.popularShowsToShowDetail(
-                            show.id,
-                            show.posterPath
-                        ),
-                        extras
-                    )
-            }
-        )
+			showClickListener = { show, _, poster ->
+				val extras = FragmentNavigatorExtras(
+					poster.toTransitionGroup()
+				)
+				findNavController()
+					.navigate(
+						PopularShowsFragmentDirections.popularShowsToShowDetail(
+							show.id,
+							show.posterPath
+						),
+						extras
+					)
+			}
+		)
+		
 		binding.popularShowsRv.adapter = adapter
 		binding.popularShowsRv.addItemDecoration(
-            SpacingItemDecoration(
-                requireContext(),
-                SPACING
-            )
-        )
+			SpacingItemDecoration(
+				requireContext(),
+				SPACING
+			)
+		)
 		binding.popularShowsRv.setHasFixedSize(true)
-	}
-	
-	override fun onActivityCreated(savedInstanceState: Bundle?) {
-		super.onActivityCreated(savedInstanceState)
-		viewModel.tvShows.observe(
-            viewLifecycleOwner,
-            Observer {
-                adapter.submitList(it)
-            }
-        )
 	}
 	
 	companion object {

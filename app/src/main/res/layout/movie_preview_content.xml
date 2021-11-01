@@ -22,7 +22,7 @@
                 android:id="@+id/movie_poster_image_view"
                 android:layout_width="128dp"
                 android:layout_height="224dp"
-                android:poster_url="@{movie.posterPath}"
+                android:image_url="@{movie.posterPath}"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/movie_title_text"

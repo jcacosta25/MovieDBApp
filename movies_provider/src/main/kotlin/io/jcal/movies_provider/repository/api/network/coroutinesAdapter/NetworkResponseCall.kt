@@ -9,8 +9,8 @@ import retrofit2.Converter
 import retrofit2.Response
 
 internal class NetworkResponseCall<S : Any, E : Any>(
-	private val backingCall: Call<S>,
-	private val errorConverter: Converter<ResponseBody, E>
+    private val backingCall: Call<S>,
+    private val errorConverter: Converter<ResponseBody, E>
 ) : Call<NetworkResponse<S, E>> {
 
 	override fun enqueue(callback: Callback<NetworkResponse<S, E>>) = synchronized(this) {
