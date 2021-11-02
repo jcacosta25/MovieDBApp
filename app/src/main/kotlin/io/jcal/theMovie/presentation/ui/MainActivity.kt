@@ -78,5 +78,4 @@ class MainActivity : AppCompatActivity() {
 		private const val ENTER_DURATION = 1L
 		private const val EXIT_DURATION = 1L
 	}
-	
 }

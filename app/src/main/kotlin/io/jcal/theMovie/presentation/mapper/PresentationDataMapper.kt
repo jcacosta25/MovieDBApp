@@ -1,6 +1,6 @@
 package io.jcal.theMovie.presentation.mapper
 
-import io.jcal.movies_provider.repository.mapper.model.*
+import io.jcal.provider.repository.mapper.model.*
 import io.jcal.theMovie.presentation.mapper.model.*
 import javax.inject.Inject
 

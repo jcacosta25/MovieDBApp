@@ -3,6 +3,13 @@ import org.jmailen.gradle.kotlinter.tasks.LintTask
 
 val jacocoIgnoreList = listOf(name)
 
+tasks.all {
+	when (this) {
+		is JacocoTaskExtension -> {
+			isIncludeNoLocationClasses = true
+		}
+	}
+}
 subprojects {
 	apply(plugin = "org.jmailen.kotlinter")
 	
@@ -15,6 +22,7 @@ subprojects {
 		group = "formatting"
 		source(files("src"))
 	}
+	
 	
 	afterEvaluate {
 		if (jacocoIgnoreList.contains(this.name).not() && childProjects.isEmpty()) {
@@ -32,35 +40,56 @@ subprojects {
 			extensions.apply {
 				this.getByType(JacocoPluginExtension::class.java).apply {
 					this.toolVersion = Versions.jacoco
+					reportsDirectory.set(layout.buildDirectory.dir("${project.buildDir}/reports/jacoco"))
 				}
 			}
 			
 			val excludes = listOf(
 				"**/*\$run$1.class",
-				"**/R.class",
-				"**/R$*.class",
-				"**/*\$ViewInjector*.*",
-				"**/BuildConfig.*",
-				"**/Manifest*.*",
+				"android/databinding/**/*.class",
+				"**/android/databinding/*Binding.class",
+				"**/android/databinding/*",
+				"**/androidx/databinding/*",
 				"**/*Test*.*",
 				"android/**/*.*",
+				"**/R.class",
+				"**/R$*.class",
 				"**/*Fragment.*",
 				"**/*Fragment*.*",
 				"**/*Activity*.*",
 				"**/*Adapter*.*",
 				"**/*Activity.*",
-				"**/*_MembersInjector.class",
 				"**/Dagger*Component*.class",
+				"**/Dagger*Component\$Builder.class",
 				"**/Dagger*Subcomponent*.class",
 				"**/*Subcomponent\$Builder.class",
 				"**/*Module_*Factory.class",
-				"**/*_MembersInjector*.*",
+				"**/di/module/*",
 				"**/*_*Factory*.*",
 				"**/androidTest/**",
 				"**/*Component*.*",
 				"**/*DI.*",
 				"**/*DI*.*",
+				"**/*MapperImpl*.*",
+				"**/*\$ViewInjector*.*",
+				"**/*\$ViewBinder*.*",
+				"**/BuildConfig.*",
+				"**/*Component*.*",
+				"**/*BR*.*",
+				"**/Manifest*.*",
+				"**/*\$Lambda$*.*",
+				"**/*Companion*.*",
 				"**/*Module*.*",
+				"**/*Dagger*.*",
+				"**/*Hilt*.*",
+				"**/*App*.*",
+				"**/*MembersInjector*.*",
+				"**/*_MembersInjector.class",
+				"**/*_Factory*.*",
+				"**/*_Provide*Factory*.*",
+				"**/*Extensions*.*",
+				"**/*\$Result.*",
+				"**/*\$Result\$*.*",
 				"$buildDir/generated/source/kapt/**"
 			)
 			
@@ -68,7 +97,6 @@ subprojects {
 			tasks.create("jacocoTestReport", JacocoReport::class) {
 				dependsOn("testDebugUnitTest")
 				group = "reporting"
-				
 				
 				classDirectories.setFrom(
 					fileTree(
@@ -120,7 +148,6 @@ subprojects {
 						}
 					}
 				}
-				
 				
 				classDirectories.setFrom(
 					fileTree(

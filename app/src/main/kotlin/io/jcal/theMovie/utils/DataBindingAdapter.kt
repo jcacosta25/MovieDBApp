@@ -9,8 +9,8 @@ class DataBindingAdapter {
 	companion object {
 		@JvmStatic
 		@BindingAdapter("android:image_url")
-		fun loadImage(imageView: AppCompatImageView, url: String?) {
-			imageView.transitionName = url
+		fun loadImage(imageView: AppCompatImageView? = null, url: String? = null) {
+			imageView?.transitionName = url
 			url.takeIf { it.isNullOrBlank().not() }?.let {
 				Picasso.get()
 					.load(url)
@@ -20,7 +20,7 @@ class DataBindingAdapter {
 					.centerCrop()
 					.into(imageView)
 			} ?: run {
-				imageView.setImageResource(R.drawable.background_place_holder)
+				imageView?.setImageResource(R.drawable.background_place_holder)
 			}
 		}
 	}

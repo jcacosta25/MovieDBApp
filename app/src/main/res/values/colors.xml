@@ -11,9 +11,7 @@
     <color name="colorSecondaryVariant">#259c53</color>
     <color name="colorAccent">#5FCE80</color>
 
-    <color name="textColorPrimary">#442C2E</color>
     <color name="toolbarIconColor">@android:color/white</color>
-    <color name="textInputOutlineColor">@color/colorPrimary</color>
     <color name="unSelectedElement">#c8c7cc</color>
 
     <!--colorBackground appears behind scrollable content and is used for the default window-->
@@ -32,6 +30,4 @@
     <!--on which they appear.-->
     <color name="colorOnPrimary">#5FCE80</color>
     <color name="colorOnSecondary">@color/toolbarIconColor</color>
-    <color name="colorOnSecondaryVariant">#000000</color>
-
 </resources>

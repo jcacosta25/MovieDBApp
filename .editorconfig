@@ -1,2 +1,2 @@
 [*.{kt, kts}]
-disabled_rules = import-ordering, no-wildcard-imports, final-newline,no-trailing-spaces,indent
+disabled_rules = import-ordering, no-wildcard-imports, final-newline, no-trailing-spaces, indent, experimental:argument-list-wrapping

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Widget.AppTheme.Toolbar" parent="Widget.MaterialComponents.AppBarLayout.Primary">
@@ -29,10 +30,6 @@
 
     </style>
 
-    <style name="PopupTheme" parent="Theme.AppCompat.Light">
-        <item name="android:background">@color/colorSurface</item>
-        <item name="android:textColor">@color/textColorPrimary</item>
-    </style>
     <!-- END NAVIGATION COMPONENTS-->
 
     <!-- BUTTONS -->
@@ -40,17 +37,6 @@
         <item name="android:textStyle">bold</item>
         <item name="cornerRadius">20dp</item>
     </style>
-
-    <style name="Widget.AppTheme.Button.OutlinedButton.White" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="rippleColor">@android:color/white</item>
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:colorAccent">@android:color/white</item>
-        <item name="strokeColor">@android:color/white</item>
-        <item name="android:colorControlHighlight">@android:color/white</item>
-        <item name="android:textStyle">bold</item>
-        <item name="cornerRadius">20dp</item>
-    </style>
-
 
     <style name="Widget.AppTheme.Button" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">20dp</item>
@@ -66,51 +52,12 @@
         <item name="android:minWidth">64dip</item>
     </style>
 
-    <style name="Widget.AppTheme.Button.Small.Legacy" parent="Widget.AppCompat.Button">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="textAllCaps">false</item>
-        <item name="android:textSize">12sp</item>
-        <item name="cornerRadius">16dp</item>
-        <item name="android:minHeight">34dip</item>
-        <!--        <item name="android:background">@drawable/button_background_rounded_corners</item>-->
-        <item name="android:minWidth">64dip</item>
-    </style>
-
-    <style name="Widget.AppTheme.Button.Secondary" parent="Widget.MaterialComponents.Button">
-        <!--        <item name="backgroundTint">@color/pink</item>-->
-        <!--        <item name="backgroundTintMode">@color/pink</item>-->
-        <item name="android:textStyle">bold</item>
-    </style>
-
     <style name="Widget.AppTheme.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
         <!--        <item name="android:textColor">@color/gray_font_color</item>-->
         <!--        <item name="rippleColor">@color/light_blue</item>-->
         <!--        <item name="iconTint">@color/light_blue</item>-->
     </style>
 
-
-    <style name="Widget.AppTheme.Button.TextButton.Small" parent="Widget.MaterialComponents.Button.TextButton">
-        <!--        <item name="android:textColor">@color/gray_font_color</item>-->
-        <!--        <item name="rippleColor">@color/light_blue</item>-->
-        <!--        <item name="iconTint">@color/light_blue</item>-->
-        <item name="android:minHeight">34dip</item>
-        <item name="android:minWidth">64dip</item>
-        <item name="android:textStyle">normal</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="textAllCaps">false</item>
-        <item name="android:textSize">12sp</item>
-    </style>
-
-    <style name="Widget.AppTheme.Button.TextButton.Snackbar" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
-        <item name="android:fontFamily">@font/tmdb_font</item>
-        <item name="fontFamily">@font/tmdb_font</item>
-    </style>
-
-    <style name="Widget.AppTheme.Snackbar.TextView" parent="@style/Widget.MaterialComponents.Snackbar.TextView">
-        <item name="android:fontFamily">@font/tmdb_font</item>
-        <item name="fontFamily">@font/tmdb_font</item>
-    </style>
 
     <style name="Widget.AppTheme.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="cornerRadius">20dp</item>
@@ -120,36 +67,10 @@
         <item name="boxCornerRadiusTopStart">20dp</item>
     </style>
 
-    <style name="Widget.AppTheme.TextInputLayout.White" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="boxStrokeColor">@android:color/white</item>
-        <item name="boxBackgroundColor">@android:color/white</item>
-        <item name="helperTextTextColor">@android:color/white</item>
-        <item name="cornerRadius">20dp</item>
-        <item name="boxCornerRadiusBottomEnd">20dp</item>
-        <item name="boxCornerRadiusBottomStart">20dp</item>
-        <item name="boxCornerRadiusTopEnd">20dp</item>
-        <item name="boxCornerRadiusTopStart">20dp</item>
-        <item name="android:background">@android:color/transparent</item>
-        <item name="boxStrokeErrorColor">@android:color/white</item>
-        <item name="hintTextColor">@android:color/white</item>
-        <item name="android:textColorHint">@android:color/white</item>
-    </style>
-
-    <style name="Widget.AppTheme.TextInputLayout.Filled" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense" />
-
     <style name="Widget.AppTheme.Button.TextButton.Icon" parent="Widget.MaterialComponents.Button.TextButton.Icon">
         <item name="rippleColor">@android:color/transparent</item>
     </style>
 
-    <style name="Widget.AppTheme.Button.IconOnly" parent="Widget.AppTheme.Button.TextButton.Icon">
-        <item name="iconPadding">0dp</item>
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetBottom">0dp</item>
-        <item name="android:paddingLeft">12dp</item>
-        <item name="android:paddingRight">12dp</item>
-        <item name="android:minWidth">48dp</item>
-        <item name="android:minHeight">48dp</item>
-    </style>
     <!-- END BUTTONS -->
 
     <!--Components-->
@@ -175,5 +96,4 @@
     <style name="Widget.AppTheme.NavigationView" parent="Widget.MaterialComponents.NavigationView">
         <item name="itemTextAppearance">?textAppearanceBody2</item>
     </style>
-
 </resources>
