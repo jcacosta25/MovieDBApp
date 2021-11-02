@@ -11,19 +11,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
-      - name: set up JDK 1.8
-        uses: actions/setup-java@v1
+      - uses: actions/checkout@v2
+      - name: set up JDK 11
+        uses: actions/setup-java@v2
         with:
-          java-version: 1.8
+          distribution: 'zulu'
+          java-version: '11'
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Run Lint Check
         run: ./gradlew lint lintKotlin
       - name: Run Unit Test
         run: ./gradlew test --stacktrace
-      - name: Run Coverage and Verification
-        run: ./gradlew jacocoFullReport
+      - name: Run Coverage and Verification for app
+        run: ./gradlew :app:jacocoTestReport
+      - name: Run Coverage and Verification for app
+        run: ./gradlew :provider:jacocoTestReport
+      - name: Upload app report
+        uses: actions/upload-artifact@v1
+        with:
+          name: reports-app
+          path: app/build/reports
+      - name: Upload provider report
+        uses: actions/upload-artifact@v1
+        with:
+          name: reports-provider
+          path: provider/build/reports
+
 
 
   apk:
@@ -32,10 +46,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: set up JDK 1.8
-        uses: actions/setup-java@v1
+      - name: set up JDK 11
+        uses: actions/setup-java@v2
         with:
-          java-version: 1.8
+          distribution: 'zulu'
+          java-version: '11'
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build App
@@ -43,5 +58,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v1
         with:
-          name: app
+          name: build
           path: app/build/outputs/apk/debug/app-debug.apk

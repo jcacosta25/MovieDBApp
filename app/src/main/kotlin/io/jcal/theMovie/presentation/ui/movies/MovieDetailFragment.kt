@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
@@ -36,10 +35,10 @@ class MovieDetailFragment : DaggerFragment() {
 	}
 	
 	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View? {
+	    inflater: LayoutInflater,
+	    container: ViewGroup?,
+	    savedInstanceState: Bundle?
+	): View {
 		binding =
 			DataBindingUtil.inflate(inflater, R.layout.fragment_movie_detail, container, false)
 		return binding.root
@@ -61,14 +60,13 @@ class MovieDetailFragment : DaggerFragment() {
 		viewModel.getMovie(movieId)
 		
 		viewModel.movieDetail().observe(
-			viewLifecycleOwner,
-			Observer { movie ->
-				when (movie.state) {
-					SUCCESS -> {
-						binding.movie = movie
-					}
+			viewLifecycleOwner
+		) { movie ->
+			when (movie.state) {
+				SUCCESS -> {
+					binding.movie = movie
 				}
 			}
-		)
+		}
 	}
 }

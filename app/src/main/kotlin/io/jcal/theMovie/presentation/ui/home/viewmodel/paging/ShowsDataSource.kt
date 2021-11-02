@@ -3,9 +3,9 @@ package io.jcal.theMovie.presentation.ui.home.viewmodel.paging
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import io.jcal.movies_provider.domain.interactor.UseCasePopularTvShows
-import io.jcal.movies_provider.domain.interactor.base.Status
-import io.jcal.movies_provider.repository.mapper.model.BaseModel
+import io.jcal.provider.domain.interactor.UseCasePopularTvShows
+import io.jcal.provider.domain.interactor.base.Status
+import io.jcal.provider.repository.mapper.model.BaseModel
 import io.jcal.theMovie.presentation.mapper.PresentationDataMapper
 import io.jcal.theMovie.presentation.mapper.model.TvShowUIModel
 import kotlinx.coroutines.CoroutineScope
@@ -14,9 +14,9 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class ShowsDataSource(
-	private val scope: CoroutineScope,
-	private val useCase: UseCasePopularTvShows,
-	private val mapper: PresentationDataMapper
+    private val scope: CoroutineScope,
+    private val useCase: UseCasePopularTvShows,
+    private val mapper: PresentationDataMapper
 ) : PageKeyedDataSource<Int, TvShowUIModel>() {
 	
 	private var retry: (() -> Any)? = null
@@ -39,8 +39,8 @@ class ShowsDataSource(
 	}
 	
 	override fun loadInitial(
-		params: LoadInitialParams<Int>,
-		callback: LoadInitialCallback<Int, TvShowUIModel>
+	    params: LoadInitialParams<Int>,
+	    callback: LoadInitialCallback<Int, TvShowUIModel>
 	) {
 		scope.launch {
 			useCase.execute().collect {

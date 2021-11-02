@@ -14,8 +14,8 @@ class MovieAdapter(private val movieClickListener: (MovieUIModel, Int, View) -> 
 	PagedListAdapter<MovieUIModel, MovieAdapter.MovieViewHolder>(MovieUIModel.MOVIE_DIF) {
 	
 	override fun onCreateViewHolder(
-		parent: ViewGroup,
-		viewType: Int
+	    parent: ViewGroup,
+	    viewType: Int
 	): MovieViewHolder = MovieViewHolder(
 		DataBindingUtil.inflate(
 			LayoutInflater.from(parent.context),
@@ -34,9 +34,9 @@ class MovieAdapter(private val movieClickListener: (MovieUIModel, Int, View) -> 
 	inner class MovieViewHolder(private val binding: MoviePreviewContentBinding) :
 		RecyclerView.ViewHolder(binding.root) {
 		fun bind(
-			movieClickListener: (MovieUIModel, Int, View) -> Unit,
-			position: Int,
-			movie: MovieUIModel
+		    movieClickListener: (MovieUIModel, Int, View) -> Unit,
+		    position: Int,
+		    movie: MovieUIModel
 		) {
 			binding.movie = movie
 			binding.root.setOnClickListener {

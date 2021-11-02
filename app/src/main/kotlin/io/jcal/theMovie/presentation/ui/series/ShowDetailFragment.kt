@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
@@ -36,10 +35,10 @@ class ShowDetailFragment : DaggerFragment() {
 	}
 	
 	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View? {
+	    inflater: LayoutInflater,
+	    container: ViewGroup?,
+	    savedInstanceState: Bundle?
+	): View {
 		binding = DataBindingUtil.inflate(inflater, R.layout.fragment_show_detail, container, false)
 		return binding.root
 	}
@@ -60,14 +59,13 @@ class ShowDetailFragment : DaggerFragment() {
 		viewModel.getTvShow(tvShowId)
 		
 		viewModel.tvShowDetail().observe(
-			viewLifecycleOwner,
-			Observer { show ->
-				when (show.state) {
-					SUCCESS -> {
-						binding.show = show
-					}
+			viewLifecycleOwner
+		) { show ->
+			when (show.state) {
+				SUCCESS -> {
+					binding.show = show
 				}
 			}
-		)
+		}
 	}
 }

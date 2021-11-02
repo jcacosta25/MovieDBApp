@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -28,10 +27,10 @@ class PopularMoviesFragment : DaggerFragment() {
 	private val viewModel by viewModels<MoviesViewModel> { factory }
 	
 	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View? = FragmentPopularMoviesListBinding.inflate(
+	    inflater: LayoutInflater,
+	    container: ViewGroup?,
+	    savedInstanceState: Bundle?
+	): View = FragmentPopularMoviesListBinding.inflate(
 		inflater,
 		container,
 		false
@@ -68,11 +67,10 @@ class PopularMoviesFragment : DaggerFragment() {
 		binding.popularMoviesRv.setHasFixedSize(true)
 		
 		viewModel.moviesLiveData.observe(
-			viewLifecycleOwner,
-			Observer {
-				adapter.submitList(it)
-			}
-		)
+			viewLifecycleOwner
+		) {
+			adapter.submitList(it)
+		}
 	}
 	
 	companion object {
