@@ -2,7 +2,7 @@ package io.jcal.theMovie.presentation.mapper.model
 
 import android.os.Parcelable
 import androidx.recyclerview.widget.DiffUtil
-import io.jcal.movies_provider.repository.mapper.model.BaseModel
+import io.jcal.provider.repository.mapper.model.BaseModel
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

@@ -19,6 +19,11 @@ inline val org.gradle.plugin.use.PluginDependenciesSpec.kotlin_parcelize: org.gr
 inline val org.gradle.plugin.use.PluginDependenciesSpec.navigation_safeargs: org.gradle.plugin.use.PluginDependencySpec
     get() = id("androidx.navigation.safeargs.kotlin")
 
+inline val org.gradle.plugin.use.PluginDependenciesSpec.resources_remover: org.gradle.plugin.use.PluginDependencySpec
+    get() = id("com.github.konifar.gradle.unused-resources-remover")
+    
+
+
 object Android {
     const val buildToolsVersion = Versions.buildTools
     const val minSdkVersion = Versions.minSdk

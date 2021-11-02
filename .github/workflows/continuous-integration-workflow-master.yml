@@ -23,8 +23,21 @@ jobs:
         run: ./gradlew lint lintKotlin
       - name: Run Unit Test
         run: ./gradlew test --stacktrace
-      - name: Run Coverage and Verification
-        run: ./gradlew jacocoFullReport
+      - name: Run Coverage and Verification for app
+        run: ./gradlew :app:jacocoTestReport
+      - name: Run Coverage and Verification for app
+        run: ./gradlew :provider:jacocoTestReport
+      - name: Upload app report
+        uses: actions/upload-artifact@v1
+        with:
+          name: reports-app
+          path: app/build/reports
+      - name: Upload provider report
+        uses: actions/upload-artifact@v1
+        with:
+          name: reports-provider
+          path: provider/build/reports
+
 
 
   apk:
@@ -45,5 +58,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v1
         with:
-          name: app
+          name: build
           path: app/build/outputs/apk/debug/app-debug.apk

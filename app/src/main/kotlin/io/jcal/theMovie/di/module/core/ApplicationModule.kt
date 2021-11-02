@@ -5,9 +5,9 @@ import android.content.Context
 import android.content.res.Resources
 import dagger.Module
 import dagger.Provides
-import io.jcal.movies_provider.di.NetworkModule.Companion.API_TOKEN_PROPERTY
-import io.jcal.movies_provider.repository.db.DatabaseConstants.DATABASE_NAME
-import io.jcal.movies_provider.repository.db.DatabaseConstants.DATABASE_NAME_PROPERTY
+import io.jcal.provider.di.NetworkModule.Companion.API_TOKEN_PROPERTY
+import io.jcal.provider.repository.db.DatabaseConstants.DATABASE_NAME
+import io.jcal.provider.repository.db.DatabaseConstants.DATABASE_NAME_PROPERTY
 import javax.inject.Named
 
 @Module

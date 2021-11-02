@@ -6,7 +6,7 @@ import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import io.jcal.movies_provider.domain.interactor.UseCaseGetPopularMovies
+import io.jcal.provider.domain.interactor.UseCaseGetPopularMovies
 import io.jcal.theMovie.presentation.mapper.PresentationDataMapper
 import io.jcal.theMovie.presentation.mapper.model.MovieUIModel
 import io.jcal.theMovie.presentation.ui.home.viewmodel.paging.Listing

@@ -26,9 +26,9 @@ class PopularShowsFragment : DaggerFragment() {
 	private lateinit var adapter: ShowsAdapter
 	
 	override fun onCreateView(
-		inflater: LayoutInflater,
-		container: ViewGroup?,
-		savedInstanceState: Bundle?
+	    inflater: LayoutInflater,
+	    container: ViewGroup?,
+	    savedInstanceState: Bundle?
 	): View = FragmentPopularShowsBinding.inflate(
 		inflater,
 		container,

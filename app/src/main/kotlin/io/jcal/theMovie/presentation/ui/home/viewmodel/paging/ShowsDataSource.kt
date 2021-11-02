@@ -3,9 +3,9 @@ package io.jcal.theMovie.presentation.ui.home.viewmodel.paging
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import io.jcal.movies_provider.domain.interactor.UseCasePopularTvShows
-import io.jcal.movies_provider.domain.interactor.base.Status
-import io.jcal.movies_provider.repository.mapper.model.BaseModel
+import io.jcal.provider.domain.interactor.UseCasePopularTvShows
+import io.jcal.provider.domain.interactor.base.Status
+import io.jcal.provider.repository.mapper.model.BaseModel
 import io.jcal.theMovie.presentation.mapper.PresentationDataMapper
 import io.jcal.theMovie.presentation.mapper.model.TvShowUIModel
 import kotlinx.coroutines.CoroutineScope

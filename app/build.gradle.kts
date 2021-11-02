@@ -4,6 +4,7 @@ plugins {
 	kotlin_kapt
 	kotlin_parcelize
 	navigation_safeargs
+	resources_remover
 }
 android {
 	compileSdk = Versions.compileSdk
@@ -22,7 +23,8 @@ android {
 	
 	buildTypes {
 		getByName("release") {
-			isMinifyEnabled = false
+			isMinifyEnabled = true
+			isShrinkResources = true
 			proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
 			multiDexEnabled = true
 		}
@@ -33,8 +35,22 @@ android {
 		}
 	}
 	
+	testOptions {
+		testOptions {
+			reportDir = "$buildDir/reports"
+			resultsDir = "$buildDir/test-results"
+		}
+		unitTests {
+			isIncludeAndroidResources = true
+			isReturnDefaultValues = true
+			reportDir = "$buildDir/reports"
+			resultsDir = "$buildDir/test-results"
+		}
+	}
+	
 	lintOptions.apply {
 		isAbortOnError = true
+		disable( "DialogFragmentCallbacksDetector")
 	}
 	
 	kotlinter {
@@ -47,7 +63,8 @@ android {
 			"no-wildcard-imports",
 			"final-newline",
 			"no-trailing-spaces",
-			"indent"
+			"indent",
+			"experimental:argument-list-wrapping"
 		)
 	}
 	
@@ -98,7 +115,7 @@ android {
 
 dependencies {
 	implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
-	implementation(project(":movies_provider"))
+	implementation(project(":provider"))
 	implementation(Libs.appCompat)
 	implementation(Libs.kotlin)
 	implementation(Libs.kotlinReflect)
