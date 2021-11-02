@@ -117,7 +117,3 @@ dependencies {
 	androidTestImplementation(TestLibs.testRunner)
 	androidTestImplementation(TestLibs.espressoCore)
 }
-
-tasks.check {
-	dependsOn("installKotlinterPrePushHook")
-}
