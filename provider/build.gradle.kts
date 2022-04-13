@@ -32,10 +32,6 @@ android {
         }
     }
     
-    lintOptions.apply {
-        isAbortOnError = true
-    }
-    
     kotlinter {
         ignoreFailures = false
         indentSize = 4

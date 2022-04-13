@@ -81,4 +81,18 @@ object Libs {
 	// Time Libs
 	const val threeTenABP = "com.jakewharton.threetenabp:threetenabp:${Versions.threeTenABP}"
 	const val jodaTimes = "net.danlew:android.joda:${Versions.jodaTimesVersion}"
+	
+	// Compose
+	const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
+	const val composeToolingPreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
+	const val composeActivity = "androidx.activity:activity-compose:1.4.0"
+	const val composeIcons = "androidx.compose.material:material-icons-core:${Versions.compose}"
+	const val composeIconsExtended =
+		"androidx.compose.material:material-icons-extended:${Versions.compose}"
+	const val composeMaterial = "androidx.compose.material:material:${Versions.compose}"
+	const val composeLiveData = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
+	const val composeRxJava = "androidx.compose.runtime:runtime-rxjava2:${Versions.compose}"
+	const val composeNav = "androidx.navigation:navigation-compose:${Versions.navigation}"
+	const val composeTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
+	const val composeManifest = "androidx.compose.ui:ui-test-manifest:${Versions.compose}"
 }

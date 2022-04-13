@@ -77,6 +77,7 @@ object Versions {
     const val playServices = "16.1.0"
     const val picasso = "2.71828"
     const val navigation = "2.5.0-alpha04"
+    const val compose = "1.1.1"
     const val workManager = "2.8.0-alpha02"
     const val design = "1.6.0-beta01"
     const val threeTenABP = "1.4.0"

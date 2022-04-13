@@ -9,6 +9,6 @@ repositories {
 }
 
 dependencies {
-    implementation("com.android.tools.build:gradle:7.1.2")
+    implementation("com.android.tools.build:gradle:7.1.3")
     implementation("org.jmailen.gradle:kotlinter-gradle:3.9.0")
 }

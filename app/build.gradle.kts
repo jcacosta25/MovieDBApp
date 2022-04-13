@@ -48,11 +48,6 @@ android {
 		}
 	}
 	
-	lintOptions.apply {
-		isAbortOnError = true
-		disable( "DialogFragmentCallbacksDetector")
-	}
-	
 	kotlinter {
 		ignoreFailures = false
 		indentSize = 4

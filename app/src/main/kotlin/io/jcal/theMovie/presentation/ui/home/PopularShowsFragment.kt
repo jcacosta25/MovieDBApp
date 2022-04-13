@@ -41,15 +41,6 @@ class PopularShowsFragment : DaggerFragment() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		
-		viewModel.tvShows.observe(
-			requireActivity()
-		) {
-			adapter.submitList(it)
-		}
-	}
-	
-	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-		super.onViewCreated(view, savedInstanceState)
 		adapter = ShowsAdapter(
 			showClickListener = { show, _, poster ->
 				val extras = FragmentNavigatorExtras(
@@ -65,6 +56,15 @@ class PopularShowsFragment : DaggerFragment() {
 					)
 			}
 		)
+		viewModel.tvShows.observe(
+			requireActivity()
+		) {
+			adapter.submitList(it)
+		}
+	}
+	
+	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+		super.onViewCreated(view, savedInstanceState)
 		
 		binding.popularShowsRv.adapter = adapter
 		binding.popularShowsRv.addItemDecoration(
