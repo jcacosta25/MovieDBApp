@@ -7,7 +7,7 @@ object Libs {
 	const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerViewVersion}"
 	const val multiDex = "androidx.multidex:multidex:${Versions.multidex}"
 	const val cardView = "androidx.cardview:cardview:${Versions.cardView}"
-	const val customTabs = "androidx.browser:browser:1.3.0"
+	const val customTabs = "androidx.browser:browser:1.4.0"
 	const val appCompat = "androidx.appcompat:appcompat:${Versions.support}"
 	const val design = "com.google.android.material:material:${Versions.design}"
 	

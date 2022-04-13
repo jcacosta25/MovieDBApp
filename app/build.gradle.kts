@@ -1,10 +1,10 @@
 plugins {
 	android_application
 	kotlin_android
-	kotlin_kapt
 	kotlin_parcelize
 	navigation_safeargs
 	resources_remover
+	kotlin_kapt
 }
 android {
 	compileSdk = Versions.compileSdk
@@ -110,6 +110,7 @@ android {
 	}
 	kotlinOptions {
 		jvmTarget = JavaVersion.VERSION_11.toString()
+		freeCompilerArgs = listOf("-Xjvm-default=enable")
 	}
 }
 

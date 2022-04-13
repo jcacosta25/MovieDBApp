@@ -82,18 +82,18 @@ class ShowsDataSourceFactory(
 /**
  * Data class that is necessary for a UI to show a listing and interact w/ the rest of the system
  */
-data class Listing<T>(
+data class Listing<T : Any>(
 	// the LiveData of paged lists for the UI to observe
-    val pagedList: LiveData<PagedList<T>>,
+	val pagedList: LiveData<PagedList<T>>,
 	// represents the network request status to show to the user
-    val resourceState: LiveData<Map<Status, Int>>,
+	val resourceState: LiveData<Map<Status, Int>>,
 	// represents the refresh status to show to the user. Separate from networkState, this
 	// value is importantly only when refresh is requested.
-    val refreshState: LiveData<Map<Status, Int>>,
+	val refreshState: LiveData<Map<Status, Int>>,
 	// refreshes the whole data and fetches it from scratch.
-    val refresh: () -> Unit,
+	val refresh: () -> Unit,
 	// retries any failed requests.
-    val retry: () -> Unit,
+	val retry: () -> Unit,
 	// the way to stop jobs from running since no lifecycle provided
-    val clearCoroutineJobs: () -> Unit
+	val clearCoroutineJobs: () -> Unit
 )
