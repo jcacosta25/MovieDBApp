@@ -11,7 +11,6 @@
 /build
 /captures
 /buildSrc/build/
-.externalNativeBuild
 
 # Created by https://www.gitignore.io/api/kotlin,android,androidstudio
 # Edit at https://www.gitignore.io/?templates=kotlin,android,androidstudio
@@ -37,6 +36,10 @@ out/
 .gradle/
 build/
 
+# BuildSrc
+buildSrc/.gradle
+buildSrc/build
+
 # Local configuration file (sdk path, etc)
 local.properties
 
@@ -50,17 +53,29 @@ proguard/
 .navigation/
 
 # Android Studio captures folder
+/captures
 captures/
 
 # IntelliJ
 *.iml
+.idea
 .idea/workspace.xml
 .idea/tasks.xml
-.idea/gradle.xml
-.idea/assetWizardSettings.xml
-.idea/dictionaries
-.idea/libraries
+.idea/kotlinScripting.xml
 .idea/caches
+.idea/libraries
+.idea/assetWizardSettings.xml
+.idea/encodings.xml
+.idea/gradle.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/navEditor.xml
+.idea/runConfigurations.xml
+.idea/vcs.xml
+.idea/codeStyles/Project.xml
+.idea/compiler.xml
+.idea/dictionaries
 
 # Keystore files
 # Uncomment the following lines if you do not want to check your keystore files in.
@@ -69,6 +84,7 @@ captures/
 
 # External native build folder generated in Android Studio 2.2 and later
 .externalNativeBuild
+.cxx
 
 # Google Services (e.g. APIs or Firebase)
 google-services.json
@@ -100,7 +116,6 @@ gen-external-apklibs
 # Generated files
 
 # Gradle files
-.gradle
 
 # Signing files
 .signing/
@@ -138,24 +153,17 @@ obj/
 .idea/codeStyles/
 .idea/shelf/
 .idea/.name
-.idea/compiler.xml
 .idea/copyright/profiles_settings.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/modules.xml
 .idea/scopes/scope_settings.xml
-.idea/vcs.xml
 .idea/jsLibraryMappings.xml
 .idea/datasources.xml
 .idea/dataSources.ids
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
-.idea/runConfigurations.xml
 .idea/templateLanguages.xml
 
 # OS-specific files
-.DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100

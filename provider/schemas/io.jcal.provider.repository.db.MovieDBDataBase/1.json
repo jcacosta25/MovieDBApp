@@ -2,17 +2,17 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "45c7f330a0ab0be8e30cc3864dfa1a7c",
+    "identityHash": "5507e336f5bf55fa701a5298d0a4d36f",
     "entities": [
       {
         "tableName": "movies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `adult` INTEGER NOT NULL, `backdrop_path` TEXT NOT NULL, `budget` INTEGER NOT NULL, `genre_ids` TEXT NOT NULL, `homepage` TEXT NOT NULL, `imdb_id` TEXT NOT NULL, `original_language` TEXT NOT NULL, `original_title` TEXT NOT NULL, `overview` TEXT NOT NULL, `popularity` REAL NOT NULL, `poster_path` TEXT NOT NULL, `release_date` TEXT NOT NULL, `revenue` INTEGER NOT NULL, `runtime` INTEGER NOT NULL, `spoken_languages` TEXT NOT NULL, `status` TEXT NOT NULL, `tagline` TEXT NOT NULL, `title` TEXT NOT NULL, `video` INTEGER NOT NULL, `vote_average` REAL NOT NULL, `vote_count` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `adult` INTEGER NOT NULL, `backdrop_path` TEXT NOT NULL, `budget` INTEGER NOT NULL, `genre_ids` TEXT NOT NULL, `homepage` TEXT NOT NULL, `imdb_id` TEXT NOT NULL, `original_language` TEXT NOT NULL, `original_title` TEXT NOT NULL, `overview` TEXT NOT NULL, `popularity` REAL NOT NULL, `poster_path` TEXT NOT NULL, `release_date` TEXT NOT NULL, `revenue` INTEGER NOT NULL, `runtime` INTEGER NOT NULL, `spoken_languages` TEXT NOT NULL, `status` TEXT NOT NULL, `tagline` TEXT NOT NULL, `title` TEXT NOT NULL, `video` INTEGER NOT NULL, `vote_average` REAL NOT NULL, `vote_count` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "adult",
@@ -152,13 +152,13 @@
       },
       {
         "tableName": "tv_shows",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `air_date` TEXT NOT NULL, `episode_count` INTEGER NOT NULL, `season_number` INTEGER NOT NULL, `backdrop_path` TEXT NOT NULL, `episode_run_time` TEXT NOT NULL, `first_air_date` TEXT NOT NULL, `homepage` TEXT NOT NULL, `in_production` INTEGER NOT NULL, `languages` TEXT NOT NULL, `last_air_date` TEXT NOT NULL, `last_episode_to_air` INTEGER NOT NULL, `name` TEXT NOT NULL, `next_episode_to_air` INTEGER NOT NULL, `number_of_episodes` INTEGER NOT NULL, `number_of_seasons` INTEGER NOT NULL, `origin_country` TEXT NOT NULL, `original_language` TEXT NOT NULL, `original_NAME` TEXT NOT NULL, `overview` TEXT NOT NULL, `popularity` REAL NOT NULL, `poster_path` TEXT NOT NULL, `status` TEXT NOT NULL, `type` TEXT NOT NULL, `vote_average` REAL NOT NULL, `vote_count` INTEGER NOT NULL, `genre_ids` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `air_date` TEXT NOT NULL, `episode_count` INTEGER NOT NULL, `season_number` INTEGER NOT NULL, `backdrop_path` TEXT NOT NULL, `episode_run_time` TEXT NOT NULL, `first_air_date` TEXT NOT NULL, `homepage` TEXT NOT NULL, `in_production` INTEGER NOT NULL, `languages` TEXT NOT NULL, `last_air_date` TEXT NOT NULL, `last_episode_to_air` INTEGER NOT NULL, `name` TEXT NOT NULL, `next_episode_to_air` INTEGER NOT NULL, `number_of_episodes` INTEGER NOT NULL, `number_of_seasons` INTEGER NOT NULL, `origin_country` TEXT NOT NULL, `original_language` TEXT NOT NULL, `original_NAME` TEXT NOT NULL, `overview` TEXT NOT NULL, `popularity` REAL NOT NULL, `poster_path` TEXT NOT NULL, `status` TEXT NOT NULL, `type` TEXT NOT NULL, `vote_average` REAL NOT NULL, `vote_count` INTEGER NOT NULL, `genre_ids` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "airDate",
@@ -328,13 +328,13 @@
       },
       {
         "tableName": "seasons",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `air_date` TEXT NOT NULL, `episode_count` INTEGER NOT NULL, `name` TEXT NOT NULL, `overview` TEXT NOT NULL, `poster_path` TEXT NOT NULL, `season_number` INTEGER NOT NULL, `show_id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`show_id`) REFERENCES `tv_shows`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `air_date` TEXT NOT NULL, `episode_count` INTEGER NOT NULL, `name` TEXT NOT NULL, `overview` TEXT NOT NULL, `poster_path` TEXT NOT NULL, `season_number` INTEGER NOT NULL, `show_id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`show_id`) REFERENCES `tv_shows`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "airDate",
@@ -392,6 +392,7 @@
             "columnNames": [
               "show_id"
             ],
+            "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_seasons_show_id` ON `${TABLE_NAME}` (`show_id`)"
           }
         ],
@@ -411,7 +412,7 @@
       },
       {
         "tableName": "episodes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `air_date` TEXT NOT NULL, `episode_number` INTEGER NOT NULL, `name` TEXT NOT NULL, `overview` TEXT NOT NULL, `production_code` TEXT NOT NULL, `season_number` INTEGER NOT NULL, `show_id` INTEGER NOT NULL, `still_path` TEXT NOT NULL, `vote_average` INTEGER NOT NULL, `vote_count` INTEGER NOT NULL, `season_id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`season_id`) REFERENCES `seasons`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `air_date` TEXT, `episode_number` INTEGER NOT NULL, `name` TEXT NOT NULL, `overview` TEXT NOT NULL, `production_code` TEXT NOT NULL, `season_number` INTEGER NOT NULL, `show_id` INTEGER NOT NULL, `still_path` TEXT NOT NULL, `vote_average` INTEGER NOT NULL, `vote_count` INTEGER NOT NULL, `season_id` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`season_id`) REFERENCES `seasons`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -423,7 +424,7 @@
             "fieldPath": "airDate",
             "columnName": "air_date",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "episodeNumber",
@@ -499,6 +500,7 @@
             "columnNames": [
               "season_id"
             ],
+            "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_episodes_season_id` ON `${TABLE_NAME}` (`season_id`)"
           }
         ],
@@ -520,7 +522,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '45c7f330a0ab0be8e30cc3864dfa1a7c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5507e336f5bf55fa701a5298d0a4d36f')"
     ]
   }
 }

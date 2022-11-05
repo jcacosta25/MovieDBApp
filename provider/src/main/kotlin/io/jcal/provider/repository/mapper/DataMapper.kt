@@ -1,31 +1,13 @@
 package io.jcal.provider.repository.mapper
 
-import io.jcal.provider.repository.api.model.DatesDTO
-import io.jcal.provider.repository.api.model.EpisodeDTO
-import io.jcal.provider.repository.api.model.MovieDTO
-import io.jcal.provider.repository.api.model.MoviesDTO
-import io.jcal.provider.repository.api.model.SeasonDTO
-import io.jcal.provider.repository.api.model.TvShowDTO
-import io.jcal.provider.repository.api.model.TvShowsDTO
-import io.jcal.provider.repository.db.entity.EpisodeEntity
-import io.jcal.provider.repository.db.entity.MovieEntity
-import io.jcal.provider.repository.db.entity.SeasonEntity
-import io.jcal.provider.repository.db.entity.SeasonEpisodes
-import io.jcal.provider.repository.db.entity.TvShowEntity
-import io.jcal.provider.repository.db.entity.TvShowSeasons
-import io.jcal.provider.repository.mapper.model.BaseModel
+import io.jcal.provider.repository.api.model.*
+import io.jcal.provider.repository.db.entity.*
+import io.jcal.provider.repository.mapper.model.*
 import io.jcal.provider.repository.mapper.model.BaseModel.Companion.BASE_ERROR_CODE
 import io.jcal.provider.repository.mapper.model.BaseModel.Companion.LOADING
 import io.jcal.provider.repository.mapper.model.BaseModel.Companion.NOT_EXISTING_VALUE
 import io.jcal.provider.repository.mapper.model.BaseModel.Companion.PARSING_ERROR
 import io.jcal.provider.repository.mapper.model.BaseModel.Companion.SUCCESS
-import io.jcal.provider.repository.mapper.model.DatesModel
-import io.jcal.provider.repository.mapper.model.EpisodeModel
-import io.jcal.provider.repository.mapper.model.MovieModel
-import io.jcal.provider.repository.mapper.model.MoviesModel
-import io.jcal.provider.repository.mapper.model.SeasonModel
-import io.jcal.provider.repository.mapper.model.TvShowModel
-import io.jcal.provider.repository.mapper.model.TvShowsModel
 import javax.inject.Inject
 
 class DataMapper @Inject constructor() {
@@ -141,7 +123,7 @@ class DataMapper @Inject constructor() {
 	fun convert(entity: EpisodeEntity): EpisodeModel {
 		val model = EpisodeModel(
 			id = entity.id,
-			airDate = entity.airDate,
+			airDate = entity.airDate.orEmpty(),
 			episodeNumber = entity.episodeNumber,
 			name = entity.name,
 			overview = entity.overview,
@@ -191,7 +173,7 @@ class DataMapper @Inject constructor() {
 	
 	fun convert(entity: SeasonEntity): SeasonModel {
 		val model = SeasonModel(
-			id = entity.id,
+			id = entity.id.orEmpty(),
 			airDate = entity.airDate,
 			episodeCount = entity.episodeCount,
 			name = entity.name,
@@ -206,7 +188,7 @@ class DataMapper @Inject constructor() {
 	
 	fun convert(entity: SeasonEpisodes): SeasonModel {
 		val model = SeasonModel(
-			id = entity.season.id,
+			id = entity.season.id.orEmpty(),
 			airDate = entity.season.airDate,
 			episodeCount = entity.season.episodeCount,
 			name = entity.season.name,

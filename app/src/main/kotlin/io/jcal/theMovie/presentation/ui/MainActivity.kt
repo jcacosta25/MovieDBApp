@@ -4,29 +4,33 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil.setContentView
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import io.jcal.theMovie.R
-import io.jcal.theMovie.databinding.ActivityMainBinding
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 	
-	private lateinit var binding: ActivityMainBinding
 	private lateinit var navController: NavController
+	private lateinit var toolbar: Toolbar
+	private lateinit var bottomNav: BottomNavigationView
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		binding = setContentView(this, R.layout.activity_main)
-		binding.lifecycleOwner = this
-		binding.toolbar.setNavigationOnClickListener {
+		setContentView(R.layout.activity_main)
+		toolbar = findViewById(R.id.toolbar)
+		bottomNav = findViewById(R.id.bottom_nav)
+		toolbar.setNavigationOnClickListener {
 			onSupportNavigateUp()
 		}
-		setSupportActionBar(binding.toolbar)
+		setSupportActionBar(toolbar)
 		navController = findNavController(R.id.nav_host_fragment)
 		
 		// hide and show bottomNavigation on detail
@@ -43,7 +47,7 @@ class MainActivity : AppCompatActivity() {
 		).build()
 		setupActionBarWithNavController(navController, appBarConfiguration)
 		
-		binding.bottomNav.setupWithNavController(navController)
+		bottomNav.setupWithNavController(navController)
 	}
 	
 	override fun onSupportNavigateUp() = navController.navigateUp()
@@ -54,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 	
 	private fun hideBottomNavigation() {
 		// bottom_navigation is BottomNavigationView
-		with(binding.bottomNav) {
+		with(bottomNav) {
 			if (visibility == View.VISIBLE && alpha == 1f) {
 				animate()
 					.alpha(0f)
@@ -66,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 	
 	private fun showBottomNavigation() {
 		// bottom_navigation is BottomNavigationView
-		with(binding.bottomNav) {
+		with(bottomNav) {
 			visibility = View.VISIBLE
 			animate()
 				.alpha(1f)

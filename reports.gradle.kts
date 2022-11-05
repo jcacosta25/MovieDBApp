@@ -1,5 +1,4 @@
-import org.jmailen.gradle.kotlinter.tasks.FormatTask
-import org.jmailen.gradle.kotlinter.tasks.LintTask
+
 
 val jacocoIgnoreList = listOf(name)
 
@@ -13,15 +12,15 @@ tasks.all {
 subprojects {
 	apply(plugin = "org.jmailen.kotlinter")
 	
-	tasks.create("ktLint", LintTask::class) {
-		group = "verification"
-		source(files("src"))
-	}
-	
-	tasks.create("ktFormat", FormatTask::class) {
-		group = "formatting"
-		source(files("src"))
-	}
+//	tasks.create("ktLint", LintTask::class) {
+//		group = "verification"
+//		source(files("src"))
+//	}
+//
+//	tasks.create("ktFormat", FormatTask::class) {
+//		group = "formatting"
+//		source(files("src"))
+//	}
 	
 	
 	afterEvaluate {
@@ -39,7 +38,7 @@ subprojects {
 			
 			extensions.apply {
 				this.getByType(JacocoPluginExtension::class.java).apply {
-					this.toolVersion = Versions.jacoco
+					this.toolVersion = "0.8.8"
 					reportsDirectory.set(layout.buildDirectory.dir("${project.buildDir}/reports/jacoco"))
 				}
 			}
@@ -240,17 +239,17 @@ tasks {
 	tasks.create("projectFormat") {
 		group = "formatting"
 		description = "Runs Code format on all project modules"
-		dependsOn(
-			runAppTask(taskName = "ktFormat")
-		)
+//		dependsOn(
+//			runAppTask(taskName = "ktFormat")
+//		)
 	}
 	
 	tasks.create("projectLinter") {
 		group = "verification"
 		description = "Runs Code Lint Checker on all project modules"
-		dependsOn(
-			runAppTask(taskNames = mutableListOf("lint", "ktLint"))
-		)
+//		dependsOn(
+//			runAppTask(taskNames = mutableListOf("lint", "ktLint"))
+//		)
 	}
 	
 	tasks.create("projectUnitTest") {
