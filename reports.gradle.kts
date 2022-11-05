@@ -23,6 +23,7 @@ subprojects {
 //	}
 	
 	
+	
 	afterEvaluate {
 		if (jacocoIgnoreList.contains(this.name).not() && childProjects.isEmpty()) {
 			apply(plugin = "jacoco")
