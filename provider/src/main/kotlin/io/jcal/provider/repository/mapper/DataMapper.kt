@@ -123,7 +123,7 @@ class DataMapper @Inject constructor() {
 	fun convert(entity: EpisodeEntity): EpisodeModel {
 		val model = EpisodeModel(
 			id = entity.id,
-			airDate = entity.airDate,
+			airDate = entity.airDate.orEmpty(),
 			episodeNumber = entity.episodeNumber,
 			name = entity.name,
 			overview = entity.overview,
@@ -173,7 +173,7 @@ class DataMapper @Inject constructor() {
 	
 	fun convert(entity: SeasonEntity): SeasonModel {
 		val model = SeasonModel(
-			id = entity.id,
+			id = entity.id.orEmpty(),
 			airDate = entity.airDate,
 			episodeCount = entity.episodeCount,
 			name = entity.name,
@@ -188,7 +188,7 @@ class DataMapper @Inject constructor() {
 	
 	fun convert(entity: SeasonEpisodes): SeasonModel {
 		val model = SeasonModel(
-			id = entity.season.id,
+			id = entity.season.id.orEmpty(),
 			airDate = entity.season.airDate,
 			episodeCount = entity.season.episodeCount,
 			name = entity.season.name,

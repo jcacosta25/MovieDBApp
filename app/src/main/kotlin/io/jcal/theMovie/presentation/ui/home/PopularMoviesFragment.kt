@@ -4,39 +4,34 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import dagger.android.support.DaggerFragment
-import io.jcal.theMovie.databinding.FragmentPopularMoviesListBinding
+import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
+import io.jcal.theMovie.R
 import io.jcal.theMovie.presentation.ui.adapter.MovieAdapter
 import io.jcal.theMovie.presentation.ui.home.viewmodel.MoviesViewModel
 import io.jcal.theMovie.utils.SpacingItemDecoration
 import io.jcal.theMovie.utils.toTransitionGroup
-import javax.inject.Inject
 
-class PopularMoviesFragment : DaggerFragment() {
+@AndroidEntryPoint
+class PopularMoviesFragment : Fragment() {
 	
-	private lateinit var binding: FragmentPopularMoviesListBinding
+	private lateinit var recyclerView: RecyclerView
 	private lateinit var adapter: MovieAdapter
 	
-	@Inject
-	lateinit var factory: ViewModelProvider.Factory
-	
-	private val viewModel by viewModels<MoviesViewModel> { factory }
+	private val viewModel by viewModels<MoviesViewModel>()
 	
 	override fun onCreateView(
 	    inflater: LayoutInflater,
 	    container: ViewGroup?,
 	    savedInstanceState: Bundle?
-	): View = FragmentPopularMoviesListBinding.inflate(
-		inflater,
-		container,
-		false
-	).let {
-		binding = it
-		binding.root
+	): View {
+		val view = inflater.inflate(R.layout.fragment_popular_movies_list, container, false)
+		recyclerView = view.findViewById(R.id.popular_movies_rv)
+		return view
 	}
 	
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,14 +52,14 @@ class PopularMoviesFragment : DaggerFragment() {
 					)
 			}
 		)
-		binding.popularMoviesRv.adapter = adapter
-		binding.popularMoviesRv.addItemDecoration(
+		recyclerView.adapter = adapter
+		recyclerView.addItemDecoration(
 			SpacingItemDecoration(
 				requireContext(),
 				SPACING
 			)
 		)
-		binding.popularMoviesRv.setHasFixedSize(true)
+		recyclerView.setHasFixedSize(true)
 		
 		viewModel.moviesLiveData.observe(
 			viewLifecycleOwner

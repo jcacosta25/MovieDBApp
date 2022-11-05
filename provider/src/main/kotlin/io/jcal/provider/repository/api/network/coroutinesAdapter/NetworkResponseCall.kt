@@ -43,7 +43,9 @@ internal class NetworkResponseCall<S : Any, E : Any>(
 					val convertedErrorBody = try {
 						if (errorBody != null) {
 							errorConverter.convert(errorBody)
-						} else null
+						} else {
+						    null
+						}
 					} catch (ex: Exception) {
 						null
 					}

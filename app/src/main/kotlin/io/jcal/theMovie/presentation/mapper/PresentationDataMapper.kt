@@ -1,7 +1,19 @@
 package io.jcal.theMovie.presentation.mapper
 
-import io.jcal.provider.repository.mapper.model.*
-import io.jcal.theMovie.presentation.mapper.model.*
+import io.jcal.provider.repository.mapper.model.DatesModel
+import io.jcal.provider.repository.mapper.model.EpisodeModel
+import io.jcal.provider.repository.mapper.model.MovieModel
+import io.jcal.provider.repository.mapper.model.MoviesModel
+import io.jcal.provider.repository.mapper.model.SeasonModel
+import io.jcal.provider.repository.mapper.model.TvShowModel
+import io.jcal.provider.repository.mapper.model.TvShowsModel
+import io.jcal.theMovie.presentation.mapper.model.DatesUIModel
+import io.jcal.theMovie.presentation.mapper.model.EpisodeUIModel
+import io.jcal.theMovie.presentation.mapper.model.MovieUIModel
+import io.jcal.theMovie.presentation.mapper.model.MovieUIModelList
+import io.jcal.theMovie.presentation.mapper.model.SeasonUIModel
+import io.jcal.theMovie.presentation.mapper.model.TvShowUIList
+import io.jcal.theMovie.presentation.mapper.model.TvShowUIModel
 import javax.inject.Inject
 
 class PresentationDataMapper @Inject constructor() {

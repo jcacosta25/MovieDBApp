@@ -1,14 +1,15 @@
 plugins {
-    android_library
-    kotlin_android
-    kotlin_kapt
-    kotlin_parcelize
+    id("com.android.library")
+    id("kotlin-android")
+    id("kotlin-parcelize")
+    id("com.google.dagger.hilt.android")
+    id("kotlin-kapt")
 }
 android {
-    compileSdk = Versions.compileSdk
-    buildToolsVersion = Versions.buildTools
+    compileSdk = 33
+    buildToolsVersion = "30.0.3"
     defaultConfig {
-        minSdk = Android.minSdkVersion
+        minSdk  = 23
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     
         kapt {
@@ -32,13 +33,8 @@ android {
         }
     }
     
-    lintOptions.apply {
-        isAbortOnError = true
-    }
-    
     kotlinter {
         ignoreFailures = false
-        indentSize = 4
         reporters = arrayOf("checkstyle", "plain")
         experimentalRules = true
         disabledRules = arrayOf(
@@ -80,39 +76,41 @@ android {
             resultsDir = "$buildDir/test-results"
         }
     }
+    namespace = "io.jcal.provider"
 }
 
 dependencies {
     implementation(fileTree("dir" to "libs", "include" to listOf("*.jar")))
-    api(Libs.kotlin)
-    api(Libs.kotlinReflect)
-    api(Libs.coroutines)
-    api(Libs.coroutinesAndroid)
-    api(Libs.lifeCycleCommon)
-    api(Libs.lifeCycleViewModel)
-    api(Libs.lifeCycleLiveData)
-    api(Libs.core)
-    api(Libs.timber)
-    api(Libs.dagger)
-    api(Libs.daggerAndroid)
-    api(Libs.daggerAndroidSupport)
-    api(Libs.threeTenABP)
-    api(Libs.gson)
-    api(Libs.okHttpProfiler)
-    api(Libs.appCompat)
-    api(Libs.retrofit)
-    api(Libs.retrofitConverterGson)
-    api(Libs.okHttp)
-    api(Libs.okHttpInterceptor)
-    api(Libs.roomCoroutines)
-    kapt(Libs.daggerAndroidProcessor)
-    kapt(Libs.daggerCompiler)
-    kapt(Libs.roomCompiler)
-    testImplementation(TestLibs.jUnit)
-    testImplementation(TestLibs.roomTesting)
-    testImplementation(TestLibs.lifeCycleTest)
-    testImplementation(TestLibs.mockk)
-    androidTestImplementation(TestLibs.mockkAndroid)
-    androidTestImplementation(TestLibs.testRunner)
-    androidTestImplementation(TestLibs.espressoCore)
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.20")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.20")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    api("androidx.lifecycle:lifecycle-common-java8:2.5.1")
+    api("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1")
+    api("androidx.lifecycle:lifecycle-livedata-core-ktx:2.5.1")
+    api("androidx.core:core-ktx:1.9.0")
+    api("com.jakewharton.timber:timber:5.0.1")
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+    kapt("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0")
+    api("com.jakewharton.threetenabp:threetenabp:1.4.0")
+    api("com.google.code.gson:gson:2.9.0")
+    implementation("androidx.appcompat:appcompat:1.5.1")
+    api("com.squareup.retrofit2:retrofit:2.9.0")
+    api("com.squareup.retrofit2:converter-gson:2.9.0")
+    api("com.squareup.okhttp3:okhttp:4.10.0")
+    api("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.6")
+    api("androidx.room:room-ktx:2.4.3")
+    kapt("androidx.room:room-compiler:2.4.3")
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("androidx.room:room-testing:2.4.3")
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+    testImplementation("io.mockk:mockk:1.13.2")
+    androidTestImplementation("io.mockk:mockk-android:1.13.2")
+    androidTestImplementation("androidx.test:runner:1.4.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+}
+
+kapt {
+    correctErrorTypes = true
 }

@@ -1,6 +1,5 @@
 package io.jcal.provider.repository.api.factory
 
-import com.itkacher.okhttpprofiler.OkHttpProfilerInterceptor
 import io.jcal.provider.repository.api.network.coroutinesAdapter.NetworkResponseAdapterFactory
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
@@ -27,8 +26,6 @@ object ServiceFactory {
 
 	fun buildOkHttpClient(tokenInterceptor: AuthTokenInterceptor): OkHttpClient {
 		val httpClientBuilder = OkHttpClient.Builder()
-
-		httpClientBuilder.addInterceptor(OkHttpProfilerInterceptor())
 		
 		return httpClientBuilder
 			.addInterceptor(tokenInterceptor)

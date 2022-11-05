@@ -5,12 +5,14 @@ import android.content.Context
 import android.content.res.Resources
 import dagger.Module
 import dagger.Provides
-import io.jcal.provider.di.NetworkModule.Companion.API_TOKEN_PROPERTY
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import io.jcal.provider.di.ApiToken
+import io.jcal.provider.di.DatabaseName
 import io.jcal.provider.repository.db.DatabaseConstants.DATABASE_NAME
-import io.jcal.provider.repository.db.DatabaseConstants.DATABASE_NAME_PROPERTY
-import javax.inject.Named
 
 @Module
+@InstallIn(SingletonComponent::class)
 class ApplicationModule {
 	@Provides
 	fun providesApplicationContext(application: Application): Context =
@@ -19,11 +21,11 @@ class ApplicationModule {
 	@Provides
 	fun providesResources(application: Application): Resources = application.resources
 	
+	@DatabaseName
 	@Provides
-	@Named(DATABASE_NAME_PROPERTY)
 	fun provideDatabaseName(): String = DATABASE_NAME
 	
 	@Provides
-	@Named(API_TOKEN_PROPERTY)
+	@ApiToken
 	fun provideMovieDBApiToken(): String = "aa94b3c2c71ca34288378f22d536ab1f"
 }

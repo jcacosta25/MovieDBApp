@@ -4,6 +4,8 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import io.jcal.provider.repository.api.MovieDBService
 import io.jcal.provider.repository.api.factory.AuthTokenInterceptor
 import io.jcal.provider.repository.api.factory.ServiceFactory
@@ -13,31 +15,42 @@ import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
+import javax.inject.Qualifier
+import javax.inject.Singleton
+
+@Retention
+@Qualifier
+annotation class ApiToken
 
 @Module
+@InstallIn(SingletonComponent::class)
 class NetworkModule {
 	
 	@Provides
+	@Singleton
 	fun providesHttpUrl(): HttpUrl = ServiceFactory.providesHttpUrl()
 	
 	@Provides
-	fun providesTokenInterceptor(@Named(API_TOKEN_PROPERTY) apiToken: String): AuthTokenInterceptor =
+	@Singleton
+	fun providesTokenInterceptor(@ApiToken apiToken: String): AuthTokenInterceptor =
 		AuthTokenInterceptor(apiToken)
 	
 	@Provides
-	@Named(GSON_PROPERTY)
+	@Singleton
 	fun provideGson(): Gson = GsonBuilder().create()
 	
 	@Provides
-	fun provideJsonConverterFactory(@Named(GSON_PROPERTY) gson: Gson): Converter.Factory =
+	@Singleton
+	fun provideJsonConverterFactory(gson: Gson): Converter.Factory =
 		GsonConverterFactory.create(gson)
 	
 	@Provides
+	@Singleton
 	fun providesHttpClient(tokenInterceptor: AuthTokenInterceptor): OkHttpClient =
 		ServiceFactory.buildOkHttpClient(tokenInterceptor)
 	
 	@Provides
+	@Singleton
 	fun provideRetrofit(
 	    url: HttpUrl,
 	    client: OkHttpClient,
@@ -46,11 +59,7 @@ class NetworkModule {
 	): Retrofit = ServiceFactory.buildRetrofit(url, client, converter, adapterFactory)
 	
 	@Provides
+	@Singleton
 	fun provideMovieDbService(retrofit: Retrofit): MovieDBService =
 		retrofit.create(MovieDBService::class.java)
-	
-	companion object {
-		const val API_TOKEN_PROPERTY = "api_token"
-		const val GSON_PROPERTY = "retrofit_gson"
-	}
 }
