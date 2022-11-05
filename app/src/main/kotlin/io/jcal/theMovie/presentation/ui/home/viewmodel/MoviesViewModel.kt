@@ -6,6 +6,7 @@ import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.jcal.provider.domain.interactor.UseCaseGetPopularMovies
 import io.jcal.theMovie.presentation.mapper.PresentationDataMapper
 import io.jcal.theMovie.presentation.mapper.model.MovieUIModel
@@ -13,6 +14,7 @@ import io.jcal.theMovie.presentation.ui.home.viewmodel.paging.Listing
 import io.jcal.theMovie.presentation.ui.home.viewmodel.paging.MoviesDataSourceFactory
 import javax.inject.Inject
 
+@HiltViewModel
 class MoviesViewModel @Inject constructor(
     useCase: UseCaseGetPopularMovies,
     mapper: PresentationDataMapper

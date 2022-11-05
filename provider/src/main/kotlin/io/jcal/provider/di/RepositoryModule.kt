@@ -3,6 +3,8 @@ package io.jcal.provider.di
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import io.jcal.provider.domain.interactor.base.NetworkUtil
 import io.jcal.provider.repository.MDBRepository
 import io.jcal.provider.repository.MDBRepositoryImpl
@@ -15,6 +17,7 @@ import io.jcal.provider.repository.db.MovieDBDataBase
 import io.jcal.provider.repository.mapper.DataMapper
 
 @Module
+@InstallIn(SingletonComponent::class)
 class RepositoryModule {
 	
 	@Provides

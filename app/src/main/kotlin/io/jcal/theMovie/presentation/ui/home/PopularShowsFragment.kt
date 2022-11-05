@@ -4,38 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import dagger.android.support.DaggerFragment
-import io.jcal.theMovie.databinding.FragmentPopularShowsBinding
+import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
+import io.jcal.theMovie.R
 import io.jcal.theMovie.presentation.ui.adapter.ShowsAdapter
 import io.jcal.theMovie.presentation.ui.home.viewmodel.TvShowsViewModel
 import io.jcal.theMovie.utils.SpacingItemDecoration
 import io.jcal.theMovie.utils.toTransitionGroup
-import javax.inject.Inject
 
-class PopularShowsFragment : DaggerFragment() {
+@AndroidEntryPoint
+class PopularShowsFragment : Fragment() {
 	
-	@Inject
-	lateinit var factory: ViewModelProvider.Factory
-	
-	private val viewModel by viewModels<TvShowsViewModel> { factory }
-	private lateinit var binding: FragmentPopularShowsBinding
+	private val viewModel by viewModels<TvShowsViewModel>()
+	private lateinit var recyclerView: RecyclerView
 	private lateinit var adapter: ShowsAdapter
 	
 	override fun onCreateView(
 	    inflater: LayoutInflater,
 	    container: ViewGroup?,
 	    savedInstanceState: Bundle?
-	): View = FragmentPopularShowsBinding.inflate(
-		inflater,
-		container,
-		false
-	).let {
-		binding = it
-		binding.root
+	): View {
+		val view = inflater.inflate(R.layout.fragment_popular_shows, container, false)
+		recyclerView = view.findViewById(R.id.popular_shows_rv)
+		return view
 	}
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,14 +61,14 @@ class PopularShowsFragment : DaggerFragment() {
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 		
-		binding.popularShowsRv.adapter = adapter
-		binding.popularShowsRv.addItemDecoration(
+		recyclerView.adapter = adapter
+		recyclerView.addItemDecoration(
 			SpacingItemDecoration(
 				requireContext(),
 				SPACING
 			)
 		)
-		binding.popularShowsRv.setHasFixedSize(true)
+		recyclerView.setHasFixedSize(true)
 	}
 	
 	companion object {

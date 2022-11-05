@@ -1,22 +1,19 @@
 package io.jcal.theMovie
 
+import android.app.Application
 import com.jakewharton.threetenabp.AndroidThreeTen
-import dagger.android.AndroidInjector
-import dagger.android.support.DaggerApplication
-import io.jcal.theMovie.di.components.DaggerApplicationComponent
+import dagger.hilt.android.HiltAndroidApp
 import io.jcal.theMovie.utils.ReleaseTree
 import timber.log.Timber
 
-class MovieDBApp : DaggerApplication() {
-	
-	override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
-		DaggerApplicationComponent.builder().application(this).build()
+@HiltAndroidApp
+class MovieDBApp : Application() {
 	
 	override fun onCreate() {
 		super.onCreate()
 		AndroidThreeTen.init(this)
 		if (BuildConfig.DEBUG) {
-			Timber.plant(object : timber.log.Timber.DebugTree() {
+			Timber.plant(object : Timber.DebugTree() {
 				override fun createStackElementTag(element: StackTraceElement): String? =
 					super.createStackElementTag(element).plus(':').plus(element.lineNumber)
 			})
