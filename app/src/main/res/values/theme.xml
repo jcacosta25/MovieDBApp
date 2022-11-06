@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <!--Material color attributes -->
         <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark" tools:targetApi="23">@color/colorPrimary</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@android:color/white</item>
         <!--        <item name="android:colorBackground">@color/colorBackground</item>-->
-        <!--        <item name="colorSurface">@color/colorSurface</item>-->
+        <item name="colorSurface">@color/colorSurface</item>
         <item name="colorError">@color/colorError</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowAnimationStyle">@null</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
-        <!--        <item name="colorOnBackground">@color/colorAccent</item>-->
+        <item name="colorOnBackground">@color/colorAccent</item>
         <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="colorOnError">@color/colorOnError</item>
 
