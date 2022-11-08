@@ -8,7 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.jcal.provider.domain.interactor.GetPopularMovieList
 import io.jcal.theMovie.presentation.mapper.PresentationDataMapper
 import io.jcal.theMovie.presentation.mapper.model.MovieUIModel
-import io.jcal.theMovie.presentation.ui.home.viewmodel.paging.MoviesComposeDataSource
+import io.jcal.theMovie.presentation.ui.home.viewmodel.paging.MoviesDataSource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
@@ -18,6 +18,6 @@ class MoviesViewModel @Inject constructor(
 	private val moviesListCase: GetPopularMovieList.UseCase
 ) : ViewModel() {
 	val movies: Flow<PagingData<MovieUIModel>> = Pager(PagingConfig(pageSize = 20)) {
-		MoviesComposeDataSource(moviesListCase, mapper)
+		MoviesDataSource(moviesListCase, mapper)
 	}.flow
 }

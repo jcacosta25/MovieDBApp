@@ -1,10 +1,13 @@
 package io.jcal.theMovie.presentation.ui.adapter
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -34,7 +37,6 @@ fun MovieCard(
     navigateToMovie: (MovieUIModel) -> Unit = { _ -> }
 ) {
 	val colorAccent = colorResource(R.color.colorAccent)
-	MaterialTheme {
 		Card(
 			modifier = Modifier
 				.clickable {
@@ -75,13 +77,14 @@ fun MovieCard(
 							height = Dimension.preferredWrapContent
 						},
 					textAlign = TextAlign.Start,
-					style = MaterialTheme.typography.h6,
-					text = movie.title
+					style = MaterialTheme.typography.titleSmall,
+					text = movie.title,
+					color = colorResource(id = R.color.colorOnSurface)
 				)
 				
 				Text(
-                    text = movie.voteAverage.toString(),
-					style = MaterialTheme.typography.body1,
+					text = movie.voteAverage.toString(),
+					style = MaterialTheme.typography.bodyMedium,
 					fontWeight = FontWeight.Bold,
 					textAlign = TextAlign.Center,
 					modifier = Modifier
@@ -109,7 +112,8 @@ fun MovieCard(
 							width = Dimension.fillToConstraints
 							height = Dimension.preferredWrapContent
 						},
-					style = MaterialTheme.typography.caption
+					style = MaterialTheme.typography.labelSmall,
+					color = colorResource(id = R.color.colorOnSurface)
 				)
 				
 				Text(
@@ -126,9 +130,9 @@ fun MovieCard(
 							width = Dimension.preferredWrapContent
 							height = Dimension.preferredWrapContent
 						},
-					style = MaterialTheme.typography.subtitle1
+					style = MaterialTheme.typography.bodyMedium,
+					color = colorResource(id = R.color.colorOnSurface)
 				)
 			}
-		}
 	}
 }

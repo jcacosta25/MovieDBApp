@@ -16,34 +16,34 @@ data class TvShowUIList(
 
 @Parcelize
 data class TvShowUIModel(
-    val id: Int,
-    val airDate: String,
-    val episodeCount: Int,
-    val seasonNumber: Int,
-    val backdropPath: String,
-    val episodeRunTime: List<Int>,
-    val firstAirDate: String,
-    val homepage: String,
+    val id: Int = 0,
+    val airDate: String = "",
+    val episodeCount: Int = 0,
+    val seasonNumber: Int = 0,
+    val backdropPath: String = "",
+    val episodeRunTime: List<Int> = emptyList(),
+    val firstAirDate: String = "",
+    val homepage: String = "",
     val inProduction: Boolean = false,
-    val languages: List<String>,
-    val lastAirDate: String,
-    val lastEpisodeToAir: Int,
-    val name: String,
-    val nextEpisodeToAir: Int,
-    val numberOfEpisodes: Int,
-    val numberOfSeasons: Int,
-    val originCountry: List<String>,
-    val originalLanguage: String,
-    val originalName: String,
-    val overview: String,
-    val popularity: Double,
-    val posterPath: String,
-    val seasons: List<SeasonUIModel>,
-    val status: String,
-    val type: String,
-    val voteAverage: Double,
-    val voteCount: Int,
-    val genreIds: List<Int>
+    val languages: List<String> = emptyList(),
+    val lastAirDate: String = "",
+    val lastEpisodeToAir: Int = 0,
+    val name: String = "",
+    val nextEpisodeToAir: Int = 0,
+    val numberOfEpisodes: Int = 0,
+    val numberOfSeasons: Int = 0,
+    val originCountry: List<String> = emptyList(),
+    val originalLanguage: String = "",
+    val originalName: String = "",
+    val overview: String = "",
+    val popularity: Double = EMPTY_DOUBLE,
+    val posterPath: String = "",
+    val seasons: List<SeasonUIModel> = emptyList(),
+    val status: String = "",
+    val type: String = "",
+    val voteAverage: Double = EMPTY_DOUBLE,
+    val voteCount: Int = 0,
+    val genreIds: List<Int> = emptyList()
 ) : BaseUIModel(), Parcelable {
 	companion object {
 		
@@ -62,28 +62,28 @@ data class TvShowUIModel(
 
 @Parcelize
 data class SeasonUIModel(
-    val id: Int,
-    val airDate: String,
-    val episodeCount: Int,
-    val name: String,
-    val overview: String,
-    val posterPath: String,
-    val seasonNumber: Int,
-    val episodes: List<EpisodeUIModel>,
-    val showId: Int
+    val id: Int = 0,
+    val airDate: String = "",
+    val episodeCount: Int = 0,
+    val name: String = "",
+    val overview: String = "",
+    val posterPath: String = "",
+    val seasonNumber: Int = 0,
+    val episodes: List<EpisodeUIModel> = emptyList(),
+    val showId: Int = 0
 ) : BaseModel(), Parcelable
 
 @Parcelize
 data class EpisodeUIModel(
-    val id: Int,
-    val airDate: String,
-    val episodeNumber: Int,
-    val name: String,
-    val overview: String,
-    val productionCode: String,
-    val seasonNumber: Int,
-    val showId: Int,
-    val stillPath: String,
-    val voteAverage: Int,
-    val voteCount: Int
+    val id: Int = 0,
+    val airDate: String = "",
+    val episodeNumber: Int = 0,
+    val name: String = "",
+    val overview: String = "",
+    val productionCode: String = "",
+    val seasonNumber: Int = 0,
+    val showId: Int = 0,
+    val stillPath: String = "",
+    val voteAverage: Int = 0,
+    val voteCount: Int = 0
 ) : BaseUIModel(), Parcelable
