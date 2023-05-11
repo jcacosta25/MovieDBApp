@@ -36,7 +36,8 @@ fun MovieDetailScreen(
 ) {
 	// val coroutineScope = rememberCoroutineScope()
 	viewModel.getMovie(movieId.orEmpty())
-	MovieDetail(viewModel) }
+	MovieDetail(viewModel)
+}
 
 @Preview
 @Composable
