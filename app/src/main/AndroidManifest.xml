@@ -10,6 +10,7 @@
         android:name=".MovieDBApp"
         android:theme="@style/AppTheme">
         <activity android:name=".presentation.ui.MainActivity"
+            android:resizeableActivity="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -10,7 +10,7 @@ import io.jcal.theMovie.presentation.mapper.model.TvShowUIModel
 
 class MoviesDataSource(
 	private val useCase: GetPopularMovieList.UseCase,
-	private val mapper: PresentationDataMapper
+	private val mapper: PresentationDataMapper,
 ) : PagingSource<Int, MovieUIModel>() {
 	
 	override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieUIModel> {
@@ -21,7 +21,7 @@ class MoviesDataSource(
 			LoadResult.Page(
 				data = movieListResponse.results.map { mapper.convert(it) },
 				prevKey = previousPage,
-				nextKey = movieListResponse.page.inc().takeIf { it != nextPage }
+				nextKey = movieListResponse.page.inc().takeIf { it != nextPage },
 			)
 		} catch (e: Exception) {
 			LoadResult.Error(e)
@@ -34,7 +34,7 @@ class MoviesDataSource(
 
 class TvShowsDataSource(
 	private val useCase: GetPopularTvShowsList.UseCase,
-	private val mapper: PresentationDataMapper
+	private val mapper: PresentationDataMapper,
 ) : PagingSource<Int, TvShowUIModel>() {
 	
 	override fun getRefreshKey(state: PagingState<Int, TvShowUIModel>): Int? = state.anchorPosition
@@ -51,7 +51,7 @@ class TvShowsDataSource(
 			LoadResult.Page(
 				data = showsResponse.results.map { mapper.convert(it) },
 				prevKey = previousPage,
-				nextKey = showsResponse.page.inc().takeIf { it != nextPage }
+				nextKey = showsResponse.page.inc().takeIf { it != nextPage },
 			)
 		} catch (e: Exception) {
 			LoadResult.Error(e)

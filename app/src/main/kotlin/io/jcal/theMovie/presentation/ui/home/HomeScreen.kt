@@ -1,6 +1,7 @@
 package io.jcal.theMovie.presentation.ui.home
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -17,13 +18,14 @@ import io.jcal.theMovie.utils.TopBar
 fun HomeScreen() {
 	val navController = rememberNavController()
 	Scaffold(
+		modifier = Modifier.fillMaxSize(),
 		topBar = { TopBar() },
 		content = { padding -> // We have to pass the scaffold inner padding to our content. That's why we use Box.
 			Box(modifier = Modifier.padding(padding)) {
 				Navigation(navController = navController)
 			}
 		},
-		bottomBar = { BottomNavigationBar(navController) }
+		bottomBar = { BottomNavigationBar(navController) },
 	)
 }
 

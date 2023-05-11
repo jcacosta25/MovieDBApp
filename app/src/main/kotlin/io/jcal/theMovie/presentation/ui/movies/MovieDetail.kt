@@ -1,11 +1,12 @@
 package io.jcal.theMovie.presentation.ui.movies
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -19,8 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.Size
@@ -28,27 +29,26 @@ import io.jcal.provider.repository.mapper.orEmpty
 import io.jcal.theMovie.R
 import io.jcal.theMovie.presentation.mapper.model.MovieUIModel
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun MovieDetailScreen(
-    movieId: Int? = null,
-    viewModel: MovieDetailViewModel = hiltViewModel()
+	movieId: Int? = null,
+	viewModel: MovieDetailViewModel = hiltViewModel(),
 ) {
-	val coroutineScope = rememberCoroutineScope()
+	// val coroutineScope = rememberCoroutineScope()
 	viewModel.getMovie(movieId.orEmpty())
-	val movie = viewModel.movieDetail().collectAsStateWithLifecycle(initialValue = MovieUIModel())
+	// val movie = viewModel.movieDetail().collectAsStateWithLifecycle(initialValue = MovieUIModel())
 }
 
 @Preview
 @Composable
 fun MovieDetail(
-    viewModel: MovieDetailViewModel = viewModel()
+	viewModel: MovieDetailViewModel = viewModel(),
 ) {
 	val movie = viewModel.movieDetail().collectAsStateWithLifecycle(initialValue = MovieUIModel())
 	ConstraintLayout(
 		modifier = Modifier
 			.background(colorResource(id = R.color.colorSurface))
-			.fillMaxWidth()
+			.fillMaxWidth(),
 	) {
 		val (backdrop, poster, title, releaseDate, overviewTitle, overviewText) = createRefs()
 		AsyncImage(
@@ -69,7 +69,7 @@ fun MovieDetail(
 					end.linkTo(parent.end)
 					width = Dimension.fillToConstraints
 					height = Dimension.preferredWrapContent
-				}
+				},
 		)
 		
 		AsyncImage(
@@ -86,11 +86,11 @@ fun MovieDetail(
 					val negative = -56
 					start.linkTo(parent.start, 16.dp)
 					top.linkTo(backdrop.bottom, negative.dp)
-				}
+				},
 		)
 		
 		Text(
-            text = movie.value.title,
+			text = movie.value.title,
 			textAlign = TextAlign.Start,
 			style = MaterialTheme.typography.titleSmall,
 			fontWeight = FontWeight.Bold,
@@ -102,7 +102,7 @@ fun MovieDetail(
 					end.linkTo(parent.end, margin = 16.dp)
 					width = Dimension.fillToConstraints
 				},
-			color = colorResource(id = R.color.colorOnSurface)
+			color = colorResource(id = R.color.colorOnSurface),
 		)
 		
 		Text(
@@ -117,7 +117,7 @@ fun MovieDetail(
 					top.linkTo(title.bottom, margin = 8.dp)
 					width = Dimension.fillToConstraints
 				},
-			color = colorResource(id = R.color.colorOnSurface)
+			color = colorResource(id = R.color.colorOnSurface),
 		)
 		
 		Text(
@@ -131,7 +131,7 @@ fun MovieDetail(
 				top.linkTo(poster.bottom, margin = 16.dp)
 				width = Dimension.fillToConstraints
 			},
-			color = colorResource(id = R.color.colorOnSurface)
+			color = colorResource(id = R.color.colorOnSurface),
 		)
 		
 		Text(
@@ -144,7 +144,7 @@ fun MovieDetail(
 				top.linkTo(overviewTitle.bottom, margin = 8.dp)
 				width = Dimension.fillToConstraints
 			},
-			color = colorResource(id = R.color.colorOnSurface)
+			color = colorResource(id = R.color.colorOnSurface),
 		)
 	}
 }

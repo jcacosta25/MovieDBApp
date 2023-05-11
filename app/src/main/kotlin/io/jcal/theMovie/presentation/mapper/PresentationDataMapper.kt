@@ -41,7 +41,7 @@ class PresentationDataMapper @Inject constructor() {
 			title = model.title,
 			video = model.video,
 			voteAverage = model.voteAverage,
-			voteCount = model.voteCount
+			voteCount = model.voteCount,
 		)
 		uiModel.state = model.state
 		return uiModel
@@ -50,7 +50,7 @@ class PresentationDataMapper @Inject constructor() {
 	fun convert(model: DatesModel): DatesUIModel {
 		val uiModel = DatesUIModel(
 			maximum = model.maximum,
-			minimum = model.minimum
+			minimum = model.minimum,
 		)
 		uiModel.state = model.state
 		return uiModel
@@ -62,7 +62,7 @@ class PresentationDataMapper @Inject constructor() {
 			page = model.page,
 			results = model.results.map { convert(it) },
 			totalPages = model.totalPages,
-			totalResult = model.totalResult
+			totalResult = model.totalResult,
 		)
 		uiModel.state = model.state
 		return uiModel
@@ -80,7 +80,7 @@ class PresentationDataMapper @Inject constructor() {
 			showId = model.showId,
 			stillPath = model.stillPath,
 			voteAverage = model.voteAverage,
-			voteCount = model.voteCount
+			voteCount = model.voteCount,
 		)
 		uiModel.state = model.state
 		return uiModel
@@ -96,7 +96,7 @@ class PresentationDataMapper @Inject constructor() {
 			posterPath = model.posterPath,
 			seasonNumber = model.seasonNumber,
 			episodes = model.episodes.map { convert(it) },
-			showId = model.showId
+			showId = model.showId,
 		)
 		uiModel.state = model.state
 		return uiModel
@@ -131,7 +131,7 @@ class PresentationDataMapper @Inject constructor() {
 			type = model.type,
 			voteAverage = model.voteAverage,
 			voteCount = model.voteCount,
-			genreIds = model.genreIds
+			genreIds = model.genreIds,
 		)
 		uiModel.state = model.state
 		return uiModel
@@ -144,7 +144,7 @@ class PresentationDataMapper @Inject constructor() {
 		page = model.page,
 		results = model.results.map { convert(it) },
 		totalPages = model.totalPages,
-		totalResult = model.totalResult
+		totalResult = model.totalResult,
 	).apply {
 		this.error = model.error
 		this.state = model.state

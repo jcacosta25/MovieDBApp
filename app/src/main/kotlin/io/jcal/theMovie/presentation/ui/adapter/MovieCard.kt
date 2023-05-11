@@ -34,7 +34,7 @@ import io.jcal.theMovie.presentation.ui.previews.MovieDataProvider
 fun MovieCard(
     @PreviewParameter(MovieDataProvider::class)
     movie: MovieUIModel,
-    navigateToMovie: (MovieUIModel) -> Unit = { _ -> }
+    navigateToMovie: (MovieUIModel) -> Unit = { _ -> },
 ) {
 	val colorAccent = colorResource(R.color.colorAccent)
 		Card(
@@ -43,7 +43,7 @@ fun MovieCard(
 					navigateToMovie.invoke(movie)
 				}
 				.fillMaxWidth()
-				.height(225.dp)
+				.height(225.dp),
 		) {
 			ConstraintLayout {
 				val (poster, title, rating, date, overview) = createRefs()
@@ -62,7 +62,7 @@ fun MovieCard(
 							top.linkTo(parent.top)
 							bottom.linkTo(parent.bottom)
 							start.linkTo(parent.start)
-						}
+						},
 				)
 				
 				Text(
@@ -79,7 +79,7 @@ fun MovieCard(
 					textAlign = TextAlign.Start,
 					style = MaterialTheme.typography.titleSmall,
 					text = movie.title,
-					color = colorResource(id = R.color.colorOnSurface)
+					color = colorResource(id = R.color.colorOnSurface),
 				)
 				
 				Text(
@@ -92,14 +92,14 @@ fun MovieCard(
 						.drawBehind {
 							drawCircle(
 								color = colorAccent,
-								radius = this.size.maxDimension
+								radius = this.size.maxDimension,
 							)
 						}
 						.constrainAs(rating) {
 							top.linkTo(parent.top, margin = 16.dp)
 							end.linkTo(parent.end, margin = 16.dp)
 							width = Dimension.fillToConstraints
-						}
+						},
                 )
 				
 				Text(
@@ -113,7 +113,7 @@ fun MovieCard(
 							height = Dimension.preferredWrapContent
 						},
 					style = MaterialTheme.typography.labelSmall,
-					color = colorResource(id = R.color.colorOnSurface)
+					color = colorResource(id = R.color.colorOnSurface),
 				)
 				
 				Text(
@@ -131,7 +131,7 @@ fun MovieCard(
 							height = Dimension.preferredWrapContent
 						},
 					style = MaterialTheme.typography.bodyMedium,
-					color = colorResource(id = R.color.colorOnSurface)
+					color = colorResource(id = R.color.colorOnSurface),
 				)
 			}
 	}

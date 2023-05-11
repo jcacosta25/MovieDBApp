@@ -212,13 +212,13 @@ tasks {
 		classDirectories.setFrom(subTasks.map { files(it.classDirectories) })
 		executionData.setFrom(subTasks.map { files(it.executionData) })
 		
-		reports {
-			html.isEnabled = true
-			html.destination = file("$buildDir/reports/jacoco/html")
-			
-			xml.isEnabled = true
-			xml.destination = file("$buildDir/reports/jacoco/jacocoFullReport.xml")
-		}
+//		reports {
+//			html.isEnabled = true
+//			html.destination = file("$buildDir/reports/jacoco/html")
+//
+//			xml.isEnabled = true
+//			xml.destination = file("$buildDir/reports/jacoco/jacocoFullReport.xml")
+//		}
 		
 		doFirst {
 			executionData.setFrom(files(executionData.filter { it.exists() }))

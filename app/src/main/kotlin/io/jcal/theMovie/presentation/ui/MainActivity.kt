@@ -1,18 +1,18 @@
 package io.jcal.theMovie.presentation.ui
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.MaterialTheme
+import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.jcal.theMovie.presentation.ui.home.HomeScreen
+import io.jcal.theMovie.presentation.ui.theme.MyApplicationTheme
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContent {
-			MaterialTheme {
+			MyApplicationTheme {
 				HomeScreen()
 			}
 		}

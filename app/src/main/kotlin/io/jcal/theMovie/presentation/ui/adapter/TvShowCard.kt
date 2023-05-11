@@ -30,7 +30,7 @@ import io.jcal.theMovie.presentation.ui.previews.TvShowDataProvider
 fun TvShowCard(
     @PreviewParameter(TvShowDataProvider::class)
     tvShow: TvShowUIModel,
-    navigateToShow: (TvShowUIModel) -> Unit = { _ -> }
+    navigateToShow: (TvShowUIModel) -> Unit = { _ -> },
 ) {
 	Card(
 		modifier = Modifier
@@ -38,7 +38,7 @@ fun TvShowCard(
 				navigateToShow.invoke(tvShow)
 			}
 			.fillMaxWidth()
-			.height(225.dp)
+			.height(225.dp),
 	) {
 		ConstraintLayout {
 			val (poster, title, date, overview) = createRefs()
@@ -57,7 +57,7 @@ fun TvShowCard(
 						top.linkTo(parent.top)
 						bottom.linkTo(parent.bottom)
 						start.linkTo(parent.start)
-					}
+					},
 			)
 			
 			Text(
@@ -73,7 +73,7 @@ fun TvShowCard(
 					},
 				textAlign = TextAlign.Start,
 				style = MaterialTheme.typography.titleSmall,
-				text = tvShow.name
+				text = tvShow.name,
 			)
 			
 			Text(
@@ -86,7 +86,7 @@ fun TvShowCard(
 						width = Dimension.fillToConstraints
 						height = Dimension.preferredWrapContent
 					},
-				style = MaterialTheme.typography.labelSmall
+				style = MaterialTheme.typography.labelSmall,
 			)
 			
 			Text(
@@ -103,7 +103,7 @@ fun TvShowCard(
 						width = Dimension.preferredWrapContent
 						height = Dimension.preferredWrapContent
 					},
-				style = MaterialTheme.typography.bodyMedium
+				style = MaterialTheme.typography.bodyMedium,
 			)
 		}
 	}

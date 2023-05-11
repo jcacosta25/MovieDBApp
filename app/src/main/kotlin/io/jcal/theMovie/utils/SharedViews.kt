@@ -20,6 +20,7 @@ import androidx.navigation.navArgument
 import io.jcal.theMovie.R
 import io.jcal.theMovie.presentation.ui.home.PopularMoviesList
 import io.jcal.theMovie.presentation.ui.home.PopularShowsList
+import io.jcal.theMovie.presentation.ui.movies.MovieDetailScreen
 
 @Composable
 fun TopBar() {
@@ -29,12 +30,12 @@ fun TopBar() {
 				text = stringResource(id = R.string.app_name),
 				fontSize = 18.sp,
 				color = colorResource(
-					id = R.color.colorOnSurface
-				)
+					id = R.color.colorOnSurface,
+				),
 			)
 		},
 		backgroundColor = colorResource(id = R.color.colorPrimary),
-		contentColor = colorResource(id = R.color.colorOnSurface)
+		contentColor = colorResource(id = R.color.colorOnSurface),
 	)
 }
 
@@ -48,19 +49,19 @@ fun TopBarPreview() {
 fun BottomNavigationBar(navController: NavController) {
 	val items = listOf(
 		NavigationItem.PopularMovies,
-		NavigationItem.PopularShows
+		NavigationItem.PopularShows,
 	)
 	
 	BottomNavigation(
 		backgroundColor = colorResource(id = R.color.colorPrimary),
-		contentColor = colorResource(id = R.color.colorOnPrimary)
+		contentColor = colorResource(id = R.color.colorOnPrimary),
 	) {
 		items.forEach { menuItem ->
 			BottomNavigationItem(
 				icon = {
 					Icon(
 						painterResource(id = menuItem.icon),
-						contentDescription = menuItem.title
+						contentDescription = menuItem.title,
 					)
 				},
 				label = { Text(text = menuItem.title) },
@@ -84,7 +85,7 @@ fun BottomNavigationBar(navController: NavController) {
 						// Restore state when reselecting a previously selected item
 						restoreState = true
 					}
-				}
+				},
 			)
 		}
 	}
@@ -95,14 +96,14 @@ fun Navigation(navController: NavHostController) {
 	NavHost(navController, startDestination = NavigationItem.PopularMovies.route) {
 		composable(
 			NavigationItem.PopularMovies.route,
-            listOf()
+			listOf(),
 		) {
 			PopularMoviesList({ movie ->
 				navController.navigate(
 					NavigationItem.MovieDetails.route.replace(
 						"{movieId}",
-						"${movie.id}"
-					)
+						"${movie.id}",
+					),
 				)
 			})
 		}
@@ -111,11 +112,9 @@ fun Navigation(navController: NavHostController) {
 		}
 		composable(
 			NavigationItem.MovieDetails.route,
-			arguments = listOf(navArgument("movieId") { type = NavType.IntType })
+			arguments = listOf(navArgument("movieId") { type = NavType.IntType }),
 		) { backStackEntry ->
-// 			MovieDetail(
-// 				movieId = backStackEntry.arguments?.getInt("movieId")
-// 			)
+			MovieDetailScreen(movieId = backStackEntry.arguments?.getInt("movieId"))
 		}
 	}
 }
@@ -124,4 +123,6 @@ sealed class NavigationItem(var route: String, var icon: Int, var title: String)
 	object PopularMovies : NavigationItem("movies", R.drawable.ic_movie, "Movies")
 	object PopularShows : NavigationItem("shows", R.drawable.ic_tv, "TV Shows")
 	object MovieDetails : NavigationItem("movie/{movieId}", R.drawable.ic_movie, "Movie Detail")
+	
+	object ShowDetail : NavigationItem("show/{showId}", R.drawable.ic_tv, "Show Detail")
 }
