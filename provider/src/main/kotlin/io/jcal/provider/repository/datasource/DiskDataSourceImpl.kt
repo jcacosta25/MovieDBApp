@@ -1,6 +1,5 @@
 package io.jcal.provider.repository.datasource
 
-import androidx.room.withTransaction
 import io.jcal.provider.repository.db.MovieDBDataBase
 import io.jcal.provider.repository.db.entity.MovieEntity
 import io.jcal.provider.repository.db.entity.TvShowSeasons
@@ -18,10 +17,8 @@ class DiskDataSourceImpl @Inject constructor(
 	DiskDataSource {
 
 	override suspend fun insertMovies(entity: List<MovieEntity>): List<Long> {
-		dataBase.withTransaction {  }
 		return dataBase.movieDao().insertAll(entity)
 	}
-	
 
 	override suspend fun insertMovie(entity: MovieEntity): Long = dataBase.movieDao().insert(entity)
 
