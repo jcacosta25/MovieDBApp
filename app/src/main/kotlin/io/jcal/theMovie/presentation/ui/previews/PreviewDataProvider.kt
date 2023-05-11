@@ -27,9 +27,12 @@ class MovieDataProvider : PreviewParameterProvider<MovieUIModel> {
 				video = false,
 				tagline = "How much can you know about yourself if you've never been in a fight?",
 				spokenLanguageModels = listOf("English"),
-				overview = "A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground \"fight clubs\" forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
-				originalTitle = "The Fight Club"
-			)
+				overview = "A ticking-time-bomb insomniac and a slippery soap salesman " +
+						"channel primal male aggression into a shocking new form of therapy. " +
+						"Their concept catches on, with underground \"fight clubs\" forming in every town, " +
+						"until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.",
+				originalTitle = "The Fight Club",
+			),
 		)
 }
 
@@ -261,7 +264,11 @@ class TvShowDataProvider : PreviewParameterProvider<TvShowUIModel> {
 				type = "Scripted",
 				voteAverage = 8.3,
 				voteCount = 11504,
-				overview = "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond."
-			)
+				overview = "Seven noble families fight for control of the mythical land of Westeros. " +
+						"Friction between the houses leads to full-scale war." +
+						" All while a very ancient evil awakens in the farthest north. Amidst the war, " +
+						"a neglected military order of misfits, the Night's Watch, " +
+						"is all that stands between the realms of men and icy horrors beyond.",
+			),
 		)
 }

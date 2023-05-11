@@ -62,9 +62,10 @@ fun BottomNavigationBar(navController: NavController) {
 					Icon(
 						painterResource(id = menuItem.icon),
 						contentDescription = menuItem.title,
+						tint = colorResource(id = R.color.colorOnPrimary),
 					)
 				},
-				label = { Text(text = menuItem.title) },
+				label = { Text(text = menuItem.title, color = colorResource(id = R.color.colorOnPrimary)) },
 				selectedContentColor = colorResource(id = R.color.colorOnPrimary),
 				unselectedContentColor = colorResource(id = R.color.colorOnPrimary).copy(0.4f),
 				alwaysShowLabel = true,

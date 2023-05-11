@@ -31,18 +31,17 @@ import io.jcal.theMovie.presentation.mapper.model.MovieUIModel
 
 @Composable
 fun MovieDetailScreen(
-	movieId: Int? = null,
-	viewModel: MovieDetailViewModel = hiltViewModel(),
+    movieId: Int? = null,
+    viewModel: MovieDetailViewModel = hiltViewModel(),
 ) {
 	// val coroutineScope = rememberCoroutineScope()
 	viewModel.getMovie(movieId.orEmpty())
-	// val movie = viewModel.movieDetail().collectAsStateWithLifecycle(initialValue = MovieUIModel())
-}
+	MovieDetail(viewModel) }
 
 @Preview
 @Composable
 fun MovieDetail(
-	viewModel: MovieDetailViewModel = viewModel(),
+    viewModel: MovieDetailViewModel = viewModel(),
 ) {
 	val movie = viewModel.movieDetail().collectAsStateWithLifecycle(initialValue = MovieUIModel())
 	ConstraintLayout(
