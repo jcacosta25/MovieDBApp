@@ -79,7 +79,6 @@ fun MovieCard(
 					textAlign = TextAlign.Start,
 					style = MaterialTheme.typography.titleSmall,
 					text = movie.title,
-					color = colorResource(id = R.color.colorOnSurface),
 				)
 				
 				Text(
@@ -113,7 +112,6 @@ fun MovieCard(
 							height = Dimension.preferredWrapContent
 						},
 					style = MaterialTheme.typography.labelSmall,
-					color = colorResource(id = R.color.colorOnSurface),
 				)
 				
 				Text(
@@ -131,7 +129,6 @@ fun MovieCard(
 							height = Dimension.preferredWrapContent
 						},
 					style = MaterialTheme.typography.bodyMedium,
-					color = colorResource(id = R.color.colorOnSurface),
 				)
 			}
 	}
