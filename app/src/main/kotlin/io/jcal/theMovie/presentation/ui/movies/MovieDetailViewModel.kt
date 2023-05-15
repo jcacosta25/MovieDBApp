@@ -1,13 +1,13 @@
 package io.jcal.theMovie.presentation.ui.movies
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.jcal.provider.domain.interactor.UseCaseGetMovie
 import io.jcal.theMovie.presentation.mapper.PresentationDataMapper
 import io.jcal.theMovie.presentation.mapper.model.MovieUIModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,15 +17,15 @@ class MovieDetailViewModel @Inject constructor(
     private val mapper: PresentationDataMapper
 ) : ViewModel() {
 	
-	private val movie: MediatorLiveData<MovieUIModel> = MediatorLiveData()
+	private val movie: MutableStateFlow<MovieUIModel> = MutableStateFlow(MovieUIModel())
 	
 	fun getMovie(movieId: Int) {
 		viewModelScope.launch {
 			useCaseGetMovie.execute(UseCaseGetMovie.Params(movieId)).collect {
-				movie.postValue(mapper.convert(it))
+				movie.emit(mapper.convert(it))
 			}
 		}
 	}
 	
-	fun movieDetail(): LiveData<MovieUIModel> = movie
+	fun movieDetail(): Flow<MovieUIModel> = movie
 }

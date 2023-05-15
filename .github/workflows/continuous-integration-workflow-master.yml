@@ -11,22 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: set up JDK 11
-        uses: actions/setup-java@v2
+      - uses: actions/checkout@v3
+      - name: set up JDK 17
+        uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '11'
+          java-version: '17'
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Run Lint Check
         run: ./gradlew lint lintKotlin
       - name: Run Unit Test
         run: ./gradlew test --stacktrace
-      - name: Run Coverage and Verification for app
-        run: ./gradlew :app:jacocoTestReport
-      - name: Run Coverage and Verification for app
-        run: ./gradlew :provider:jacocoTestReport
       - name: Upload app report
         uses: actions/upload-artifact@v1
         with:
@@ -45,12 +41,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-      - name: set up JDK 11
-        uses: actions/setup-java@v2
+      - uses: actions/checkout@v3
+      - name: set up JDK 17
+        uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '11'
+          java-version: '17'
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build App

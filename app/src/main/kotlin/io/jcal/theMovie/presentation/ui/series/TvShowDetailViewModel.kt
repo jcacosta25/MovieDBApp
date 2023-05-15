@@ -1,13 +1,13 @@
 package io.jcal.theMovie.presentation.ui.series
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.jcal.provider.domain.interactor.UseCaseTvShow
 import io.jcal.theMovie.presentation.mapper.PresentationDataMapper
 import io.jcal.theMovie.presentation.mapper.model.TvShowUIModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,15 +17,15 @@ class TvShowDetailViewModel @Inject constructor(
     private val mapper: PresentationDataMapper
 ) : ViewModel() {
 	
-	private val tvShow: MediatorLiveData<TvShowUIModel> = MediatorLiveData()
+	private val tvShow: MutableStateFlow<TvShowUIModel> = MutableStateFlow(TvShowUIModel())
 	
 	fun getTvShow(tvShowId: Int) {
 		viewModelScope.launch {
 			useCaseTvShow.execute(UseCaseTvShow.Params(tvShowId)).collect {
-				tvShow.postValue(mapper.convert(it))
+				tvShow.emit(mapper.convert(it))
 			}
 		}
 	}
 	
-	fun tvShowDetail(): LiveData<TvShowUIModel> = tvShow
+	fun tvShowDetail(): Flow<TvShowUIModel> = tvShow
 }

@@ -1,8 +1,16 @@
 package io.jcal.provider.repository.db.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Transaction
 import io.jcal.provider.repository.db.DatabaseConstants
-import io.jcal.provider.repository.db.entity.*
+import io.jcal.provider.repository.db.entity.EpisodeEntity
+import io.jcal.provider.repository.db.entity.SeasonEntity
+import io.jcal.provider.repository.db.entity.SeasonEpisodes
+import io.jcal.provider.repository.db.entity.TvShowEntity
+import io.jcal.provider.repository.db.entity.TvShowSeasons
 
 @Dao
 interface TvShowDao {

@@ -15,22 +15,27 @@ import io.jcal.provider.repository.datasource.DiskDataSource
 import io.jcal.provider.repository.datasource.DiskDataSourceImpl
 import io.jcal.provider.repository.db.MovieDBDataBase
 import io.jcal.provider.repository.mapper.DataMapper
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class RepositoryModule {
 	
 	@Provides
+	@Singleton
 	fun providesDiskDataSource(dataBase: MovieDBDataBase, mapper: DataMapper): DiskDataSource =
 		DiskDataSourceImpl(dataBase, mapper)
 	
 	@Provides
+	@Singleton
 	fun provideCloudDataSource(api: MovieDBService, mapper: DataMapper): CloudDataSource =
 		CloudDataSourceImpl(api, mapper)
 	
 	@Provides
+	@Singleton
 	fun provideNetworkUtils(context: Context): NetworkUtil = NetworkUtil(context)
 	
 	@Provides
+	@Singleton
 	fun provideMDBRepository(repository: MDBRepositoryImpl): MDBRepository = repository
 }

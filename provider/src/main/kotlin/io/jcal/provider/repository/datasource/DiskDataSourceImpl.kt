@@ -16,8 +16,9 @@ class DiskDataSourceImpl @Inject constructor(
 ) :
 	DiskDataSource {
 
-	override suspend fun insertMovies(entity: List<MovieEntity>): List<Long> =
-		dataBase.movieDao().insertAll(entity)
+	override suspend fun insertMovies(entity: List<MovieEntity>): List<Long> {
+		return dataBase.movieDao().insertAll(entity)
+	}
 
 	override suspend fun insertMovie(entity: MovieEntity): Long = dataBase.movieDao().insert(entity)
 

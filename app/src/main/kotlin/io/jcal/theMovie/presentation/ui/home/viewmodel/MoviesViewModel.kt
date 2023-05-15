@@ -1,52 +1,23 @@
 package io.jcal.theMovie.presentation.ui.home.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
-import androidx.lifecycle.viewModelScope
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.jcal.provider.domain.interactor.UseCaseGetPopularMovies
+import io.jcal.provider.domain.interactor.GetPopularMovieList
 import io.jcal.theMovie.presentation.mapper.PresentationDataMapper
 import io.jcal.theMovie.presentation.mapper.model.MovieUIModel
-import io.jcal.theMovie.presentation.ui.home.viewmodel.paging.Listing
-import io.jcal.theMovie.presentation.ui.home.viewmodel.paging.MoviesDataSourceFactory
+import io.jcal.theMovie.presentation.ui.home.viewmodel.paging.MoviesDataSource
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
-    useCase: UseCaseGetPopularMovies,
-    mapper: PresentationDataMapper
+	private val mapper: PresentationDataMapper,
+	private val moviesListCase: GetPopularMovieList.UseCase
 ) : ViewModel() {
-	
-	private val source =
-		MoviesDataSourceFactory(
-			viewModelScope,
-			useCase,
-			mapper
-		)
-	
-	private val listing = Listing<MovieUIModel>(
-		pagedList = LivePagedListBuilder(
-			source,
-			PagedList.Config.Builder()
-				.setPageSize(30)
-				.setEnablePlaceholders(false)
-				.build()
-		).build(),
-		resourceState = source.dataSource.switchMap { it.resourceState },
-		refreshState = source.dataSource.switchMap { it.refreshState },
-		refresh = {
-			source.invalidateDataSource()
-		},
-		retry = {
-			source.retryAllField()
-		},
-		clearCoroutineJobs = {
-			source.clear()
-		}
-	)
-	
-	val moviesLiveData: LiveData<PagedList<MovieUIModel>> = listing.pagedList
+	val movies: Flow<PagingData<MovieUIModel>> = Pager(PagingConfig(pageSize = 20)) {
+		MoviesDataSource(moviesListCase, mapper)
+	}.flow
 }
